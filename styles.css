@@ -72,6 +72,7 @@ html[data-theme="light"] {
   --leading-normal: 1.5;
   --leading-relaxed: 1.6;
   --measure: 65ch;
+  --ease-neumorphic: cubic-bezier(0.33, 0.45, 0.3, 1);
 }
 
 * {
@@ -391,11 +392,11 @@ main {
 }
 
 .section-experience {
-  padding-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
 }
 
 .section-skills {
-  padding-top: 2.25rem;
+  padding-top: 1rem;
 }
 
 .section-title {
@@ -422,6 +423,7 @@ main {
 
 /* Liquid glass — shared effect, more visible per card */
 .glass-card {
+  position: relative;
   background: color-mix(in srgb, var(--c-glass) 20%, transparent);
   background-image: linear-gradient(
     135deg,
@@ -441,7 +443,22 @@ main {
     inset 0 -3px 6px -2px rgba(0, 0, 0, calc(0.1 * var(--glass-reflex-dark))),
     0 4px 12px -2px rgba(0, 0, 0, 0.2),
     0 2px 6px -2px rgba(0, 0, 0, 0.12);
-  transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 0.4s var(--ease-neumorphic), box-shadow 0.4s var(--ease-neumorphic);
+}
+
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: calc(24px - 5px);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.5s var(--ease-neumorphic) 0.1s, transform 0.55s var(--ease-neumorphic) 0.1s;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, calc(0.4 * var(--glass-reflex-light))),
+    inset 2px 2px 4px 0 rgba(255, 255, 255, calc(0.12 * var(--glass-reflex-light))),
+    inset -2px -2px 4px 0 rgba(0, 0, 0, calc(0.2 * var(--glass-reflex-dark)));
 }
 
 .glass-card:hover {
@@ -454,9 +471,22 @@ main {
     0 8px 20px -8px rgba(0, 0, 0, 0.2);
 }
 
+.glass-card:hover::after,
+.glass-card:focus-within::after {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0s;
+}
+
 /* Personal section */
 .section-personal {
   padding-top: 5.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-personal {
+    padding-top: 4rem;
+  }
 }
 
 .personal-card {
@@ -613,16 +643,39 @@ main {
 }
 
 .tag-item {
+  position: relative;
   padding: 1rem 1.25rem;
   background: rgba(var(--primary-rgb), 0.06);
   border: 1px solid rgba(var(--primary-rgb), 0.12);
   border-radius: 0.75rem;
-  transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+  transition: transform 0.35s var(--ease-neumorphic);
   cursor: default;
+}
+
+.tag-item::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: calc(0.75rem - 3px);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.93);
+  transition: opacity 0.45s var(--ease-neumorphic) 0.08s, transform 0.5s var(--ease-neumorphic) 0.08s;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, calc(0.35 * var(--glass-reflex-light))),
+    inset 2px 2px 3px 0 rgba(255, 255, 255, calc(0.1 * var(--glass-reflex-light))),
+    inset -2px -2px 3px 0 rgba(0, 0, 0, calc(0.18 * var(--glass-reflex-dark)));
 }
 
 .tag-item:hover {
   transform: scale(1.02);
+}
+
+.tag-item:hover::after,
+.tag-item:focus-within::after {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0s;
 }
 
 .tag-item:active {
@@ -677,7 +730,7 @@ main {
 
 /* Experience carousel */
 .section-experience {
-  background: radial-gradient(ellipse at 50% 0%, rgba(var(--primary-rgb), 0.06) 0%, transparent 55%);
+  background: none;
 }
 
 .carousel {
@@ -714,6 +767,7 @@ main {
 }
 
 .exp-card {
+  position: relative;
   background: color-mix(in srgb, var(--c-glass) 20%, transparent);
   background-image: linear-gradient(
     135deg,
@@ -734,7 +788,22 @@ main {
     inset 0 -3px 6px -2px rgba(0, 0, 0, calc(0.1 * var(--glass-reflex-dark))),
     0 4px 12px -2px rgba(0, 0, 0, 0.2),
     0 2px 6px -2px rgba(0, 0, 0, 0.12);
-  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+  transition: border-color 0.4s var(--ease-neumorphic), box-shadow 0.4s var(--ease-neumorphic), transform 0.4s var(--ease-neumorphic);
+}
+
+.exp-card::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: calc(20px - 5px);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.5s var(--ease-neumorphic) 0.1s, transform 0.55s var(--ease-neumorphic) 0.1s;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, calc(0.4 * var(--glass-reflex-light))),
+    inset 2px 2px 4px 0 rgba(255, 255, 255, calc(0.12 * var(--glass-reflex-light))),
+    inset -2px -2px 4px 0 rgba(0, 0, 0, calc(0.2 * var(--glass-reflex-dark)));
 }
 
 .exp-card:hover {
@@ -746,6 +815,13 @@ main {
     inset -1px -1px 0 0 rgba(0, 0, 0, calc(0.12 * var(--glass-reflex-dark))),
     0 20px 40px -12px rgba(0, 0, 0, 0.35),
     0 8px 20px -8px rgba(var(--primary-rgb), 0.12);
+}
+
+.exp-card:hover::after,
+.exp-card:focus-within::after {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0s;
 }
 
 .exp-header {
@@ -924,6 +1000,7 @@ main {
 }
 
 .skill-card {
+  position: relative;
   background: color-mix(in srgb, var(--c-glass) 20%, transparent);
   background-image: linear-gradient(
     135deg,
@@ -943,7 +1020,30 @@ main {
     inset 0 -3px 6px -2px rgba(0, 0, 0, calc(0.1 * var(--glass-reflex-dark))),
     0 4px 12px -2px rgba(0, 0, 0, 0.2),
     0 2px 6px -2px rgba(0, 0, 0, 0.12);
-  transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 0.4s var(--ease-neumorphic), box-shadow 0.4s var(--ease-neumorphic);
+}
+
+.skill-card::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: calc(20px - 5px);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.5s var(--ease-neumorphic) 0.1s, transform 0.55s var(--ease-neumorphic) 0.1s;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, calc(0.4 * var(--glass-reflex-light))),
+    inset 2px 2px 4px 0 rgba(255, 255, 255, calc(0.12 * var(--glass-reflex-light))),
+    inset -2px -2px 4px 0 rgba(0, 0, 0, calc(0.2 * var(--glass-reflex-dark)));
+}
+
+.skill-card:hover::after,
+.skill-card:focus-within::after,
+.skill-card.expanded::after {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0s;
 }
 
 .skill-card:hover {

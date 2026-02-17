@@ -22,8 +22,7 @@
   <script>
     (() => {
       const stored = localStorage.getItem('theme');
-      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-      const theme = stored || (prefersLight ? 'light' : 'dark');
+      const theme = stored || 'dark';
       document.documentElement.dataset.theme = theme;
     })();
   </script>
