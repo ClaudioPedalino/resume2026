@@ -324,7 +324,7 @@ main {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1.75rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .personal-photo-wrap {
@@ -1069,14 +1069,37 @@ main {
     grid-template-columns: 1fr;
     justify-items: center;
     text-align: center;
+    align-items: start;
   }
 
   .personal-info-block {
     align-items: center;
+    justify-content: flex-start;
   }
 
   .personal-row {
     justify-content: center;
+  }
+
+  .personal-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 1rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .personal-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .personal-links .btn-email {
+    flex: 1 1 100%;
+    justify-content: center;
+    min-width: 0;
   }
 
   .personal-name {
