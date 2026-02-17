@@ -12,6 +12,23 @@
     return [...experiences].sort((a, b) => parseDate(b.to) - parseDate(a.to));
   }
 
+  var skillBiIcons = {
+    Backend: 'bi-cpu',
+    Versioning: 'bi-git',
+    'Infrastructure & Versioning': 'bi-git',
+    Testing: 'bi-bug',
+    Infrastructure: 'bi-hdd-rack',
+    Blockchain: 'bi-currency-bitcoin',
+    Frontend: 'bi-window',
+    Data: 'bi-database',
+    Agile: 'bi-kanban',
+    Communication: 'bi-chat-dots',
+    'AI & Developer Productivity': 'bi-robot',
+  };
+  function getSkillIconClass(area) {
+    return skillBiIcons[area] || 'bi-cpu';
+  }
+
   function getAge(birthDateStr) {
     if (!birthDateStr) return '';
     var d = new Date(birthDateStr);
@@ -25,9 +42,9 @@
 
   function getTagIcon(title) {
     var t = (title || '').toLowerCase();
-    if (t.indexOf('goal') !== -1) return '<span class="tag-icon tag-icon-img icon-goal" aria-hidden="true"></span>';
-    if (t.indexOf('looking') !== -1) return '<span class="tag-icon tag-icon-img icon-search" aria-hidden="true"></span>';
-    return '<span class="tag-icon tag-icon-img icon-location" aria-hidden="true"></span>';
+    if (t.indexOf('goal') !== -1) return '<i class="bi bi-bullseye tag-icon" aria-hidden="true"></i>';
+    if (t.indexOf('looking') !== -1) return '<i class="bi bi-search tag-icon" aria-hidden="true"></i>';
+    return '<i class="bi bi-geo-alt tag-icon" aria-hidden="true"></i>';
   }
 
   function renderPersonal(data) {
@@ -228,14 +245,15 @@
       const card = document.createElement('div');
       card.className = 'skill-card';
       card.dataset.area = skill.area || '';
+      var iconClass = getSkillIconClass(skill.area);
       card.innerHTML =
         '<div class="skill-toggle" role="button" tabindex="0" aria-expanded="false">' +
           '<div class="skill-header">' +
             '<div class="skill-title-wrap">' +
-              '<span class="skill-icon"><span class="skill-icon-img" aria-hidden="true"></span></span>' +
+              '<span class="skill-icon"><i class="bi ' + iconClass + ' skill-bi-icon" aria-hidden="true"></i></span>' +
               '<span class="skill-title">' + escapeHtml(skill.area) + '</span>' +
             '</div>' +
-            '<span class="skill-chevron" aria-hidden="true"></span>' +
+            '<i class="bi bi-chevron-down skill-chevron" aria-hidden="true"></i>' +
           '</div>' +
           '<div class="skill-chips">' + chips.map(function (c) { return '<span class="skill-chip">' + escapeHtml(c) + '</span>'; }).join('') + '</div>' +
         '</div>' +
