@@ -481,14 +481,26 @@
   function setupFooterSupport() {
     var wrap = document.getElementById('footer-support-wrap');
     var btn = document.getElementById('footer-support-btn');
+    var fingerprintEl = document.getElementById('footer-support-fingerprint');
     var dotsEl = document.getElementById('footer-support-dots');
     var done = document.getElementById('footer-support-done');
     if (!wrap || !btn || !done) return;
     var clicks = 0;
     var totalClicks = 5;
+    var paths = fingerprintEl ? fingerprintEl.querySelectorAll('.fingerprint-path') : [];
     var dots = dotsEl ? dotsEl.querySelectorAll('.footer-support-dot') : [];
+
+    function updateFingerprint() {
+      paths.forEach(function (path, i) {
+        path.classList.toggle('visible', i < clicks);
+        path.classList.toggle('placeholder', i >= clicks);
+      });
+    }
+
+    updateFingerprint();
     btn.addEventListener('click', function () {
       clicks = Math.min(clicks + 1, totalClicks);
+      updateFingerprint();
       btn.classList.remove('footer-support-btn--neon');
       btn.offsetWidth;
       btn.classList.add('footer-support-btn--neon');
