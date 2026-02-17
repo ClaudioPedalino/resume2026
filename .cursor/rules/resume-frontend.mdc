@@ -1,0 +1,14 @@
+---
+description: Resume CV frontend — mobile and layout validation
+globs: index.html, styles.css, script.js, cv-data.json
+alwaysApply: false
+---
+
+# Resume frontend
+
+When changing layout, carousel, or personal section:
+
+1. **Mobile viewport**: Carousel and sections must stay within 100% width. Use `width: 100%`, `max-width: 100%`, `min-width: 0` on flex/grid children and `overflow: hidden` where content can overflow (e.g. viewport, container).
+2. **Profile photo**: Photo is inside `.personal-photo-wrap`; on load error use `data-failed="true"` so the circle placeholder stays visible (never `display: none` on the only visual element).
+3. **Carousel**: `.carousel-viewport` must constrain width; `.carousel-slide` uses `flex: 0 0 100%` and `min-width: 0`; inner content (e.g. `.exp-card`) should have `min-width: 0; overflow: hidden` so long text doesn’t break the width.
+4. Before finishing, mentally check: 320px width and 767px breakpoint for overflow and hidden content.

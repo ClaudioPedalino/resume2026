@@ -59,9 +59,15 @@
     document.getElementById('personal-age').textContent = getAge(p['date-of-birth'] || '');
 
     var photo = document.getElementById('personal-photo');
-    photo.src = p['image-url'] || '';
+    photo.removeAttribute('data-failed');
     photo.alt = name + ', ' + position;
-    photo.onerror = function () { this.style.display = 'none'; };
+    photo.onerror = function () { this.setAttribute('data-failed', 'true'); };
+    if (p['image-url']) {
+      photo.src = p['image-url'];
+    } else {
+      photo.removeAttribute('src');
+      photo.setAttribute('data-failed', 'true');
+    }
 
     var titleText = name + ' — ' + position;
     document.title = titleText;
