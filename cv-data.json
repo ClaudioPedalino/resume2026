@@ -116,9 +116,12 @@
             "order": 1,
             "area": "Backend",
             "chips": [
-                ".NET 6/8 | API | Microservices | Distributed Systems"
+                ".NET 6/8 | API | Microservices | Distributed Systems | Background services"
             ],
-            "description": "Backend is my core expertise. I design and evolve API-centric microservices within the .NET ecosystem, contributing to architectural decisions and continuous improvements across teams. I have strong hands-on experience with distributed systems, including event-driven messaging, caching strategies, concurrency control, and production diagnostics. I have worked with the main libraries in the .NET ecosystem. Performance optimization and API design are the areas where I deliver the most confidence"
+            "description": [
+                "This area is my core expertise, mostly focused on design and evolve API-centric microservices within the .NET ecosystem, contributing to architectural decisions and continuous improvements. I have strong hands-on experience with distributed systems, including event-driven messaging, caching strategies, concurrency control, and production diagnostics.",
+                "I have worked with the main libraries in the .NET ecosystem. Performance optimization and API design are the areas where I deliver the most confidence"
+            ]
         },
         {
             "order": 2,
@@ -126,7 +129,10 @@
             "chips": [
                 "Docker | Azure | CI/CD | Kubernetes (Basic) | Observability"
             ],
-            "description": "Comfortable working in containerized environments, with hands-on experience in CI/CD pipelines using Azure DevOps, Jenkins, and GitHub Actions, supporting deployment workflows across multiple environments. I have practical experience with Kubernetes manifests and deployment configurations, understanding and operating production setups. In Azure, I have worked with App Services, SQL and NoSQL databases, Redis caching, Azure Service Bus, Functions, and related cloud services. I have also configured monitoring dashboards and worked with observability stacks including Grafana, Prometheus, Jaeger, and centralized logging solutions such as Graylog to support distributed systems."
+            "description": [
+                "Comfortable working in containerized environments, with hands-on experience in CI/CD pipelines using Azure DevOps, Jenkins, and GitHub Actions, supporting deployment workflows across multiple environments.",
+                "I have practical experience with Kubernetes manifests and deployment configurations, understanding and operating production setups."," In Azure, I have worked with App Services, SQL and NoSQL databases, Redis caching, Azure Service Bus, Functions, and related cloud services. I have also configured monitoring dashboards and worked with observability stacks including Grafana, Prometheus, Jaeger, and centralized logging solutions such as Graylog to support distributed systems."
+            ]
         },
         {
             "order": 3,
@@ -134,7 +140,9 @@
             "chips": [
                 "Angular | TypeScript | JavaScript | Vue | Ionic | Bubble.io"
             ],
-            "description": "I have some practical experience in web and mobile development, but is not my main strong skill. Usually delivering frontend features including UI components, state management, and API integrations, typically extending existing architectures while collaborating effectively as a backend-focused engineer."
+            "description": [
+                "I have some practical experience in web and mobile development, but is not my main strong skill. Usually delivering frontend features including UI components, state management, and API integrations, typically extending existing architectures while collaborating effectively as a backend-focused engineer."
+            ]
         },
         {
             "order": 4,
@@ -142,7 +150,9 @@
             "chips": [
                 "Unit Testing | Integration Testing | Load Testing | Performance Testing | K6"
             ],
-            "description": "I regularly write unit tests for backend services, following the testing standards defined by each team always oriented to fill the most coverage as possible and adapting the testing style according to each scenario. I have also implemented integration tests and load/performance tests when required. I have worked with C# testing frameworks, k6, and NBomber for load and performance scenarios, mainly targeting APIs and distributed services. I have used Testcontainers in some projects, although my experience with it is still limited. Testing strategies were typically defined by QA or team guidelines."
+            "description": [
+                "I regularly write unit tests for backend services, following the testing standards defined by each team always oriented to fill the most coverage as possible and adapting the testing style according to each scenario.","I have also implemented integration tests and load/performance tests when required. I have worked with C# testing frameworks, k6, and NBomber for load and performance scenarios, mainly targeting APIs and distributed services. I have used Testcontainers in some projects, although my experience with it is still limited. Testing strategies were typically defined by QA or team guidelines."
+            ]
         },
         {
             "order": 5,
@@ -150,7 +160,9 @@
             "chips": [
                 "SQL Server | PostgreSQL | Redis | MongoDB | Elasticsearch"
             ],
-            "description": "Strong working experience with SQL Server and PostgreSQL in microservices environments. I design data models for services, write non-trivial SQL queries, and handle query optimization when performance issues arise. I am not a database specialist, but I am comfortable working with data access strategies, relational modeling, and optimization. In NoSQL scenarios, I have worked with Redis (caching and distributed scenarios), MongoDB, and Elasticsearch. I have also been involved in pub/sub and event-driven flows integrated with messaging systems such as RabbitMQ and Kafka."
+            "description": [
+                "Strong working experience with SQL Server and PostgreSQL in microservices environments. I design data models for services, write non-trivial SQL queries, and handle query optimization when performance issues arise. I am not a database specialist, but I am comfortable working with data access strategies, relational modeling, and optimization.","In NoSQL scenarios, I have worked with Redis (caching and distributed scenarios), MongoDB, and Elasticsearch. I have also been involved in pub/sub and event-driven flows integrated with messaging systems such as RabbitMQ and Kafka."
+            ]
         },
         {
             "order": 6,
@@ -158,7 +170,9 @@
             "chips": [
                 "REST | gRPC | API Versioning | External Integrations"
             ],
-            "description": "Experience designing REST APIs from scratch, defining contracts, handling versioning strategies, and implementing backward-compatible changes. I have worked with gRPC in microservices-based systems and maintained legacy SOAP integrations when required. Comfortable integrating and consuming internal and third-party APIs in complex distributed environments, ensuring reliability and clear service contracts."
+            "description": [
+                "Experience designing REST APIs from scratch, defining contracts, handling versioning strategies, and implementing backward-compatible changes.","I have worked with gRPC in microservices-based systems and maintained legacy SOAP integrations when required.","Comfortable integrating and consuming internal and third-party APIs in complex distributed environments, ensuring reliability and clear service contracts."
+            ]
         },
         {
             "order": 7,
@@ -166,7 +180,9 @@
             "chips": [
                 "Scrum | Kanban | Iterative Delivery"
             ],
-            "description": "Extensive experience working in agile teams using Scrum, Kanban, or hybrid approaches. Active participant in planning, estimation, refinements, and retrospectives. While I have not held formal Scrum Master roles, I understand agile workflows deeply and contribute to delivery planning, feature ownership, and continuous improvement within backend-focused teams."
+            "description": [
+                "Extensive experience working in agile teams using Scrum, Kanban, or hybrid approaches. Active participant in planning, estimation, refinements, and retrospectives.","While I have not held formal Scrum Master roles, I understand agile workflows deeply and contribute to delivery planning, feature ownership, and continuous improvement within backend-focused teams."
+            ]
         },
         {
             "order": 8,
@@ -174,7 +190,9 @@
             "chips": [
                 "Git | Pull Requests | Code Reviews | SVN (Legacy)"
             ],
-            "description": "Daily use of Git in collaborative environments, working with pull requests, code reviews, and standard branching strategies. Comfortable in workflows enforced by CI pipelines and protected branches. Experience with Azure DevOps, GitHub, GitLab, and Bitbucket repositories. Limited exposure to SVN and TFS in legacy environments."
+            "description": [
+                "Daily use of Git in collaborative environments, working with pull requests, code reviews, and standard branching strategies. Comfortable in workflows enforced by CI pipelines and protected branches.","Experience with Azure DevOps, GitHub, GitLab, and Bitbucket repositories. Limited exposure to SVN and TFS in legacy environments."
+            ]
         },
         {
             "order": 9,
@@ -182,7 +200,9 @@
             "chips": [
                 "AI-agent Development | LLMs | Cursor | Antigravity| AI web tooling | MCP | Skills"
             ],
-            "description": "I actively leverage AI-assisted development tools to enhance productivity and code quality. Regular user of Cursor, Antigravity, and multiple large language models for architectural exploration, refactoring, test generation, and documentation support. I understand the fundamentals of how different LLMs operate, their trade-offs, and practical use cases in software development workflows. Familiar with configuring development environments to maximize AI integration, including the use of MCP servers and advanced editor tooling. I see AI as a productivity multiplier that complements engineering judgment rather than replacing it."
+            "description": [
+                "I actively leverage AI-assisted development tools to enhance productivity and code quality. Regular user of Cursor, Antigravity, and multiple large language models for architectural exploration, refactoring, code generation, and documentation support.","I understand the fundamentals of how different LLMs operate, their trade-offs, and practical use cases in software development workflows. Familiar with configuring development environments to maximize AI integration, including the use of MCP servers and advanced editor tooling. I see AI as a productivity multiplier that complements engineering judgment rather than replacing it."
+            ]
         },
         {
             "order": 10,
@@ -190,7 +210,9 @@
             "chips": [
                 "Web3 | Smart Contracts | Crypto payments"
             ],
-            "description": "Got base knowledge about blockchain ecosystem and smart contracts. In pracical scenarios using crypto as payment method as much as possible; and related to development skills just basic hands-on experience following courses for solidity smart contracts and deployed locally using Hardhat and Truffle toolings, interacting via web3.js and MetaMask within the Ethereum ecosystem, combined with a strong personal interest in DeFi, blockchain infrastructure, and real-world asset tokenization. Could be great for me the opportunity to contribute to production-grade blockchain scenario."
+            "description": [
+                "Got base knowledge about blockchain ecosystem and smart contracts. In practical scenarios using crypto as payment method as much as possible","Related to development skills just basic hands-on experience following courses for solidity smart contracts and deployed locally using Hardhat and Truffle toolings, interacting via web3.js and MetaMask within the Ethereum ecosystem.","I've got a strong personal interest in DeFi, blockchain infrastructure, and real-world asset tokenization. Could be great for me the opportunity to contribute to production-grade blockchain scenario."
+            ]
         }
     ]
 }

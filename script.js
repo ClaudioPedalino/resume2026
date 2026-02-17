@@ -29,6 +29,40 @@
     return skillBiIcons[area] || 'bi-cpu';
   }
 
+  function getTheme() {
+    return (document.documentElement && document.documentElement.dataset && document.documentElement.dataset.theme) || 'dark';
+  }
+
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem('theme', theme); } catch (_) {}
+  }
+
+  function updateThemeToggleUi() {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    var icon = btn.querySelector('i');
+    if (!icon) return;
+
+    var theme = getTheme();
+    btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+
+    icon.className = 'bi ' + (theme === 'dark' ? 'bi-moon-stars' : 'bi-sun');
+  }
+
+  function setupThemeToggle() {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+
+    updateThemeToggleUi();
+
+    btn.addEventListener('click', function () {
+      var next = getTheme() === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+      updateThemeToggleUi();
+    });
+  }
+
   function getAge(birthDateStr) {
     if (!birthDateStr) return '';
     var d = new Date(birthDateStr);
@@ -123,6 +157,87 @@
     });
 
     injectJsonLd(data);
+  }
+
+  function renderPdfHtml(data) {
+    var p = data && data['personal-info'] ? data['personal-info'] : {};
+    var name = p['full-name'] || 'Resume';
+    var position = p['main-position'] || '';
+    var mail = p.mail || '';
+    var location = p.location || '';
+    var remote = p.remote || '';
+
+    var experiences = sortExperiencesByDate(data['work-experiences'] || []);
+    var skills = (data.skills || []).slice().filter(function (s) { return (s.area || '') !== 'Languages'; }).sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+
+    var html = '';
+    html += '<h1>' + escapeHtml(name) + '</h1>';
+    if (position) html += '<p class="subtitle">' + escapeHtml(position) + '</p>';
+    html += '<p class="meta">' +
+      [mail, location, remote].filter(Boolean).map(escapeHtml).join(' · ') +
+    '</p>';
+
+    html += '<h2>Experience</h2>';
+    experiences.forEach(function (exp) {
+      html += '<section class="exp">';
+      html += '<h3>' + escapeHtml(exp['company-name'] || '') + '</h3>';
+      html += '<p><strong>' + escapeHtml(exp.position || '') + '</strong> — ' + escapeHtml(exp.from || '') + ' to ' + escapeHtml(exp.to || '') + '</p>';
+      if (exp['business-area']) html += '<p class="muted">' + escapeHtml(exp['business-area']) + '</p>';
+      var tasks = exp['tasks-descriptions'] || [];
+      if (tasks.length) {
+        html += '<ul>' + tasks.map(function (t) { return '<li>' + escapeHtml(t) + '</li>'; }).join('') + '</ul>';
+      }
+      if (exp.techs) html += '<p class="muted"><strong>Tech:</strong> ' + escapeHtml(String(exp.techs).replace(/,/g, ', ')) + '</p>';
+      html += '</section>';
+    });
+
+    html += '<h2>Skills</h2>';
+    skills.forEach(function (s) {
+      var chips = (Array.isArray(s.chips) ? s.chips.join(' ') : s.chips || '').split(/\s*\|\s*/).map(function (c) { return c.trim(); }).filter(Boolean);
+      html += '<p><strong>' + escapeHtml(s.area || '') + ':</strong> ' + escapeHtml(chips.join(', ')) + '</p>';
+    });
+
+    return html;
+  }
+
+  function openPdfPrintWindow(data) {
+    var p = data && data['personal-info'] ? data['personal-info'] : {};
+    var fileName = (p['full-name'] || 'resume').replace(/\s+/g, '_');
+
+    var w = window.open('', '_blank', 'noopener,noreferrer');
+    if (!w) return;
+
+    var doc = w.document;
+    doc.open();
+    doc.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">');
+    doc.write('<title>' + escapeHtml(fileName) + '</title>');
+    doc.write('<style>' +
+      'html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#111;background:#fff;}' +
+      'body{padding:24px;max-width:900px;margin:0 auto;}' +
+      'h1{font-size:24px;margin:0 0 4px;}' +
+      '.subtitle{margin:0 0 12px;font-size:14px;color:#333;}' +
+      '.meta{margin:0 0 18px;font-size:12px;color:#444;}' +
+      'h2{font-size:16px;margin:20px 0 10px;border-bottom:1px solid #e5e7eb;padding-bottom:6px;}' +
+      'h3{font-size:14px;margin:12px 0 4px;}' +
+      'p{margin:4px 0;font-size:12px;line-height:1.45;}' +
+      'ul{margin:6px 0 6px 18px;padding:0;font-size:12px;}' +
+      'li{margin:2px 0;}' +
+      '.muted{color:#555;}' +
+      '@media print{body{padding:0;} h2{break-after:avoid;} .exp{break-inside:avoid;}}' +
+    '</style></head><body>');
+    doc.write(renderPdfHtml(data));
+    doc.write('<script>window.onload=function(){setTimeout(function(){window.print();},150);};<\/script>');
+    doc.write('</body></html>');
+    doc.close();
+  }
+
+  function setupPdfDownload(data) {
+    var btn = document.getElementById('link-pdf');
+    if (!btn) return;
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      openPdfPrintWindow(data);
+    });
   }
 
   function injectJsonLd(data) {
@@ -236,6 +351,16 @@
     const grid = document.getElementById('skills-grid');
     grid.innerHTML = '';
 
+    function renderSkillDescription(description) {
+      if (!description) return '';
+      var lines = Array.isArray(description) ? description : [description];
+      lines = lines.map(function (x) { return String(x || '').trim(); }).filter(Boolean);
+      if (!lines.length) return '';
+      return lines.map(function (line) {
+        return '<p class="skill-description-line">' + escapeHtml(line) + '</p>';
+      }).join('');
+    }
+
     var list = (skills || []).slice()
       .filter(function (s) { return (s.area || '') !== 'Languages'; })
       .sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
@@ -258,7 +383,7 @@
           '<div class="skill-chips">' + chips.map(function (c) { return '<span class="skill-chip">' + escapeHtml(c) + '</span>'; }).join('') + '</div>' +
         '</div>' +
         '<div class="skill-detail">' +
-          '<p class="skill-description">' + escapeHtml(skill.description || '') + '</p>' +
+          '<div class="skill-description">' + renderSkillDescription(skill.description) + '</div>' +
         '</div>';
       grid.appendChild(card);
 
@@ -327,12 +452,14 @@
   }
 
   function init(data) {
+    setupThemeToggle();
     renderPersonal(data);
     renderExperience(data['work-experiences'] || []);
     renderSkills(data.skills || []);
     renderAtsContent(data);
     setupNavbar();
     setupReveal();
+    setupPdfDownload(data);
   }
 
   var dataUrl = 'cv-data.json';

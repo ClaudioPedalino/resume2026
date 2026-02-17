@@ -19,6 +19,14 @@
   <meta name="twitter:title" id="twitter-title" content="Claudio Pedalino — Senior .NET Software Engineer">
   <meta name="twitter:description" id="twitter-description" content="Senior .NET Software Engineer. Microservices, .NET, cloud. Remote.">
   <meta name="twitter:image" id="twitter-image" content="">
+  <script>
+    (() => {
+      const stored = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = stored || (prefersLight ? 'light' : 'dark');
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
@@ -34,6 +42,9 @@
         <li><a href="#experience"><span class="nav-icon"><i class="bi bi-briefcase" aria-hidden="true"></i></span><span>Experience</span></a></li>
         <li><a href="#skills"><span class="nav-icon"><i class="bi bi-stars" aria-hidden="true"></i></span><span>Skills</span></a></li>
       </ul>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
+        <i class="bi" aria-hidden="true"></i>
+      </button>
     </div>
   </nav>
   </header>

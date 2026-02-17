@@ -37,6 +37,20 @@
   --leading-relaxed: 1.6;
   --measure: 65ch;
   --footer-bg: rgba(44, 52, 60, 0.98);
+  --navbar-bg: rgba(33, 37, 43, 0.96);
+}
+
+html[data-theme="light"] {
+  --bg-primary: #f6f7f9;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #eef1f5;
+  --text-primary: #1f2937;
+  --text-secondary: #374151;
+  --text-tertiary: #6b7280;
+  --text-quaternary: #9ca3af;
+  --text-bright: #0b1220;
+  --footer-bg: rgba(255, 255, 255, 0.95);
+  --navbar-bg: rgba(255, 255, 255, 0.86);
 }
 
 * {
@@ -123,7 +137,7 @@ main {
 .navbar {
   position: relative;
   padding: 14px 24px;
-  background: rgba(33, 37, 43, 0.96);
+  background: var(--navbar-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(86, 182, 194, 0.12);
@@ -138,18 +152,19 @@ main {
 .navbar-inner {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
-  padding: 0 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 0.25rem;
+  gap: 1rem;
 }
 
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 0;
-  width: 100%;
-  max-width: 1100px;
-  justify-content: space-evenly;
+  gap: 1.25rem;
+  min-width: 0;
 }
 
 .nav-links a {
@@ -202,11 +217,49 @@ main {
   outline-offset: 2px;
 }
 
+.theme-toggle {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(var(--primary-rgb), 0.35);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+  background: rgba(var(--primary-rgb), 0.08);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.theme-toggle .bi {
+  font-size: 1.25rem;
+}
+
 /* Sections: scroll-margin so anchor nav doesn't hide content under fixed header */
 .section {
   padding: 3.5rem 0 2.75rem;
   min-height: 0;
   scroll-margin-top: 4.5rem;
+}
+
+.section-experience {
+  padding-bottom: 1.75rem;
+}
+
+.section-skills {
+  padding-top: 2.25rem;
 }
 
 .section-title {
@@ -837,6 +890,14 @@ main {
   color: var(--text-secondary);
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
+}
+
+.skill-description-line {
+  margin: 0 0 0.75rem 0;
+}
+
+.skill-description-line:last-child {
+  margin-bottom: 0;
 }
 
 /* Footer */
