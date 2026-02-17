@@ -321,18 +321,18 @@
     const total = sorted.length;
 
     function goTo(index) {
-      current = (index + total) % total;
+      current = Math.max(0, Math.min(index, total - 1));
       track.style.transform = 'translateX(-' + current * 100 + '%)';
       dotsContainer.querySelectorAll('.carousel-dot').forEach(function (d, i) {
         d.classList.toggle('active', i === current);
         d.setAttribute('aria-selected', i === current ? 'true' : 'false');
       });
-      document.querySelector('.carousel-prev').disabled = total <= 1;
-      document.querySelector('.carousel-next').disabled = total <= 1;
+      document.querySelector('.carousel-prev').disabled = total <= 1 || current === 0;
+      document.querySelector('.carousel-next').disabled = total <= 1 || current === total - 1;
     }
 
-    document.querySelector('.carousel-prev').onclick = function () { goTo(current - 1); };
-    document.querySelector('.carousel-next').onclick = function () { goTo(current + 1); };
+    document.querySelector('.carousel-prev').onclick = function () { if (current > 0) goTo(current - 1); };
+    document.querySelector('.carousel-next').onclick = function () { if (current < total - 1) goTo(current + 1); };
     dotsContainer.querySelectorAll('.carousel-dot').forEach(function (dot) {
       dot.onclick = function () { goTo(parseInt(this.dataset.index, 10)); };
     });
@@ -347,8 +347,8 @@
       var touchEndX = e.changedTouches[0].clientX;
       var dx = touchStartX - touchEndX;
       if (Math.abs(dx) > 50) {
-        if (dx > 0) goTo(current + 1);
-        else goTo(current - 1);
+        if (dx > 0 && current < total - 1) goTo(current + 1);
+        else if (dx < 0 && current > 0) goTo(current - 1);
       }
     }, { passive: true });
 
@@ -469,6 +469,31 @@
     setupNavbar();
     setupReveal();
     setupPdfDownload();
+    setupFooterSupport();
+  }
+
+  function setupFooterSupport() {
+    var wrap = document.getElementById('footer-support-wrap');
+    var btn = document.getElementById('footer-support-btn');
+    var dotsEl = document.getElementById('footer-support-dots');
+    var done = document.getElementById('footer-support-done');
+    if (!wrap || !btn || !done) return;
+    var clicks = 0;
+    var totalClicks = 5;
+    var dots = dotsEl ? dotsEl.querySelectorAll('.footer-support-dot') : [];
+    btn.addEventListener('click', function () {
+      clicks = Math.min(clicks + 1, totalClicks);
+      btn.classList.remove('footer-support-btn--neon');
+      btn.offsetWidth;
+      btn.classList.add('footer-support-btn--neon');
+      setTimeout(function () { btn.classList.remove('footer-support-btn--neon'); }, 500);
+      if (dots[clicks - 1]) dots[clicks - 1].classList.add('filled');
+      if (clicks >= totalClicks) {
+        btn.setAttribute('hidden', '');
+        done.removeAttribute('hidden');
+        wrap.setAttribute('aria-hidden', 'true');
+      }
+    });
   }
 
   var dataUrl = 'cv-data.json';
