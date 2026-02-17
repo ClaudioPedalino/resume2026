@@ -22,6 +22,9 @@ html[data-theme="dark"] {
   --warning: #e5c07b;
   --footer-bg: rgba(33, 37, 43, 0.98);
   --navbar-bg: rgba(33, 37, 43, 0.96);
+  --c-glass: rgba(255, 255, 255, 0.06);
+  --glass-reflex-light: 1;
+  --glass-reflex-dark: 1;
 }
 
 /* Light theme: papel, tonos cálidos (sin grises) */
@@ -47,6 +50,9 @@ html[data-theme="light"] {
   --warning: #a16207;
   --footer-bg: rgba(254, 253, 251, 0.98);
   --navbar-bg: rgba(254, 253, 251, 0.92);
+  --c-glass: rgba(255, 255, 255, 0.5);
+  --glass-reflex-light: 0.85;
+  --glass-reflex-dark: 0.35;
 }
 
 /* Typography: one family (DM Sans), scale 1.2, rem, consistent hierarchy */
@@ -365,29 +371,38 @@ main {
   background: linear-gradient(180deg, var(--primary), var(--primary-blue));
 }
 
-/* Glass card */
+/* Liquid glass — shared effect, more visible per card */
 .glass-card {
-  background: linear-gradient(
+  background: color-mix(in srgb, var(--c-glass) 20%, transparent);
+  background-image: linear-gradient(
     135deg,
     rgba(var(--primary-rgb), 0.08) 0%,
-    rgba(var(--primary-rgb), 0.04) 50%,
-    rgba(var(--primary-rgb), 0.06) 100%
+    transparent 50%,
+    rgba(var(--primary-rgb), 0.05) 100%
   );
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(var(--primary-rgb), 0.15);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(var(--primary-rgb), 0.18);
   border-radius: 24px;
   padding: 1.75rem 2rem;
   box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.3),
-    0 2px 4px -2px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    inset 0 0 0 1px rgba(255, 255, 255, calc(0.12 * var(--glass-reflex-light))),
+    inset 2px 2px 0 0 rgba(255, 255, 255, calc(0.08 * var(--glass-reflex-light))),
+    inset -1px -1px 0 0 rgba(0, 0, 0, calc(0.12 * var(--glass-reflex-dark))),
+    inset 0 -3px 6px -2px rgba(0, 0, 0, calc(0.1 * var(--glass-reflex-dark))),
+    0 4px 12px -2px rgba(0, 0, 0, 0.2),
+    0 2px 6px -2px rgba(0, 0, 0, 0.12);
+  transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
   border-color: rgba(var(--primary-rgb), 0.3);
-  box-shadow: 0 25px 50px -12px rgba(var(--primary-rgb), 0.2);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, calc(0.12 * var(--glass-reflex-light))),
+    inset 2px 2px 0 0 rgba(255, 255, 255, calc(0.08 * var(--glass-reflex-light))),
+    inset -1px -1px 0 0 rgba(0, 0, 0, calc(0.12 * var(--glass-reflex-dark))),
+    0 20px 40px -12px rgba(var(--primary-rgb), 0.15),
+    0 8px 20px -8px rgba(0, 0, 0, 0.2);
 }
 
 /* Personal section */
@@ -639,23 +654,38 @@ main {
 }
 
 .exp-card {
-  background: linear-gradient(
+  background: color-mix(in srgb, var(--c-glass) 20%, transparent);
+  background-image: linear-gradient(
     135deg,
     rgba(var(--primary-rgb), 0.08) 0%,
-    rgba(var(--primary-rgb), 0.04) 100%
+    transparent 50%,
+    rgba(var(--primary-rgb), 0.05) 100%
   );
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(var(--primary-rgb), 0.15);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(var(--primary-rgb), 0.18);
   border-radius: 20px;
   padding: 1.5rem 1.75rem;
   height: 100%;
-  transition: all 0.4s ease;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, calc(0.12 * var(--glass-reflex-light))),
+    inset 2px 2px 0 0 rgba(255, 255, 255, calc(0.08 * var(--glass-reflex-light))),
+    inset -1px -1px 0 0 rgba(0, 0, 0, calc(0.12 * var(--glass-reflex-dark))),
+    inset 0 -3px 6px -2px rgba(0, 0, 0, calc(0.1 * var(--glass-reflex-dark))),
+    0 4px 12px -2px rgba(0, 0, 0, 0.2),
+    0 2px 6px -2px rgba(0, 0, 0, 0.12);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
 }
 
 .exp-card:hover {
   border-color: rgba(var(--primary-rgb), 0.3);
   transform: translateY(-2px);
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, calc(0.12 * var(--glass-reflex-light))),
+    inset 2px 2px 0 0 rgba(255, 255, 255, calc(0.08 * var(--glass-reflex-light))),
+    inset -1px -1px 0 0 rgba(0, 0, 0, calc(0.12 * var(--glass-reflex-dark))),
+    0 20px 40px -12px rgba(0, 0, 0, 0.35),
+    0 8px 20px -8px rgba(var(--primary-rgb), 0.12);
 }
 
 .exp-header {
@@ -834,25 +864,40 @@ main {
 }
 
 .skill-card {
-  background: linear-gradient(
+  background: color-mix(in srgb, var(--c-glass) 20%, transparent);
+  background-image: linear-gradient(
     135deg,
-    rgba(var(--primary-rgb), 0.06) 0%,
-    rgba(var(--primary-rgb), 0.03) 100%
+    rgba(var(--primary-rgb), 0.08) 0%,
+    transparent 50%,
+    rgba(var(--primary-rgb), 0.05) 100%
   );
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(var(--primary-rgb), 0.12);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(var(--primary-rgb), 0.18);
   border-radius: 20px;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, calc(0.12 * var(--glass-reflex-light))),
+    inset 2px 2px 0 0 rgba(255, 255, 255, calc(0.08 * var(--glass-reflex-light))),
+    inset -1px -1px 0 0 rgba(0, 0, 0, calc(0.12 * var(--glass-reflex-dark))),
+    inset 0 -3px 6px -2px rgba(0, 0, 0, calc(0.1 * var(--glass-reflex-dark))),
+    0 4px 12px -2px rgba(0, 0, 0, 0.2),
+    0 2px 6px -2px rgba(0, 0, 0, 0.12);
+  transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .skill-card:hover {
-  border-color: rgba(var(--primary-rgb), 0.25);
+  border-color: rgba(var(--primary-rgb), 0.28);
 }
 
 .skill-card.expanded {
-  border-color: rgba(var(--primary-rgb), 0.3);
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
+  border-color: rgba(var(--primary-rgb), 0.35);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, calc(0.12 * var(--glass-reflex-light))),
+    inset 2px 2px 0 0 rgba(255, 255, 255, calc(0.08 * var(--glass-reflex-light))),
+    inset -1px -1px 0 0 rgba(0, 0, 0, calc(0.12 * var(--glass-reflex-dark))),
+    0 20px 40px -12px rgba(0, 0, 0, 0.3),
+    0 8px 20px -8px rgba(var(--primary-rgb), 0.1);
 }
 
 .skill-toggle {

@@ -203,35 +203,50 @@
     return html;
   }
 
+  function getPdfPrintStyles(theme) {
+    var isLight = theme === 'light';
+    var bg = isLight ? '#faf8f5' : '#282c34';
+    var text = isLight ? '#1c1917' : '#abb2bf';
+    var textMuted = isLight ? '#713f12' : '#8b92a0';
+    var border = isLight ? '#e5e7eb' : '#3e4451';
+    var accent = isLight ? '#2563eb' : '#56b6c2';
+    return 'html,body{margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;color:' + text + ';background:' + bg + ';}'
+      + 'body{padding:20px;max-width:800px;margin:0 auto;font-size:12px;line-height:1.4;}'
+      + 'h1{font-size:22px;margin:0 0 4px;font-weight:700;}'
+      + '.subtitle{margin:0 0 8px;font-size:13px;color:' + textMuted + ';}'
+      + '.meta{margin:0 0 16px;font-size:11px;color:' + textMuted + ';}'
+      + 'h2{font-size:14px;margin:18px 0 8px;border-bottom:1px solid ' + border + ';padding-bottom:4px;color:' + text + ';}'
+      + 'h3{font-size:13px;margin:10px 0 4px;}'
+      + 'p{margin:4px 0;}'
+      + 'ul{margin:6px 0 6px 16px;padding:0;}'
+      + 'li{margin:2px 0;}'
+      + '.muted{color:' + textMuted + ';}'
+      + '.exp{margin-bottom:14px;}'
+      + '@media print{body{background:' + bg + ';} h2{break-after:avoid;} .exp{break-inside:avoid;}}';
+  }
+
   function openPdfPrintWindow(data) {
+    var theme = getTheme();
     var p = data && data['personal-info'] ? data['personal-info'] : {};
     var fileName = (p['full-name'] || 'resume').replace(/\s+/g, '_');
+    var html = '<!doctype html><html><head><meta charset="utf-8"><title>' + escapeHtml(fileName) + '</title><style>'
+      + getPdfPrintStyles(theme)
+      + '</style></head><body>'
+      + renderPdfHtml(data)
+      + '</body></html>';
 
-    var w = window.open('', '_blank', 'noopener,noreferrer');
-    if (!w) return;
-
-    var doc = w.document;
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('style', 'position:fixed;width:0;height:0;border:0;');
+    document.body.appendChild(iframe);
+    var doc = iframe.contentWindow.document;
     doc.open();
-    doc.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">');
-    doc.write('<title>' + escapeHtml(fileName) + '</title>');
-    doc.write('<style>' +
-      'html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#111;background:#fff;}' +
-      'body{padding:24px;max-width:900px;margin:0 auto;}' +
-      'h1{font-size:24px;margin:0 0 4px;}' +
-      '.subtitle{margin:0 0 12px;font-size:14px;color:#333;}' +
-      '.meta{margin:0 0 18px;font-size:12px;color:#444;}' +
-      'h2{font-size:16px;margin:20px 0 10px;border-bottom:1px solid #e5e7eb;padding-bottom:6px;}' +
-      'h3{font-size:14px;margin:12px 0 4px;}' +
-      'p{margin:4px 0;font-size:12px;line-height:1.45;}' +
-      'ul{margin:6px 0 6px 18px;padding:0;font-size:12px;}' +
-      'li{margin:2px 0;}' +
-      '.muted{color:#555;}' +
-      '@media print{body{padding:0;} h2{break-after:avoid;} .exp{break-inside:avoid;}}' +
-    '</style></head><body>');
-    doc.write(renderPdfHtml(data));
-    doc.write('<script>window.onload=function(){setTimeout(function(){window.print();},150);};<\/script>');
-    doc.write('</body></html>');
+    doc.write(html);
     doc.close();
+    iframe.contentWindow.onload = function () {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+      setTimeout(function () { document.body.removeChild(iframe); }, 500);
+    };
   }
 
   function setupPdfDownload() {
