@@ -209,7 +209,7 @@
     var textMuted = isLight ? '#713f12' : '#8b92a0';
     var border = isLight ? '#e5e7eb' : '#3e4451';
     var accent = isLight ? '#2563eb' : '#56b6c2';
-    return '@page{size:A4;margin:16mm;}'
+    return '@page{size:A4;margin:20mm;}'
       + 'html,body{margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;color:' + text + ';background:' + bg + ';font-size:9px;line-height:1.35;}'
       + '.pdf-page{max-width:100%;padding:4px 0;}'
       + '.pdf-header{border-bottom:2px solid ' + accent + ';padding-bottom:8px;margin-bottom:12px;}'
@@ -234,6 +234,167 @@
       + '@media print{html,body{height:auto;background:' + bg + ';-webkit-print-color-adjust:exact;print-color-adjust:exact;} .pdf-section h2{break-after:avoid;} .exp{break-inside:avoid;}}';
   }
 
+  function downloadPdf(data) {
+    var JsPDF = typeof window !== 'undefined' && window.jspdf && window.jspdf.jsPDF;
+    if (!JsPDF) {
+      if (window.open) openPdfPrintWindow(data);
+      return;
+    }
+    var theme = getTheme();
+    var isLight = theme === 'light';
+    var text = isLight ? [28, 25, 23] : [171, 178, 191];
+    var muted = isLight ? [113, 63, 18] : [139, 146, 160];
+    var accent = isLight ? [37, 99, 235] : [86, 182, 194];
+    var p = data && data['personal-info'] ? data['personal-info'] : {};
+    var fileName = (p['full-name'] || 'resume').replace(/\s+/g, '_') + '.pdf';
+    var experiences = sortExperiencesByDate(data['work-experiences'] || []).slice(0, 6);
+    var skills = (data.skills || []).slice().filter(function (s) { return (s.area || '') !== 'Languages'; }).sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+
+    var doc = new JsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+    var pageW = doc.internal.pageSize.getWidth();
+    var pageH = doc.internal.pageSize.getHeight();
+    var margin = 56;
+    var x = margin;
+    var y = margin;
+    var w = pageW - 2 * margin;
+    var bottomLimit = pageH - margin - 40;
+
+    function lineHeight(fontSize) { return fontSize * 1.35; }
+    function checkNewPage(needHeight) {
+      if (y + (needHeight || 0) > bottomLimit) {
+        doc.addPage();
+        y = margin;
+      }
+    }
+
+    doc.setFillColor(accent[0], accent[1], accent[2]);
+    doc.setTextColor(text[0], text[1], text[2]);
+    doc.setFontSize(18);
+    doc.setFont(undefined, 'bold');
+    doc.text(p['full-name'] || 'Resume', x, y);
+    y += lineHeight(18);
+    doc.setFontSize(11);
+    doc.setFont(undefined, 'bold');
+    if (p['main-position']) { doc.text(p['main-position'], x, y); y += lineHeight(11); }
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(muted[0], muted[1], muted[2]);
+    var meta = [p.mail, p.location, p.remote].filter(Boolean).join(' · ');
+    if (meta) { doc.text(meta, x, y); y += lineHeight(9); }
+    y += 4;
+    doc.setDrawColor(accent[0], accent[1], accent[2]);
+    doc.setLineWidth(2);
+    doc.line(x, y, x + w, y);
+    y += 14;
+
+    doc.setFontSize(11);
+    doc.setFont(undefined, 'bold');
+    doc.setTextColor(text[0], text[1], text[2]);
+    doc.setFillColor(accent[0], accent[1], accent[2]);
+    doc.rect(x, y - 10, 3, 14, 'F');
+    doc.text('Experience', x + 10, y);
+    y += 12;
+
+    var contentW = w - 75;
+    experiences.forEach(function (exp) {
+      checkNewPage(70);
+      var blockTop = y;
+      doc.setFontSize(10);
+      doc.setFont(undefined, 'bold');
+      doc.setTextColor(text[0], text[1], text[2]);
+      var companyLines = doc.splitTextToSize(exp['company-name'] || '', contentW - 8);
+      doc.text(companyLines, x + 8, y + 6);
+      doc.setFont(undefined, 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(muted[0], muted[1], muted[2]);
+      var dates = (exp.from || '') + ' — ' + (exp.to || '');
+      doc.text(dates, pageW - margin - doc.getTextWidth(dates), y + 6);
+      y = blockTop + 6 + companyLines.length * lineHeight(10) + 4;
+      doc.setFontSize(9);
+      var roleLine = exp.position || '';
+      if (exp['business-area']) roleLine += ' · ' + exp['business-area'];
+      var roleLines = doc.splitTextToSize(roleLine, contentW - 8);
+      doc.text(roleLines, x + 8, y + 4);
+      y += roleLines.length * lineHeight(9) + 6;
+      var tasks = (exp['tasks-descriptions'] || []).slice(0, 2);
+      if (tasks.length) {
+        doc.setFontSize(8);
+        tasks.forEach(function (t) {
+          var lines = doc.splitTextToSize('• ' + t, contentW - 12);
+          doc.text(lines, x + 12, y + 4);
+          y += lines.length * lineHeight(8) + 3;
+        });
+      }
+      if (exp.techs) {
+        doc.setFontSize(8);
+        var techStr = String(exp.techs).replace(/,/g, ', ');
+        var techLines = doc.splitTextToSize(techStr, contentW - 8);
+        doc.text(techLines, x + 8, y + 4);
+        y += techLines.length * lineHeight(8) + 6;
+      } else {
+        y += 4;
+      }
+      doc.setDrawColor(muted[0], muted[1], muted[2]);
+      doc.setLineWidth(0.5);
+      doc.line(x, blockTop, x, y);
+      y += 8;
+    });
+
+    y += 6;
+    checkNewPage(120);
+    doc.setFontSize(11);
+    doc.setFont(undefined, 'bold');
+    doc.setTextColor(text[0], text[1], text[2]);
+    doc.rect(x, y - 10, 3, 14, 'F');
+    doc.text('Skills', x + 10, y);
+    y += 18;
+
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(9);
+    var colW = (w - 24) / 2;
+    var half = Math.ceil(skills.length / 2);
+    var yCol0 = y;
+    var yCol1 = y;
+    var areaLineH = lineHeight(9);
+    var chipLineH = lineHeight(8);
+    for (var i = 0; i < skills.length; i++) {
+      var isCol0 = i < half;
+      var sx = x + (isCol0 ? 0 : colW + 24);
+      var sy = isCol0 ? yCol0 : yCol1;
+      var s = skills[i];
+      var chips = (Array.isArray(s.chips) ? s.chips.join(' ') : s.chips || '').split(/\s*\|\s*/).map(function (c) { return c.trim(); }).filter(Boolean);
+      var chipStr = chips.join(', ');
+      var chipLines = doc.splitTextToSize(chipStr, colW - 36);
+      var blockH = areaLineH + 4 + chipLines.length * chipLineH + 6;
+      var colY = isCol0 ? yCol0 : yCol1;
+      if (colY + blockH > bottomLimit) {
+        doc.addPage();
+        y = margin;
+        doc.setFontSize(11);
+        doc.setFont(undefined, 'bold');
+        doc.setTextColor(text[0], text[1], text[2]);
+        doc.rect(x, y - 10, 3, 14, 'F');
+        doc.text('Skills (continued)', x + 10, y);
+        y += 18;
+        yCol0 = y;
+        yCol1 = y;
+        sy = y;
+      }
+      doc.setFont(undefined, 'bold');
+      doc.setTextColor(text[0], text[1], text[2]);
+      doc.text(s.area || '', sx, sy + 4);
+      doc.setFont(undefined, 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(muted[0], muted[1], muted[2]);
+      doc.text(chipLines, sx, sy + 4 + areaLineH + 4);
+      doc.setFontSize(9);
+      doc.setTextColor(text[0], text[1], text[2]);
+      if (isCol0) yCol0 += blockH; else yCol1 += blockH;
+    }
+
+    doc.save(fileName);
+  }
+
   function openPdfPrintWindow(data) {
     var theme = getTheme();
     var p = data && data['personal-info'] ? data['personal-info'] : {};
@@ -243,7 +404,6 @@
       + '</style></head><body>'
       + renderPdfHtml(data)
       + '</body></html>';
-
     var iframe = document.createElement('iframe');
     iframe.setAttribute('style', 'position:fixed;width:0;height:0;border:0;');
     document.body.appendChild(iframe);
@@ -268,7 +428,7 @@
         console.warn('CV data not loaded yet.');
         return;
       }
-      openPdfPrintWindow(data);
+      downloadPdf(data);
     });
   }
 
