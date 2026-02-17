@@ -3,7 +3,6 @@
         "full-name": "Claudio Pedalino",
         "date-of-birth": "1993-04-06",
         "main-position": "Senior .NET Software Engineer",
-        "position-descripcion": "",
         "image-url": "assets/photo.jpg",
         "mail": "claudio.dpedalino@gmail.com",
         "location": "Argentina",
@@ -14,12 +13,10 @@
     "tags": [
         {
             "title": "Goal",
-            "icon": "goal.png",
             "descripcion": "Grow as a technical referent focusing on architecture & innovation"
         },
         {
             "title": "Looking For",
-            "icon": "looking-for.png",
             "descripcion": "Cross-functional multidisciplinary teams, agile oriented with continuous learning & mentoring culture"
         }
     ],
