@@ -170,35 +170,34 @@
     var location = p.location || '';
     var remote = p.remote || '';
 
-    var experiences = sortExperiencesByDate(data['work-experiences'] || []);
+    var experiences = sortExperiencesByDate(data['work-experiences'] || []).slice(0, 6);
     var skills = (data.skills || []).slice().filter(function (s) { return (s.area || '') !== 'Languages'; }).sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
 
-    var html = '';
+    var html = '<div class="pdf-page">';
+    html += '<header class="pdf-header">';
     html += '<h1>' + escapeHtml(name) + '</h1>';
     if (position) html += '<p class="subtitle">' + escapeHtml(position) + '</p>';
-    html += '<p class="meta">' +
-      [mail, location, remote].filter(Boolean).map(escapeHtml).join(' · ') +
-    '</p>';
+    html += '<p class="meta">' + [mail, location, remote].filter(Boolean).map(escapeHtml).join(' · ') + '</p>';
+    html += '</header>';
 
-    html += '<h2>Experience</h2>';
+    html += '<section class="pdf-section"><h2>Experience</h2><div class="exp-list">';
     experiences.forEach(function (exp) {
-      html += '<section class="exp">';
-      html += '<h3>' + escapeHtml(exp['company-name'] || '') + '</h3>';
-      html += '<p><strong>' + escapeHtml(exp.position || '') + '</strong> — ' + escapeHtml(exp.from || '') + ' to ' + escapeHtml(exp.to || '') + '</p>';
-      if (exp['business-area']) html += '<p class="muted">' + escapeHtml(exp['business-area']) + '</p>';
-      var tasks = exp['tasks-descriptions'] || [];
-      if (tasks.length) {
-        html += '<ul>' + tasks.map(function (t) { return '<li>' + escapeHtml(t) + '</li>'; }).join('') + '</ul>';
-      }
-      if (exp.techs) html += '<p class="muted"><strong>Tech:</strong> ' + escapeHtml(String(exp.techs).replace(/,/g, ', ')) + '</p>';
-      html += '</section>';
+      var tasks = (exp['tasks-descriptions'] || []).slice(0, 2);
+      html += '<div class="exp">';
+      html += '<div class="exp-head"><span class="exp-company">' + escapeHtml(exp['company-name'] || '') + '</span><span class="exp-dates">' + escapeHtml(exp.from || '') + ' — ' + escapeHtml(exp.to || '') + '</span></div>';
+      html += '<p class="exp-role">' + escapeHtml(exp.position || '') + (exp['business-area'] ? ' · ' + escapeHtml(exp['business-area']) : '') + '</p>';
+      if (tasks.length) html += '<ul>' + tasks.map(function (t) { return '<li>' + escapeHtml(t) + '</li>'; }).join('') + '</ul>';
+      if (exp.techs) html += '<p class="tech">' + escapeHtml(String(exp.techs).replace(/,/g, ', ')) + '</p>';
+      html += '</div>';
     });
+    html += '</div></section>';
 
-    html += '<h2>Skills</h2>';
+    html += '<section class="pdf-section"><h2>Skills</h2><div class="skills-grid">';
     skills.forEach(function (s) {
       var chips = (Array.isArray(s.chips) ? s.chips.join(' ') : s.chips || '').split(/\s*\|\s*/).map(function (c) { return c.trim(); }).filter(Boolean);
-      html += '<p><strong>' + escapeHtml(s.area || '') + ':</strong> ' + escapeHtml(chips.join(', ')) + '</p>';
+      html += '<div class="skill-row"><strong>' + escapeHtml(s.area || '') + '</strong> ' + escapeHtml(chips.join(', ')) + '</div>';
     });
+    html += '</div></section></div>';
 
     return html;
   }
@@ -210,19 +209,29 @@
     var textMuted = isLight ? '#713f12' : '#8b92a0';
     var border = isLight ? '#e5e7eb' : '#3e4451';
     var accent = isLight ? '#2563eb' : '#56b6c2';
-    return 'html,body{margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;color:' + text + ';background:' + bg + ';}'
-      + 'body{padding:20px;max-width:800px;margin:0 auto;font-size:12px;line-height:1.4;}'
-      + 'h1{font-size:22px;margin:0 0 4px;font-weight:700;}'
-      + '.subtitle{margin:0 0 8px;font-size:13px;color:' + textMuted + ';}'
-      + '.meta{margin:0 0 16px;font-size:11px;color:' + textMuted + ';}'
-      + 'h2{font-size:14px;margin:18px 0 8px;border-bottom:1px solid ' + border + ';padding-bottom:4px;color:' + text + ';}'
-      + 'h3{font-size:13px;margin:10px 0 4px;}'
-      + 'p{margin:4px 0;}'
-      + 'ul{margin:6px 0 6px 16px;padding:0;}'
-      + 'li{margin:2px 0;}'
-      + '.muted{color:' + textMuted + ';}'
-      + '.exp{margin-bottom:14px;}'
-      + '@media print{body{background:' + bg + ';} h2{break-after:avoid;} .exp{break-inside:avoid;}}';
+    return '@page{size:A4;margin:16mm;}'
+      + 'html,body{margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;color:' + text + ';background:' + bg + ';font-size:9px;line-height:1.35;}'
+      + '.pdf-page{max-width:100%;padding:4px 0;}'
+      + '.pdf-header{border-bottom:2px solid ' + accent + ';padding-bottom:8px;margin-bottom:12px;}'
+      + '.pdf-header h1{font-size:18px;margin:0 0 4px;font-weight:700;color:' + text + ';letter-spacing:-0.02em;}'
+      + '.pdf-header .subtitle{margin:0;font-size:11px;font-weight:600;color:' + text + ';}'
+      + '.pdf-header .meta{margin:4px 0 0;font-size:9px;color:' + textMuted + ';}'
+      + '.pdf-section{margin-bottom:14px;}'
+      + '.pdf-section h2{font-size:11px;margin:0 0 8px;padding:5px 0 5px 8px;border-left:3px solid ' + accent + ';background:' + (isLight ? 'rgba(37,99,235,0.06)' : 'rgba(86,182,194,0.1)') + ';color:' + text + ';font-weight:700;}'
+      + '.exp-list{display:block;}'
+      + '.exp{margin-bottom:8px;padding:4px 0 4px 8px;border-left:2px solid ' + border + ';page-break-inside:avoid;}'
+      + '.exp:last-child{margin-bottom:0;}'
+      + '.exp-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:2px;}'
+      + '.exp-company{font-weight:700;font-size:10px;color:' + text + ';}'
+      + '.exp-dates{font-size:8px;color:' + textMuted + ';white-space:nowrap;}'
+      + '.exp-role{margin:0 0 3px;font-size:9px;color:' + textMuted + ';}'
+      + '.exp ul{margin:0 0 3px 10px;padding:0;}'
+      + '.exp li{margin:0 0 1px;font-size:8px;}'
+      + '.exp .tech{margin:0;font-size:8px;color:' + textMuted + ';}'
+      + '.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;}'
+      + '.skill-row{font-size:9px;margin:0 0 3px;padding:0;}'
+      + '.skill-row strong{font-size:9px;font-weight:700;}'
+      + '@media print{html,body{height:auto;background:' + bg + ';-webkit-print-color-adjust:exact;print-color-adjust:exact;} .pdf-section h2{break-after:avoid;} .exp{break-inside:avoid;}}';
   }
 
   function openPdfPrintWindow(data) {
