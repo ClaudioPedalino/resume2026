@@ -1,4 +1,6 @@
 (function () {
+  var cvLoadedData = null;
+
   const MONTHS = { Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6, Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12 };
 
   function parseDate(s) {
@@ -41,13 +43,14 @@
   function updateThemeToggleUi() {
     var btn = document.getElementById('theme-toggle');
     if (!btn) return;
-    var icon = btn.querySelector('i');
-    if (!icon) return;
-
     var theme = getTheme();
-    btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
-
-    icon.className = 'bi ' + (theme === 'dark' ? 'bi-moon-stars' : 'bi-sun');
+    btn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+    btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    if (theme === 'light') {
+      btn.classList.add('is-light');
+    } else {
+      btn.classList.remove('is-light');
+    }
   }
 
   function setupThemeToggle() {
@@ -231,11 +234,16 @@
     doc.close();
   }
 
-  function setupPdfDownload(data) {
+  function setupPdfDownload() {
     var btn = document.getElementById('link-pdf');
     if (!btn) return;
     btn.addEventListener('click', function (e) {
       e.preventDefault();
+      var data = cvLoadedData;
+      if (!data) {
+        console.warn('CV data not loaded yet.');
+        return;
+      }
       openPdfPrintWindow(data);
     });
   }
@@ -452,6 +460,7 @@
   }
 
   function init(data) {
+    cvLoadedData = data;
     setupThemeToggle();
     renderPersonal(data);
     renderExperience(data['work-experiences'] || []);
@@ -459,7 +468,7 @@
     renderAtsContent(data);
     setupNavbar();
     setupReveal();
-    setupPdfDownload(data);
+    setupPdfDownload();
   }
 
   var dataUrl = 'cv-data.json';

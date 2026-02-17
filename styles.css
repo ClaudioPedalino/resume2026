@@ -217,34 +217,93 @@ main {
   outline-offset: 2px;
 }
 
-.theme-toggle {
+/* Theme switch: pill track + sliding thumb, moon (dark) / sun (light) */
+.theme-switch {
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 0.75rem;
-  border: 1px solid rgba(var(--primary-rgb), 0.35);
+  padding: 0;
+  border: none;
   background: transparent;
-  color: var(--text-secondary);
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  color: var(--text-secondary);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.theme-toggle:hover {
-  color: var(--primary);
-  border-color: var(--primary);
-  background: rgba(var(--primary-rgb), 0.08);
-}
-
-.theme-toggle:focus-visible {
+.theme-switch:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
+  border-radius: 999px;
 }
 
-.theme-toggle .bi {
-  font-size: 1.25rem;
+.theme-switch-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 4.5rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+  border-radius: 999px;
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(var(--primary-rgb), 0.3);
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.theme-switch:hover .theme-switch-track {
+  border-color: rgba(var(--primary-rgb), 0.5);
+  box-shadow: 0 0 0 1px rgba(var(--primary-rgb), 0.15);
+}
+
+.theme-switch-thumb {
+  position: absolute;
+  left: 0.25rem;
+  top: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: -0.75rem;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), left 0s;
+  pointer-events: none;
+}
+
+.theme-switch.is-light .theme-switch-thumb {
+  transform: translateX(2.5rem);
+}
+
+.theme-switch-icon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--text-tertiary);
+  transition: color 0.3s ease, transform 0.25s ease;
+}
+
+.theme-switch-icon .bi {
+  font-size: 0.875rem;
+}
+
+.theme-switch .theme-switch-moon {
+  color: var(--primary);
+}
+
+.theme-switch.is-light .theme-switch-moon {
+  color: var(--text-quaternary);
+}
+
+.theme-switch .theme-switch-sun {
+  color: var(--text-quaternary);
+}
+
+.theme-switch.is-light .theme-switch-sun {
+  color: var(--primary);
 }
 
 /* Sections: scroll-margin so anchor nav doesn't hide content under fixed header */
