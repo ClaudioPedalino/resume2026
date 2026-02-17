@@ -198,6 +198,22 @@
     dotsContainer.querySelectorAll('.carousel-dot').forEach(function (dot) {
       dot.onclick = function () { goTo(parseInt(this.dataset.index, 10)); };
     });
+
+    var viewport = track.parentElement;
+    var touchStartX = 0;
+    viewport.addEventListener('touchstart', function (e) {
+      touchStartX = e.changedTouches ? e.changedTouches[0].clientX : e.touches[0].clientX;
+    }, { passive: true });
+    viewport.addEventListener('touchend', function (e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var touchEndX = e.changedTouches[0].clientX;
+      var dx = touchStartX - touchEndX;
+      if (Math.abs(dx) > 50) {
+        if (dx > 0) goTo(current + 1);
+        else goTo(current - 1);
+      }
+    }, { passive: true });
+
     goTo(0);
   }
 
@@ -267,16 +283,7 @@
   }
 
   function setupMobileMenu() {
-    const toggle = document.querySelector('.mobile-menu-toggle');
-    const links = document.querySelector('.nav-links');
-    if (!toggle || !links) return;
-    toggle.addEventListener('click', function () {
-      links.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', links.classList.contains('open'));
-    });
-    document.querySelectorAll('.nav-links a').forEach(function (a) {
-      a.addEventListener('click', function () { links.classList.remove('open'); });
-    });
+    /* Hamburger removed; nav links always visible */
   }
 
   function renderAtsContent(data) {

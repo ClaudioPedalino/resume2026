@@ -74,6 +74,10 @@ body > * {
   z-index: 1;
 }
 
+header {
+  z-index: 1100;
+}
+
 .meta-location {
   display: inline-flex;
   align-items: center;
@@ -100,23 +104,23 @@ body > * {
   max-width: min(1100px, var(--measure));
 }
 
-/* Navbar */
+/* Navbar: always on top with solid background */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 20px 24px;
-  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  padding: 14px 24px;
+  background: rgba(33, 37, 43, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(86, 182, 194, 0.12);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
 }
 
 .navbar.scrolled {
-  background: rgba(33, 37, 43, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(86, 182, 194, 0.15);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 }
 
 .navbar-inner {
@@ -169,18 +173,14 @@ body > * {
 
 .mobile-menu-toggle {
   display: none;
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  cursor: pointer;
-  padding: 8px;
 }
 
 
-/* Sections */
+/* Sections: scroll-margin so anchor nav doesn't hide content under fixed header */
 .section {
   padding: 3.5rem 0 2.75rem;
   min-height: 0;
+  scroll-margin-top: 4.5rem;
 }
 
 .section-title {
@@ -258,10 +258,13 @@ body > * {
 .personal-photo {
   width: 7.5rem;
   height: 7.5rem;
+  min-width: 7.5rem;
+  min-height: 7.5rem;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid rgba(var(--primary-rgb), 0.4);
   box-shadow: 0 0 2.5rem rgba(var(--primary-rgb), 0.25);
+  background: var(--bg-tertiary);
 }
 
 .personal-info-block {
@@ -425,25 +428,23 @@ body > * {
 
 .carousel {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
   margin-bottom: 1.25rem;
 }
 
 .carousel-viewport {
-  flex: 1;
   overflow: hidden;
+  touch-action: pan-y pinch-zoom;
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .carousel-slide {
   min-width: 100%;
-  padding: 0 8px;
+  flex-shrink: 0;
+  padding: 0 0.5rem;
 }
 
 .exp-card {
@@ -555,25 +556,32 @@ body > * {
   background: var(--primary);
 }
 
+.carousel-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
 .carousel-btn {
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  border: 1px solid rgba(var(--primary-rgb), 0.3);
-  background: rgba(var(--primary-rgb), 0.08);
+  border: 1px solid rgba(var(--primary-rgb), 0.25);
+  background: rgba(var(--primary-rgb), 0.06);
   color: var(--primary);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .carousel-btn:hover {
-  background: rgba(var(--primary-rgb), 0.2);
-  border-color: var(--primary);
-  transform: scale(1.05);
+  background: rgba(var(--primary-rgb), 0.15);
+  border-color: rgba(var(--primary-rgb), 0.4);
 }
 
 .carousel-btn:focus-visible {
@@ -582,15 +590,15 @@ body > * {
 }
 
 .carousel-btn:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: not-allowed;
-  transform: none;
 }
 
 .carousel-dots {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -819,24 +827,15 @@ body > * {
 /* Responsive */
 @media (max-width: 767px) {
   .nav-links {
-    display: none;
+    gap: 20px;
+    font-size: var(--text-sm);
   }
 
-  .nav-links.open {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--bg-secondary);
-    border-bottom: 1px solid rgba(var(--primary-rgb), 0.15);
-    padding: 20px 24px;
-    gap: 16px;
+  .section-personal .personal-header {
+    opacity: 1;
   }
-
-  .mobile-menu-toggle {
-    display: flex;
+  .personal-card .personal-header {
+    animation: none;
   }
 
   .section {
@@ -896,8 +895,11 @@ body > * {
   }
 
   .carousel-btn {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
+  }
+  .carousel-slide {
+    padding: 0;
   }
 
   .exp-card {

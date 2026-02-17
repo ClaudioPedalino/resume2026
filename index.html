@@ -6,6 +6,7 @@
   <title id="page-title">Claudio Pedalino — Senior .NET Software Engineer</title>
   <meta name="description" content="Senior .NET Software Engineer specializing in microservices, distributed systems, and cloud. 8+ years full-stack experience. Remote. C#, .NET, Docker, Kubernetes, Azure.">
   <link rel="canonical" id="canonical-url" href="">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <!-- Open Graph -->
   <meta property="og:type" content="profile">
   <meta property="og:title" id="og-title" content="Claudio Pedalino — Senior .NET Software Engineer">
@@ -32,9 +33,6 @@
         <li><a href="#experience">Experience</a></li>
         <li><a href="#skills">Skills</a></li>
       </ul>
-      <button class="mobile-menu-toggle" aria-label="Menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
     </div>
   </nav>
   </header>
@@ -49,9 +47,9 @@
               <h1 id="personal-name" class="personal-row personal-name" tabindex="-1"></h1>
               <p id="personal-position" class="personal-row personal-position"></p>
               <div class="personal-row personal-meta">
-                <span id="personal-age" class="meta-item"></span>
+                <span id="personal-age" class="meta-item" ></span>
                 <span class="meta-item meta-location"><span class="location-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span id="personal-location"></span></span>
-                <span id="personal-remote" class="meta-item badge"></span>
+                <span id="personal-remote" class="meta-item"></span>
               </div>
               <div class="personal-row personal-links">
                 <a id="link-linkedin" href="" class="btn btn-icon" target="_blank" rel="noopener" aria-label="LinkedIn">
@@ -76,17 +74,19 @@
       <div class="container">
         <h2 id="experience-heading" class="section-title">Experience</h2>
         <div class="carousel" role="region" aria-label="Work experience carousel">
-          <button class="carousel-btn carousel-prev" type="button" aria-label="Previous experience">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
           <div class="carousel-viewport">
             <div class="carousel-track" id="carousel-track"></div>
           </div>
-          <button class="carousel-btn carousel-next" type="button" aria-label="Next experience">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
+          <div class="carousel-nav">
+            <button class="carousel-btn carousel-prev" type="button" aria-label="Previous experience">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Experience slides"></div>
+            <button class="carousel-btn carousel-next" type="button" aria-label="Next experience">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
         </div>
-        <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Experience slides"></div>
       </div>
     </section>
 
