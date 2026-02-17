@@ -12,22 +12,22 @@
     return [...experiences].sort((a, b) => parseDate(b.to) - parseDate(a.to));
   }
 
-  var ODP = { cyan: '#56b6c2', blue: '#61afef', green: '#98c379', red: '#e06c75', yellow: '#e5c07b', orange: '#d19a66', purple: '#c678dd' };
-
-  function getSkillIcon(area) {
-    var icons = {
-      Backend: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' + ODP.cyan + '" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6v.01M6 18v.01"/></svg>',
-      Versioning: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' + ODP.orange + '" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M14 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-2"/><path d="M10 16V8a2 2 0 012-2h2"/><path d="M6 16v-4"/></svg>',
-      Testing: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' + ODP.green + '" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14"/></svg>',
-      Infrastructure: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' + ODP.blue + '" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h.01M10 12h.01M14 12h.01M18 12h.01"/></svg>',
-      Blockchain: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' + ODP.yellow + '" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/><path d="M12 8v8M8 12h8"/></svg>',
-      Frontend: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' + ODP.purple + '" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
-      Data: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' + ODP.cyan + '" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
-      Agile: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' + ODP.yellow + '" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
-      Communication: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' + ODP.blue + '" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>',
-      Languages: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' + ODP.green + '" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>'
-    };
-    return icons[area] || icons.Backend;
+  var skillBiIcons = {
+    Backend: 'bi-cpu',
+    Versioning: 'bi-git',
+    'Infrastructure & Versioning': 'bi-git',
+    Testing: 'bi-clipboard-check',
+    Infrastructure: 'bi-hdd-rack',
+    Blockchain: 'bi-currency-bitcoin',
+    Frontend: 'bi-window',
+    Data: 'bi-database',
+    Agile: 'bi-kanban',
+    Communication: 'bi-chat-dots',
+    'AI & Developer Productivity': 'bi-robot',
+    Languages: 'bi-globe2'
+  };
+  function getSkillIconClass(area) {
+    return skillBiIcons[area] || 'bi-cpu';
   }
 
   function getAge(birthDateStr) {
@@ -62,8 +62,16 @@
 
     var photo = document.getElementById('personal-photo');
     photo.removeAttribute('data-failed');
+    photo.removeAttribute('data-fallback-tried');
     photo.alt = name + ', ' + position;
-    photo.onerror = function () { this.setAttribute('data-failed', 'true'); };
+    photo.onerror = function () {
+      if (this.dataset.fallback && !this.dataset.fallbackTried) {
+        this.dataset.fallbackTried = '1';
+        this.src = this.dataset.fallback;
+      } else {
+        this.setAttribute('data-failed', 'true');
+      }
+    };
     if (p['image-url']) {
       photo.src = p['image-url'];
     } else {
@@ -229,17 +237,21 @@
     const grid = document.getElementById('skills-grid');
     grid.innerHTML = '';
 
-    var list = (skills || []).slice().sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+    var list = (skills || []).slice()
+      .filter(function (s) { return (s.area || '') !== 'Languages'; })
+      .sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
     list.forEach(function (skill) {
       const chipsRaw = Array.isArray(skill.chips) ? skill.chips.join(' ') : (skill.chips || '');
       const chips = chipsRaw.split(/\s*\|\s*/).map(function (c) { return c.trim(); }).filter(Boolean);
       const card = document.createElement('div');
       card.className = 'skill-card';
+      card.dataset.area = skill.area || '';
+      var iconClass = getSkillIconClass(skill.area);
       card.innerHTML =
         '<div class="skill-toggle" role="button" tabindex="0" aria-expanded="false">' +
           '<div class="skill-header">' +
             '<div class="skill-title-wrap">' +
-              '<span class="skill-icon">' + getSkillIcon(skill.area) + '</span>' +
+              '<span class="skill-icon"><i class="bi ' + iconClass + ' skill-bi-icon" aria-hidden="true"></i></span>' +
               '<span class="skill-title">' + escapeHtml(skill.area) + '</span>' +
             '</div>' +
             '<svg class="skill-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>' +
@@ -286,21 +298,17 @@
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.section-title, .section-subtitle, .personal-card, .carousel, .skills-grid').forEach(function (el) {
+    document.querySelectorAll('.section-title, .personal-card, .carousel, .skills-grid').forEach(function (el) {
       el.classList.add('reveal');
       observer.observe(el);
     });
-  }
-
-  function setupMobileMenu() {
-    /* Hamburger removed; nav links always visible */
   }
 
   function renderAtsContent(data) {
     var el = document.getElementById('ats-content');
     if (!el) return;
     var experiences = sortExperiencesByDate(data['work-experiences'] || []);
-    var skills = (data.skills || []).slice().sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+    var skills = (data.skills || []).slice().filter(function (s) { return (s.area || '') !== 'Languages'; }).sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
     var html = '<h2>Experience</h2>';
     experiences.forEach(function (exp) {
       html += '<article><h3>' + escapeHtml(exp['company-name']) + '</h3>';
@@ -326,7 +334,6 @@
     renderAtsContent(data);
     setupNavbar();
     setupReveal();
-    setupMobileMenu();
   }
 
   var dataUrl = 'cv-data.json';

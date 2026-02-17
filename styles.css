@@ -92,23 +92,20 @@ main {
   min-width: 0;
 }
 
-.meta-location,
-.meta-age,
-.meta-remote {
+.meta-item {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
 }
 
-.location-icon,
 .meta-icon {
   display: inline-flex;
+  align-items: center;
   color: var(--primary);
+  margin-right: 0.35rem;
 }
 
-.location-icon svg,
-.meta-icon svg {
-  flex-shrink: 0;
+.meta-icon .meta-bi-icon {
+  font-size: 1rem;
 }
 
 .container {
@@ -169,11 +166,12 @@ main {
 
 .nav-icon {
   display: inline-flex;
+  align-items: center;
   color: var(--primary);
 }
 
-.nav-icon svg {
-  flex-shrink: 0;
+.nav-icon .bi {
+  font-size: 1.125rem;
 }
 
 .nav-links a:hover .nav-icon {
@@ -204,11 +202,6 @@ main {
   outline-offset: 2px;
 }
 
-.mobile-menu-toggle {
-  display: none;
-}
-
-
 /* Sections: scroll-margin so anchor nav doesn't hide content under fixed header */
 .section {
   padding: 3.5rem 0 2.75rem;
@@ -236,13 +229,6 @@ main {
   width: 4px;
   border-radius: 2px;
   background: linear-gradient(180deg, var(--primary), var(--primary-blue));
-}
-
-.section-subtitle {
-  color: var(--text-tertiary);
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-  margin-bottom: 1.5rem;
 }
 
 /* Glass card */
@@ -351,7 +337,9 @@ main {
 .meta-item {
   color: var(--text-tertiary);
   font-size: var(--text-base);
+  gap: 0;
 }
+
 
 .badge {
   background: rgba(var(--primary-rgb), 0.2);
@@ -387,6 +375,10 @@ main {
   background: rgba(var(--primary-rgb), 0.08);
 }
 
+.btn-icon .bi {
+  font-size: 1.25rem;
+}
+
 .btn-email {
   display: inline-flex;
   align-items: center;
@@ -410,6 +402,10 @@ main {
 .btn-email:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
+}
+
+.btn-email .bi {
+  font-size: 1.125rem;
 }
 
 .personal-tags {
@@ -651,6 +647,10 @@ main {
   cursor: not-allowed;
 }
 
+.carousel-btn .bi {
+  font-size: 1.25rem;
+}
+
 .carousel-dots {
   display: flex;
   justify-content: center;
@@ -763,6 +763,22 @@ main {
   color: var(--primary);
 }
 
+.skill-bi-icon {
+  font-size: 1.35rem;
+}
+
+.skill-card[data-area="Backend"] .skill-bi-icon { color: var(--primary); }
+.skill-card[data-area="Infrastructure"] .skill-bi-icon { color: var(--primary-blue); }
+.skill-card[data-area="Infrastructure & Versioning"] .skill-bi-icon { color: var(--primary-orange); }
+.skill-card[data-area="Data"] .skill-bi-icon { color: var(--primary); }
+.skill-card[data-area="Testing"] .skill-bi-icon { color: var(--primary-green); }
+.skill-card[data-area="Communication"] .skill-bi-icon { color: var(--primary-blue); }
+.skill-card[data-area="Agile"] .skill-bi-icon { color: var(--primary-yellow); }
+.skill-card[data-area="Frontend"] .skill-bi-icon { color: var(--primary-purple); }
+.skill-card[data-area="AI & Developer Productivity"] .skill-bi-icon { color: var(--primary-purple); }
+.skill-card[data-area="Blockchain"] .skill-bi-icon { color: var(--primary-yellow); }
+.skill-card[data-area="Versioning"] .skill-bi-icon { color: var(--primary-orange); }
+
 .skill-title {
   font-family: var(--font-primary);
   font-size: var(--text-base);
@@ -818,58 +834,13 @@ main {
   line-height: var(--leading-relaxed);
 }
 
-/* Footer with bubbles */
+/* Footer */
 .footer {
   --footer-background: var(--footer-bg);
   grid-area: footer;
   position: relative;
   min-height: 12rem;
   z-index: 1;
-}
-
-.footer-bubbles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1rem;
-  background: var(--footer-background);
-  filter: url("#blob");
-}
-
-.footer-bubbles .bubble {
-  position: absolute;
-  left: var(--position, 50%);
-  bottom: -4rem;
-  width: var(--size, 4rem);
-  height: var(--size, 4rem);
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.08));
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 100%;
-  box-shadow: inset 0 -2px 8px rgba(0, 0, 0, 0.1), inset 0 2px 8px rgba(255, 255, 255, 0.2);
-  animation: bubble-size var(--time, 4s) ease-in infinite var(--delay, 0s),
-    bubble-move var(--time, 4s) ease-in infinite var(--delay, 0s);
-  transform: translate(-50%, 0);
-}
-
-@keyframes bubble-size {
-  0%, 75% {
-    width: var(--size, 4rem);
-    height: var(--size, 4rem);
-  }
-  100% {
-    width: 0;
-    height: 0;
-  }
-}
-
-@keyframes bubble-move {
-  0% {
-    bottom: -4rem;
-  }
-  100% {
-    bottom: var(--distance, 10rem);
-  }
 }
 
 .footer-content {
@@ -995,9 +966,8 @@ main {
     gap: 0.25rem;
   }
 
-  .nav-icon svg {
-    width: 20px;
-    height: 20px;
+  .nav-icon .bi {
+    font-size: 1.25rem;
   }
 
   main,
