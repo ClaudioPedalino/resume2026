@@ -418,9 +418,15 @@
 
   function setupNavbar() {
     const nav = document.getElementById('navbar');
+    var ticking = false;
     window.addEventListener('scroll', function () {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
-    });
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+        ticking = false;
+      });
+    }, { passive: true });
   }
 
   function setupReveal() {
@@ -428,7 +434,7 @@
       entries.forEach(function (entry) {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
     document.querySelectorAll('.section-title, .personal-card, .carousel, .skills-grid').forEach(function (el) {
       el.classList.add('reveal');
