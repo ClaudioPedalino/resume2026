@@ -111,96 +111,97 @@
             ]
         }
     ],
-    "skills": [
-        {
+        "skills": [
+          {
             "order": 1,
             "area": "Backend",
             "area-image": "backend.png",
             "chips": [
-                "Net Core | Microservices | SOLID | Design Patterns"
+              ".NET 6/8 | ASP.NET Core | Microservices | Messaging | Distributed Systems"
             ],
-            "description": "My main area of expertise is the .NET ecosystem, primarily focused on microservices and distributed architectures. I am deeply interested in software architecture and continuously invest time in learning best practices, patterns, and emerging technologies. I have strong experience with event-driven systems, messaging, performance optimization, and observability. Although C# is my core language, I have worked with Python and Node.js in specific contexts, reinforcing my problem-solving mindset beyond language boundaries. I have used libraries and tools such as EF Core, Dapper, MediatR, FluentValidation, Serilog, IdentityServer, JWT, Redis, Polly, Jaeger, Prometheus, RabbitMQ, gRPC, NBomber, BenchmarkDotNet, and many others across multiple projects."
-        },
-        {
+            "description": "Backend is my main focus. I design and evolve APIs and microservices in .NET, both from scratch and within existing architectures. I have taken architectural decisions in some teams and followed defined guidelines in others, always contributing improvements where possible. I have hands-on experience with distributed systems, including messaging (RabbitMQ, Azure Service Bus), caching strategies, concurrency handling, and production troubleshooting. Performance tuning and API design are areas where I feel most confident. I have worked with tools such as EF Core, Dapper, MediatR, FluentValidation, Serilog, Redis, Polly, gRPC, and benchmarking/load testing libraries in real production scenarios."
+          },
+          {
             "order": 2,
             "area": "Infrastructure",
             "area-image": "infraestructura (1).png",
             "chips": [
-                "Docker | Kubernetes | Azure | CI/CD | Observability"
+              "Docker | Azure | CI/CD | Kubernetes (Basic) | Observability"
             ],
-            "description": "Experience containerizing applications with Docker and working with Kubernetes in production scenarios. Strong interest in observability, monitoring, and metrics, using tools such as Grafana, Prometheus, New Relic, Graylog, Kibana, Seq, Loki, Jaeger, and Ocelot. Familiar with Azure cloud services and Azure DevOps pipelines for CI/CD. For personal projects, I use GitHub Actions and Heroku. I also have limited exposure to AWS and am motivated to deepen cloud architecture expertise."
-        },
-        {
+            "description": "Comfortable working with containerized environments using Docker, writing and adapting Dockerfiles as needed. I have worked with CI/CD pipelines (Azure DevOps, Jenkins, GitHub Actions) and understand deployment flows across environments. I have practical exposure to Kubernetes manifests and deployment configurations, mainly applying changes and understanding production setups rather than designing clusters from scratch. In Azure, I have worked with services such as App Services, databases, caching, Azure Service Bus, Functions, and related cloud components. I have configured dashboards and worked with observability stacks including Grafana, Prometheus, Jaeger, and centralized logging solutions to monitor distributed systems."
+          },
+          {
             "order": 3,
-            "area": "Frontend",
-            "area-image": "ux.png",
-            "chips": [
-                "Angular | TypeScript | JavaScript | Vue | Ionic | Bubble.io"
-            ],
-            "description": "Worked with Angular in multiple professional projects, as well as Vue and Ionic in specific scenarios. While my core strength is backend development, I collaborate effectively on medium-complexity frontend tasks. Interested in gaining hands-on experience with React and participating in mobile-focused projects. Experienced with low-code platforms such as Bubble.io, Glide, and Buildbase for rapid development and integrations."
-        },
-        {
-            "order": 4,
             "area": "Data",
             "area-image": "database-storage.png",
             "chips": [
-                "SQL Server | PostgreSQL | Redis | MongoDB | Elasticsearch | MySQL"
+              "SQL Server | PostgreSQL | Redis | MongoDB | Elasticsearch"
             ],
-            "description": "Strong SQL background working primarily with SQL Server and PostgreSQL, with additional experience in MySQL. Experience with NoSQL technologies including Elasticsearch, MongoDB, and Redis in distributed environments. Used Firebase for personal projects and explored CosmosDB and DynamoDB in training scenarios. Also experimented with Airtable, Prisma, and FaunaDB for lightweight or self-managed solutions."
-        },
-        {
-            "order": 5,
+            "description": "Strong working experience with SQL Server and PostgreSQL in microservices environments. I design data models for services, write non-trivial SQL queries, and handle query optimization when performance issues arise. I am not a database specialist, but I am comfortable working with indexing strategies, relational modeling, and production debugging. In NoSQL scenarios, I have worked with Redis (caching and distributed scenarios), MongoDB, and Elasticsearch. I have also been involved in pub/sub and event-driven flows integrated with messaging systems such as RabbitMQ and Kafka."
+          },
+          {
+            "order": 4,
             "area": "Testing",
             "area-image": "icons8-ab-60.png",
             "chips": [
-                "Unit Testing | Integration Testing | Load Testing | Performance Testing"
+              "Unit Testing | Integration Testing | Load Testing | Performance Testing"
             ],
-            "description": "Backend-oriented testing experience including unit tests with required code coverage thresholds. I have performed integration testing using Postman collections and tools such as k6. Additionally, I conducted load and performance testing using k6, Locust, JMeter, NBomber, and external load-testing services targeting APIs and distributed systems."
-        },
-        {
-            "order": 6,
-            "area": "Versioning",
-            "area-image": "git.png",
-            "chips": [
-                "Git | SVN | TFS | Azure DevOps"
-            ],
-            "description": "Strong experience with Git in professional environments, working with branching strategies and collaborative workflows. I have mainly used Azure DevOps repositories, but also worked with GitHub, GitLab, and Bitbucket. In legacy environments, I have experience using SVN and TFS."
-        },
-        {
-            "order": 7,
-            "area": "Blockchain",
-            "area-image": "blockchain.png",
-            "chips": [
-                "Web3 | Solidity | Smart Contracts | Ethereum"
-            ],
-            "description": "Currently expanding knowledge in Web3 and decentralized application development. Learning Solidity for smart contract creation using Truffle, Hardhat, Remix, and OpenZeppelin. Familiar with wallet integrations and DApp interaction. Used Nethereum to integrate .NET applications with the Ethereum blockchain."
-        },
-        {
-            "order": 8,
-            "area": "Agile",
-            "area-image": "scrum.png",
-            "chips": [
-                "Scrum | Kanban | Agile Methodologies"
-            ],
-            "description": "Experience working in agile teams using Scrum, Kanban, or hybrid approaches depending on project needs. Strong belief in collaborative environments, iterative delivery, and continuous improvement processes."
-        },
-        {
-            "order": 9,
+            "description": "I regularly write unit tests for backend services and APIs, following the testing standards defined by each team. I have also implemented integration tests and load/performance tests when required. I have worked with C# testing frameworks, k6, and NBomber for load and performance scenarios, mainly targeting APIs and distributed services. I have used Testcontainers in some projects, although my experience with it is still limited. Testing strategies were typically defined by QA or team guidelines; my responsibility was implementing and maintaining reliable test coverage aligned with those standards."
+          },
+          {
+            "order": 5,
             "area": "Communication",
             "area-image": "http.png",
             "chips": [
-                "REST | gRPC | SOAP | API Integration"
+              "REST | gRPC | API Versioning | External Integrations"
             ],
-            "description": "Extensive experience designing and integrating REST APIs. Worked with SOAP in legacy systems and implemented gRPC communication in microservices-oriented projects. Strong understanding of service contracts, interoperability, and distributed communication patterns."
-        },
-        {
+            "description": "Experience designing REST APIs from scratch, defining contracts, handling versioning strategies, and implementing backward-compatible changes. I have worked with gRPC in microservices-based systems and maintained legacy SOAP integrations when required. Comfortable integrating and consuming internal and third-party APIs in complex distributed environments, ensuring reliability and clear service contracts."
+          },
+          {
+            "order": 6,
+            "area": "Infrastructure & Versioning",
+            "area-image": "git.png",
+            "chips": [
+              "Git | Pull Requests | Code Reviews | SVN (Legacy)"
+            ],
+            "description": "Daily use of Git in collaborative environments, working with pull requests, code reviews, and standard branching strategies. Comfortable in workflows enforced by CI pipelines and protected branches. Experience with Azure DevOps, GitHub, GitLab, and Bitbucket repositories. Limited exposure to SVN and TFS in legacy environments."
+          },
+          {
+            "order": 7,
+            "area": "Agile",
+            "area-image": "scrum.png",
+            "chips": [
+              "Scrum | Kanban | Iterative Delivery"
+            ],
+            "description": "Extensive experience working in agile teams using Scrum, Kanban, or hybrid approaches. Active participant in planning, estimation, refinements, and retrospectives. While I have not held formal Scrum Master roles, I understand agile workflows deeply and contribute to delivery planning, feature ownership, and continuous improvement within backend-focused teams."
+          },
+          {
+            "order": 8,
+            "area": "Frontend",
+            "area-image": "ux.png",
+            "chips": [
+              "Angular | TypeScript | JavaScript | Vue | Ionic"
+            ],
+            "description": "While backend is my core strength, I have delivered complete frontend features in Angular-based applications, including UI components, state handling, and API integrations. I usually join existing frontend architectures and extend functionality rather than defining architectural foundations. I feel comfortable implementing medium-complexity features and debugging issues, but I position myself primarily as a backend-focused engineer who can collaborate effectively on frontend tasks when needed."
+          },
+          {
+            "order": 9,
+            "area": "AI & Developer Productivity",
+            "area-image": "ai.png",
+            "chips": [
+              "AI-assisted Development | LLMs | Cursor | AI Tooling | MCP"
+            ],
+            "description": "I actively leverage AI-assisted development tools to enhance productivity and code quality. Regular user of Cursor, Antigravity, and multiple large language models for architectural exploration, refactoring, test generation, and documentation support. I understand the fundamentals of how different LLMs operate, their trade-offs, and practical use cases in software development workflows. Familiar with configuring development environments to maximize AI integration, including the use of MCP servers and advanced editor tooling. I see AI as a productivity multiplier that complements engineering judgment rather than replacing it."
+          },
+          {
             "order": 10,
             "area": "Languages",
             "area-image": "signs.png",
             "chips": [
-                "English B2 | Spanish Native | Portuguese Basic"
+              "English B2 | Spanish Native | Portuguese Basic"
             ],
-            "description": "English: Upper-intermediate (B2) with strong reading and listening skills, conversational speaking and writing. Currently taking classes with multiple teachers and working in partially English-speaking environments. Spanish: Native. Portuguese: Basic conversational familiarity after working over a year in a Brazilian company."
-        }
-    ]
-}
+            "description": "English: Upper-intermediate (B2) with strong reading and listening skills, and conversational speaking and writing. Spanish: Native. Portuguese: Basic conversational familiarity after working in a Brazilian company."
+          }
+        ]
+      }
+      

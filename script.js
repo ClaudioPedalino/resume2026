@@ -42,7 +42,9 @@
   }
 
   function getTagIcon(title) {
-    if ((title || '').toLowerCase().indexOf('goal') !== -1) return '<svg class="tag-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>';
+    var t = (title || '').toLowerCase();
+    if (t.indexOf('goal') !== -1) return '<svg class="tag-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>';
+    if (t.indexOf('looking') !== -1) return '<svg class="tag-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>';
     return '<svg class="tag-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>';
   }
 
@@ -234,28 +236,30 @@
       const card = document.createElement('div');
       card.className = 'skill-card';
       card.innerHTML =
-        '<div class="skill-header" role="button" tabindex="0" aria-expanded="false">' +
-          '<div class="skill-title-wrap">' +
-            '<span class="skill-icon">' + getSkillIcon(skill.area) + '</span>' +
-            '<span class="skill-title">' + escapeHtml(skill.area) + '</span>' +
+        '<div class="skill-toggle" role="button" tabindex="0" aria-expanded="false">' +
+          '<div class="skill-header">' +
+            '<div class="skill-title-wrap">' +
+              '<span class="skill-icon">' + getSkillIcon(skill.area) + '</span>' +
+              '<span class="skill-title">' + escapeHtml(skill.area) + '</span>' +
+            '</div>' +
+            '<svg class="skill-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>' +
           '</div>' +
-          '<svg class="skill-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>' +
+          '<div class="skill-chips">' + chips.map(function (c) { return '<span class="skill-chip">' + escapeHtml(c) + '</span>'; }).join('') + '</div>' +
         '</div>' +
-        '<div class="skill-chips">' + chips.map(function (c) { return '<span class="skill-chip">' + escapeHtml(c) + '</span>'; }).join('') + '</div>' +
         '<div class="skill-detail">' +
           '<p class="skill-description">' + escapeHtml(skill.description || '') + '</p>' +
         '</div>';
       grid.appendChild(card);
 
-      const header = card.querySelector('.skill-header');
-      header.addEventListener('click', function () {
-        card.classList.toggle('expanded');
-        header.setAttribute('aria-expanded', card.classList.contains('expanded'));
+      const toggle = card.querySelector('.skill-toggle');
+      toggle.addEventListener('click', function () {
+        var expanded = card.classList.toggle('expanded');
+        toggle.setAttribute('aria-expanded', expanded);
       });
-      header.addEventListener('keydown', function (e) {
+      toggle.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          header.click();
+          toggle.click();
         }
       });
     });
