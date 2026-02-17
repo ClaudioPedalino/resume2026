@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner container">
+      <ul class="nav-links">
+        <li><a href="#personal">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <section id="personal" class="section section-personal">
+      <div class="container">
+        <div class="personal-card glass-card">
+          <div class="personal-header">
+            <img id="personal-photo" src="" alt="" class="personal-photo">
+            <div class="personal-info-block">
+              <h1 id="personal-name" class="personal-row personal-name"></h1>
+              <p id="personal-position" class="personal-row personal-position"></p>
+              <div class="personal-row personal-meta">
+                <span id="personal-age" class="meta-item"></span>
+                <span class="meta-item meta-location"><span class="location-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span id="personal-location"></span></span>
+                <span id="personal-remote" class="meta-item badge"></span>
+              </div>
+              <div class="personal-row personal-links">
+                <a id="link-linkedin" href="" class="btn btn-icon" target="_blank" rel="noopener" aria-label="LinkedIn">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a id="link-github" href="" class="btn btn-icon" target="_blank" rel="noopener" aria-label="GitHub">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <a id="link-email" href="" class="btn btn-email" target="_blank" rel="noopener" aria-label="Send email">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <span id="email-text"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="personal-tags" id="personal-tags"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section section-experience">
+      <div class="container">
+        <h2 class="section-title">Work Experience</h2>
+        <div class="carousel">
+          <button class="carousel-btn carousel-prev" aria-label="Previous">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="carousel-viewport">
+            <div class="carousel-track" id="carousel-track"></div>
+          </div>
+          <button class="carousel-btn carousel-next" aria-label="Next">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="carousel-dots" id="carousel-dots"></div>
+      </div>
+    </section>
+
+    <section id="skills" class="section section-skills">
+      <div class="container">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid" id="skills-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    window.CV_DATA = {"personal-info":{"full-name":"Claudio Pedalino","date-of-birth":"1993-04-06","main-position":"Senior .NET Software Engineer","position-descripcion":"","image-url":"https://media.licdn.com/dms/image/v2/C4E03AQEzMNeul6yHqA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1589174300420?e=1771459200&v=beta&t=g7i1DXriLlnjLIC8uycjY-nWYRZISKWiZTqTggvX8AY","mail":"claudio.dpedalino@gmail.com","location":"Buenos Aires","remote":"Remote only","linkedin-url":"https://www.linkedin.com/in/claudio-pedalino/","github-url":"https://github.com/ClaudioPedalino"},"tags":[{"title":"Goal","descripcion":"Grow as a technical referent focusing on architecture & innovation"},{"title":"Looking For","descripcion":"Cross-functional multidisciplinary teams, agile oriented with continuous learning & mentoring culture"}],"work-experiences":[{"company-name":"Paramo Technologies","from":"Dec-2021","to":"Jan-2026","position":"Full-Stack Developer","techs":".NET 6/8, Microservices, Docker, SQL Server,PostgreSQL, RabbitMQ, Redis, ArgoCD, Kubernetes","business-area":"Sports Betting","tasks-descriptions":["Development of new features for an in-house sportsbook platform.","Migration, refactoring and maintenance of legacy systems towards a microservices architecture."]},{"company-name":"Geovictoria","from":"Jul-2021","to":"Dec-2021","position":"Full-Stack Developer","techs":".NET Core 3.1, Azure, Docker, SQL Server, Microservices, Bubble.io","business-area":"Attendance Control","tasks-descriptions":["Development of new functionalities for a high-transaction, multi-brand product.","Migration of existing systems into a centralized services hub built with .NET Core."]},{"company-name":"Algeiba","from":"Jan-2021","to":"Jun-2021","position":"Full-Stack Developer","techs":".NET 5, Azure, SQL Server, Microservices, Angular","business-area":"Insurance","tasks-descriptions":["Development and modernization of management products.","Requirements analysis and task estimation in an agile environment."]},{"company-name":"Totvs","from":"Jul-2019","to":"Jan-2021","position":"Full-Stack Developer","techs":".NET Core 3.1, Angular 8-10, Docker, PostgreSQL, SQL Server","business-area":"Hospitality","tasks-descriptions":["Development of new functionalities for a multi-brand hospitality system.","Participation in architectural improvements and performance optimizations."]},{"company-name":"Totvs","from":"Jul-2019","to":"Jan-2021","position":"Backend Developer","techs":".NET Core 3.1, PostgreSQL","business-area":"Online Payments","tasks-descriptions":["Migration of a desktop-based payment integrator module to a Web API project.","Implementation of secure and scalable payment processing services."]},{"company-name":"Jacaranda IT","from":"Apr-2021","to":"Oct-2021","position":"Full-Stack Developer (Freelance)","techs":".NET Core 3.1, Vue 3, MySQL","business-area":"CRM","tasks-descriptions":["Development of new functionalities in a multi-brand CRM system.","Enhancement of existing modules to improve performance and usability."]},{"company-name":"Origin Software","from":"Jun-2018","to":"Jun-2019","position":"Backend Developer","techs":".NET Core 2.1+, Docker, Azure, SQL Server, Elasticsearch","business-area":"Tourism","tasks-descriptions":["Development and migration of a centralized services hub to a highly available microservices architecture.","Optimization of distributed services and search infrastructure."]},{"company-name":"Origin Software","from":"Jun-2018","to":"Jun-2019","position":"Full-Stack Developer","techs":".NET Core 3.1, Angular 8, Ionic 4, SQL Server","business-area":"E-Food","tasks-descriptions":["Development of new functionalities in a multi-brand food ordering platform.","Implementation of web and mobile features using Angular and Ionic."]},{"company-name":"Maer Software","from":"Nov-2017","to":"May-2018","position":"Backend Developer","techs":".NET Framework, SQL Server","business-area":"ERP","tasks-descriptions":["Maintenance and development of a proprietary multi-brand ERP system.","Bug fixing, performance tuning and incremental feature development."]}],"skills":[{"area":"Backend","area-image":"backend.png","chips":["Net Core | Microservices | SOLID | Design Patterns"],"description":"My main area of expertise is the .NET ecosystem, primarily focused on microservices and distributed architectures. I am deeply interested in software architecture and continuously invest time in learning best practices, patterns, and emerging technologies. I have strong experience with event-driven systems, messaging, performance optimization, and observability. Although C# is my core language, I have worked with Python and Node.js in specific contexts, reinforcing my problem-solving mindset beyond language boundaries. I have used libraries and tools such as EF Core, Dapper, MediatR, FluentValidation, Serilog, IdentityServer, JWT, Redis, Polly, Jaeger, Prometheus, RabbitMQ, gRPC, NBomber, BenchmarkDotNet, and many others across multiple projects."},{"area":"Versioning","area-image":"git.png","chips":["Git | SVN | TFS | Azure DevOps"],"description":"Strong experience with Git in professional environments, working with branching strategies and collaborative workflows. I have mainly used Azure DevOps repositories, but also worked with GitHub, GitLab, and Bitbucket. In legacy environments, I have experience using SVN and TFS."},{"area":"Testing","area-image":"icons8-ab-60.png","chips":["Unit Testing | Integration Testing | Load Testing | Performance Testing"],"description":"Backend-oriented testing experience including unit tests with required code coverage thresholds. I have performed integration testing using Postman collections and tools such as k6. Additionally, I conducted load and performance testing using k6, Locust, JMeter, NBomber, and external load-testing services targeting APIs and distributed systems."},{"area":"Infrastructure","area-image":"infraestructura (1).png","chips":["Docker | Kubernetes | Azure | CI/CD | Observability"],"description":"Experience containerizing applications with Docker and working with Kubernetes in production scenarios. Strong interest in observability, monitoring, and metrics, using tools such as Grafana, Prometheus, New Relic, Graylog, Kibana, Seq, Loki, Jaeger, and Ocelot. Familiar with Azure cloud services and Azure DevOps pipelines for CI/CD. For personal projects, I use GitHub Actions and Heroku. I also have limited exposure to AWS and am motivated to deepen cloud architecture expertise."},{"area":"Blockchain","area-image":"blockchain.png","chips":["Web3 | Solidity | Smart Contracts | Ethereum"],"description":"Currently expanding knowledge in Web3 and decentralized application development. Learning Solidity for smart contract creation using Truffle, Hardhat, Remix, and OpenZeppelin. Familiar with wallet integrations and DApp interaction. Used Nethereum to integrate .NET applications with the Ethereum blockchain."},{"area":"Frontend","area-image":"ux.png","chips":["Angular | TypeScript | JavaScript | Vue | Ionic | Bubble.io"],"description":"Worked with Angular in multiple professional projects, as well as Vue and Ionic in specific scenarios. While my core strength is backend development, I collaborate effectively on medium-complexity frontend tasks. Interested in gaining hands-on experience with React and participating in mobile-focused projects. Experienced with low-code platforms such as Bubble.io, Glide, and Buildbase for rapid development and integrations."},{"area":"Data","area-image":"database-storage.png","chips":["SQL Server | PostgreSQL | Redis | MongoDB | Elasticsearch | MySQL"],"description":"Strong SQL background working primarily with SQL Server and PostgreSQL, with additional experience in MySQL. Experience with NoSQL technologies including Elasticsearch, MongoDB, and Redis in distributed environments. Used Firebase for personal projects and explored CosmosDB and DynamoDB in training scenarios. Also experimented with Airtable, Prisma, and FaunaDB for lightweight or self-managed solutions."},{"area":"Agile","area-image":"scrum.png","chips":["Scrum | Kanban | Agile Methodologies"],"description":"Experience working in agile teams using Scrum, Kanban, or hybrid approaches depending on project needs. Strong belief in collaborative environments, iterative delivery, and continuous improvement processes."},{"area":"Communication","area-image":"http.png","chips":["REST | gRPC | SOAP | API Integration"],"description":"Extensive experience designing and integrating REST APIs. Worked with SOAP in legacy systems and implemented gRPC communication in microservices-oriented projects. Strong understanding of service contracts, interoperability, and distributed communication patterns."},{"area":"Languages","area-image":"signs.png","chips":["English B2 | Spanish Native | Portuguese Basic"],"description":"English: Upper-intermediate (B2) with strong reading and listening skills, conversational speaking and writing. Currently taking classes with multiple teachers and working in partially English-speaking environments. Spanish: Native. Portuguese: Basic conversational familiarity after working over a year in a Brazilian company."}]};
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
