@@ -60,12 +60,37 @@
 
     var photo = document.getElementById('personal-photo');
     photo.src = p['image-url'] || '';
-    photo.alt = name;
+    photo.alt = name + ', ' + position;
     photo.onerror = function () { this.style.display = 'none'; };
 
-    document.title = name + ' — ' + position;
+    var titleText = name + ' — ' + position;
+    document.title = titleText;
     var titleEl = document.getElementById('page-title');
-    if (titleEl) titleEl.textContent = name + ' — ' + position;
+    if (titleEl) titleEl.textContent = titleText;
+
+    var baseUrl = typeof window !== 'undefined' && window.location && window.location.origin ? window.location.origin + window.location.pathname.replace(/\/$/, '') || window.location.origin : '';
+    if (baseUrl) {
+      var canonical = document.getElementById('canonical-url');
+      if (canonical) canonical.href = baseUrl;
+      var ogUrl = document.getElementById('og-url');
+      if (ogUrl) ogUrl.content = baseUrl;
+    }
+    var desc = 'Senior .NET Software Engineer specializing in microservices and distributed systems. Full-stack developer, remote.';
+    var ogDesc = document.getElementById('og-description');
+    if (ogDesc) ogDesc.content = desc;
+    var twDesc = document.getElementById('twitter-description');
+    if (twDesc) twDesc.content = desc;
+    var ogTitle = document.getElementById('og-title');
+    if (ogTitle) ogTitle.content = titleText;
+    var twTitle = document.getElementById('twitter-title');
+    if (twTitle) twTitle.content = titleText;
+    var imgUrl = p['image-url'] || '';
+    if (imgUrl) {
+      var ogImg = document.getElementById('og-image');
+      if (ogImg) ogImg.content = imgUrl;
+      var twImg = document.getElementById('twitter-image');
+      if (twImg) twImg.content = imgUrl;
+    }
 
     var mail = p.mail || '';
     document.getElementById('link-email').href = 'mailto:' + mail;
@@ -77,9 +102,35 @@
     (data.tags || []).forEach(function (tag) {
       const div = document.createElement('div');
       div.className = 'tag-item';
+      div.setAttribute('role', 'listitem');
       div.innerHTML = '<span class="tag-item-header">' + getTagIcon(tag.title) + '<strong class="tag-item-title">' + escapeHtml(tag.title) + '</strong></span><span class="tag-item-desc">' + escapeHtml(tag.descripcion) + '</span>';
       tagsContainer.appendChild(div);
     });
+
+    injectJsonLd(data);
+  }
+
+  function injectJsonLd(data) {
+    var p = data && data['personal-info'];
+    if (!p) return;
+    var existing = document.getElementById('json-ld-person');
+    if (existing) existing.remove();
+    var sameAs = [p['linkedin-url'], p['github-url']].filter(Boolean);
+    var script = document.createElement('script');
+    script.id = 'json-ld-person';
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: p['full-name'] || '',
+      jobTitle: p['main-position'] || '',
+      url: typeof window !== 'undefined' && window.location ? (window.location.origin + (window.location.pathname || '')) : '',
+      email: p.mail || undefined,
+      image: p['image-url'] || undefined,
+      sameAs: sameAs.length ? sameAs : undefined,
+      address: p.location ? { '@type': 'Place', name: p.location } : undefined
+    });
+    document.head.appendChild(script);
   }
 
   function getCountryCode(companyName) {
@@ -107,7 +158,7 @@
         '<div class="exp-card glass-card">' +
           '<div class="exp-header">' +
             '<div class="exp-company-wrap">' +
-              '<img class="exp-flag" src="https://flagcdn.com/w40/' + country + '.png" alt="" width="28" height="20">' +
+              '<img class="exp-flag" src="https://flagcdn.com/w40/' + country + '.png" alt="" width="28" height="20" loading="lazy">' +
               '<span class="exp-company">' + escapeHtml(exp['company-name']) + '</span>' +
             '</div>' +
             '<span class="exp-dates">' + escapeHtml(exp.from) + ' — ' + escapeHtml(exp.to) + '</span>' +
@@ -121,7 +172,9 @@
       const dot = document.createElement('button');
       dot.type = 'button';
       dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', 'Experience ' + (i + 1));
+      dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
       dot.dataset.index = String(i);
       dotsContainer.appendChild(dot);
     });
@@ -134,6 +187,7 @@
       track.style.transform = 'translateX(-' + current * 100 + '%)';
       dotsContainer.querySelectorAll('.carousel-dot').forEach(function (d, i) {
         d.classList.toggle('active', i === current);
+        d.setAttribute('aria-selected', i === current ? 'true' : 'false');
       });
       document.querySelector('.carousel-prev').disabled = total <= 1;
       document.querySelector('.carousel-next').disabled = total <= 1;
@@ -225,17 +279,45 @@
     });
   }
 
+  function renderAtsContent(data) {
+    var el = document.getElementById('ats-content');
+    if (!el) return;
+    var experiences = sortExperiencesByDate(data['work-experiences'] || []);
+    var skills = (data.skills || []).slice().sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+    var html = '<h2>Experience</h2>';
+    experiences.forEach(function (exp) {
+      html += '<article><h3>' + escapeHtml(exp['company-name']) + '</h3>';
+      html += '<p><strong>' + escapeHtml(exp.position) + '</strong> — ' + escapeHtml(exp.from) + ' to ' + escapeHtml(exp.to) + '. ' + escapeHtml(exp['business-area']) + '.</p>';
+      html += '<ul>';
+      (exp['tasks-descriptions'] || []).forEach(function (t) { html += '<li>' + escapeHtml(t) + '</li>'; });
+      html += '</ul>';
+      html += '<p>Technologies: ' + escapeHtml((exp.techs || '').replace(/,/g, ', ')) + '</p></article>';
+    });
+    html += '<h2>Skills</h2><ul>';
+    skills.forEach(function (s) {
+      var chips = (Array.isArray(s.chips) ? s.chips.join(' ') : s.chips || '').split(/\s*\|\s*/).map(function (c) { return c.trim(); }).filter(Boolean);
+      html += '<li><strong>' + escapeHtml(s.area) + '</strong>: ' + escapeHtml(chips.join(', ')) + '</li>';
+    });
+    html += '</ul>';
+    el.innerHTML = html;
+  }
+
   function init(data) {
     renderPersonal(data);
     renderExperience(data['work-experiences'] || []);
     renderSkills(data.skills || []);
+    renderAtsContent(data);
     setupNavbar();
     setupReveal();
     setupMobileMenu();
   }
 
-  fetch('cv-data.json')
-    .then(function (r) { return r.json(); })
+  var dataUrl = 'cv-data.json';
+  if (typeof window !== 'undefined' && window.location && window.location.protocol !== 'file:') {
+    dataUrl += '?v=' + (typeof __CV_BUILD_TIME__ !== 'undefined' ? __CV_BUILD_TIME__ : Date.now());
+  }
+  fetch(dataUrl, { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(init)
     .catch(function () {
       if (window.CV_DATA) init(window.CV_DATA);

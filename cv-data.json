@@ -14,10 +14,12 @@
     "tags": [
         {
             "title": "Goal",
+            "icon": "goal.png",
             "descripcion": "Grow as a technical referent focusing on architecture & innovation"
         },
         {
             "title": "Looking For",
+            "icon": "looking-for.png",
             "descripcion": "Cross-functional multidisciplinary teams, agile oriented with continuous learning & mentoring culture"
         }
     ],
@@ -26,11 +28,11 @@
             "company-name": "Paramo Technologies",
             "from": "Dec-2021",
             "to": "Jan-2026",
-            "position": "Full-Stack Developer",
+            "position": "Senior .NET Software Engineer",
             "techs": ".NET 6/8, Microservices, Docker, SQL Server,PostgreSQL, RabbitMQ, Redis, ArgoCD, Kubernetes",
             "business-area": "Sports Betting",
             "tasks-descriptions": [
-                "Development of new features for an in-house sportsbook platform.",
+                "Development of new features for an high-volume sportsbook betting platform .",
                 "Migration, refactoring and maintenance of legacy systems towards a microservices architecture."
             ]
         },
@@ -39,11 +41,11 @@
             "from": "Jul-2021",
             "to": "Dec-2021",
             "position": "Full-Stack Developer",
-            "techs": ".NET Core 3.1, Azure, Docker, SQL Server, Microservices, Bubble.io",
-            "business-area": "Attendance Control",
+            "techs": ".NET Core, Azure, Docker, SQL Server, Microservices, Bubble.io",
+            "business-area": "SaaS attendance control",
             "tasks-descriptions": [
                 "Development of new functionalities for a high-transaction, multi-brand product.",
-                "Migration of existing systems into a centralized services hub built with .NET Core."
+                "Migration of existing legacy systems into a distributed services architecture."
             ]
         },
         {
@@ -54,7 +56,7 @@
             "techs": ".NET 5, Azure, SQL Server, Microservices, Angular",
             "business-area": "Insurance",
             "tasks-descriptions": [
-                "Development and modernization of management products.",
+                "Development and modernization of management products oriented of the adoption of microservices architecture to decuple complex legacy business scenarios.",
                 "Requirements analysis and task estimation in an agile environment."
             ]
         },
@@ -64,22 +66,11 @@
             "to": "Jan-2021",
             "position": "Full-Stack Developer",
             "techs": ".NET Core 3.1, Angular 8-10, Docker, PostgreSQL, SQL Server",
-            "business-area": "Hospitality",
+            "business-area": "Hospitality & Online Payments",
             "tasks-descriptions": [
                 "Development of new functionalities for a multi-brand hospitality system.",
-                "Participation in architectural improvements and performance optimizations."
-            ]
-        },
-        {
-            "company-name": "Totvs",
-            "from": "Jul-2019",
-            "to": "Jan-2021",
-            "position": "Backend Developer",
-            "techs": ".NET Core 3.1, PostgreSQL",
-            "business-area": "Online Payments",
-            "tasks-descriptions": [
-                "Migration of a desktop-based payment integrator module to a Web API project.",
-                "Implementation of secure and scalable payment processing services."
+                "Participation in architectural improvements and performance optimizations.",
+                "Migration of a desktop-based payment integrator module to a Web API project."
             ]
         },
         {
@@ -99,22 +90,11 @@
             "from": "Jun-2018",
             "to": "Jun-2019",
             "position": "Backend Developer",
-            "techs": ".NET Core 2.1+, Docker, Azure, SQL Server, Elasticsearch",
-            "business-area": "Tourism",
+            "techs": ".NET Core 2.1+,Elasticsearch, Docker, Azure, Angular 8, Ionic 4, SQL Server, ",
+            "business-area": "Tourism & E-Food",
             "tasks-descriptions": [
-                "Development and migration of a centralized services hub to a highly available microservices architecture.",
-                "Optimization of distributed services and search infrastructure."
-            ]
-        },
-        {
-            "company-name": "Origin Software",
-            "from": "Jun-2018",
-            "to": "Jun-2019",
-            "position": "Full-Stack Developer",
-            "techs": ".NET Core 3.1, Angular 8, Ionic 4, SQL Server",
-            "business-area": "E-Food",
-            "tasks-descriptions": [
-                "Development of new functionalities in a multi-brand food ordering platform.",
+                "Development of new functionalities in a travel platform.",
+                "Optimization of distributed services and search infrastructure.",
                 "Implementation of web and mobile features using Angular and Ionic."
             ]
         },
@@ -122,11 +102,11 @@
             "company-name": "Maer Software",
             "from": "Nov-2017",
             "to": "May-2018",
-            "position": "Backend Developer",
+            "position": "Jr Backend Developer",
             "techs": ".NET Framework, SQL Server",
             "business-area": "ERP",
             "tasks-descriptions": [
-                "Maintenance and development of a proprietary multi-brand ERP system.",
+                "Maintenance and development of a on premise multi-brand ERP system.",
                 "Bug fixing, performance tuning and incremental feature development."
             ]
         }
@@ -143,24 +123,6 @@
         },
         {
             "order": 2,
-            "area": "Versioning",
-            "area-image": "git.png",
-            "chips": [
-                "Git | SVN | TFS | Azure DevOps"
-            ],
-            "description": "Strong experience with Git in professional environments, working with branching strategies and collaborative workflows. I have mainly used Azure DevOps repositories, but also worked with GitHub, GitLab, and Bitbucket. In legacy environments, I have experience using SVN and TFS."
-        },
-        {
-            "order": 3,
-            "area": "Testing",
-            "area-image": "icons8-ab-60.png",
-            "chips": [
-                "Unit Testing | Integration Testing | Load Testing | Performance Testing"
-            ],
-            "description": "Backend-oriented testing experience including unit tests with required code coverage thresholds. I have performed integration testing using Postman collections and tools such as k6. Additionally, I conducted load and performance testing using k6, Locust, JMeter, NBomber, and external load-testing services targeting APIs and distributed systems."
-        },
-        {
-            "order": 4,
             "area": "Infrastructure",
             "area-image": "infraestructura (1).png",
             "chips": [
@@ -169,16 +131,7 @@
             "description": "Experience containerizing applications with Docker and working with Kubernetes in production scenarios. Strong interest in observability, monitoring, and metrics, using tools such as Grafana, Prometheus, New Relic, Graylog, Kibana, Seq, Loki, Jaeger, and Ocelot. Familiar with Azure cloud services and Azure DevOps pipelines for CI/CD. For personal projects, I use GitHub Actions and Heroku. I also have limited exposure to AWS and am motivated to deepen cloud architecture expertise."
         },
         {
-            "order": 5,
-            "area": "Blockchain",
-            "area-image": "blockchain.png",
-            "chips": [
-                "Web3 | Solidity | Smart Contracts | Ethereum"
-            ],
-            "description": "Currently expanding knowledge in Web3 and decentralized application development. Learning Solidity for smart contract creation using Truffle, Hardhat, Remix, and OpenZeppelin. Familiar with wallet integrations and DApp interaction. Used Nethereum to integrate .NET applications with the Ethereum blockchain."
-        },
-        {
-            "order": 6,
+            "order": 3,
             "area": "Frontend",
             "area-image": "ux.png",
             "chips": [
@@ -187,13 +140,40 @@
             "description": "Worked with Angular in multiple professional projects, as well as Vue and Ionic in specific scenarios. While my core strength is backend development, I collaborate effectively on medium-complexity frontend tasks. Interested in gaining hands-on experience with React and participating in mobile-focused projects. Experienced with low-code platforms such as Bubble.io, Glide, and Buildbase for rapid development and integrations."
         },
         {
-            "order": 7,
+            "order": 4,
             "area": "Data",
             "area-image": "database-storage.png",
             "chips": [
                 "SQL Server | PostgreSQL | Redis | MongoDB | Elasticsearch | MySQL"
             ],
             "description": "Strong SQL background working primarily with SQL Server and PostgreSQL, with additional experience in MySQL. Experience with NoSQL technologies including Elasticsearch, MongoDB, and Redis in distributed environments. Used Firebase for personal projects and explored CosmosDB and DynamoDB in training scenarios. Also experimented with Airtable, Prisma, and FaunaDB for lightweight or self-managed solutions."
+        },
+        {
+            "order": 5,
+            "area": "Testing",
+            "area-image": "icons8-ab-60.png",
+            "chips": [
+                "Unit Testing | Integration Testing | Load Testing | Performance Testing"
+            ],
+            "description": "Backend-oriented testing experience including unit tests with required code coverage thresholds. I have performed integration testing using Postman collections and tools such as k6. Additionally, I conducted load and performance testing using k6, Locust, JMeter, NBomber, and external load-testing services targeting APIs and distributed systems."
+        },
+        {
+            "order": 6,
+            "area": "Versioning",
+            "area-image": "git.png",
+            "chips": [
+                "Git | SVN | TFS | Azure DevOps"
+            ],
+            "description": "Strong experience with Git in professional environments, working with branching strategies and collaborative workflows. I have mainly used Azure DevOps repositories, but also worked with GitHub, GitLab, and Bitbucket. In legacy environments, I have experience using SVN and TFS."
+        },
+        {
+            "order": 7,
+            "area": "Blockchain",
+            "area-image": "blockchain.png",
+            "chips": [
+                "Web3 | Solidity | Smart Contracts | Ethereum"
+            ],
+            "description": "Currently expanding knowledge in Web3 and decentralized application development. Learning Solidity for smart contract creation using Truffle, Hardhat, Remix, and OpenZeppelin. Familiar with wallet integrations and DApp interaction. Used Nethereum to integrate .NET applications with the Ethereum blockchain."
         },
         {
             "order": 8,

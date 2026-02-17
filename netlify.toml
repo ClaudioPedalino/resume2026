@@ -1,0 +1,3 @@
+# Static resume site — no build step
+[build]
+  publish = "."
