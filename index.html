@@ -23,16 +23,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
   <header>
   <nav class="navbar" id="navbar" aria-label="Main navigation">
     <div class="navbar-inner">
       <ul class="nav-links">
-        <li><a href="#personal"><span class="nav-icon"><i class="bi bi-person" aria-hidden="true"></i></span><span>About</span></a></li>
-        <li><a href="#experience"><span class="nav-icon"><i class="bi bi-briefcase" aria-hidden="true"></i></span><span>Experience</span></a></li>
-        <li><a href="#skills"><span class="nav-icon"><i class="bi bi-stars" aria-hidden="true"></i></span><span>Skills</span></a></li>
+        <li><a href="#personal"><span class="nav-icon icon-person" aria-hidden="true"></span><span>About</span></a></li>
+        <li><a href="#experience"><span class="nav-icon icon-briefcase" aria-hidden="true"></span><span>Experience</span></a></li>
+        <li><a href="#skills"><span class="nav-icon icon-stars" aria-hidden="true"></span><span>Skills</span></a></li>
       </ul>
     </div>
   </nav>
@@ -50,17 +49,17 @@
               <h1 id="personal-name" class="personal-row personal-name" tabindex="-1"></h1>
               <p id="personal-position" class="personal-row personal-position"></p>
               <div class="personal-row personal-meta">
-                <span class="meta-item meta-age"><span class="meta-icon"><i class="bi bi-calendar3 meta-bi-icon" aria-hidden="true"></i></span><span id="personal-age"></span></span>
-                <span class="meta-item meta-location"><span class="meta-icon"><i class="bi bi-geo-alt meta-bi-icon" aria-hidden="true"></i></span><span id="personal-location"></span></span>
-                <span class="meta-item meta-remote"><span class="meta-icon"><i class="bi bi-laptop meta-bi-icon" aria-hidden="true"></i></span><span id="personal-remote"></span></span>
-                <span class="meta-item meta-lang"><span class="meta-icon"><i class="bi bi-globe2 meta-bi-icon" aria-hidden="true"></i></span><span id="personal-lang">B2/C1</span></span>
+                <span class="meta-item meta-age"><span class="meta-icon icon-calendar" aria-hidden="true"></span><span id="personal-age"></span></span>
+                <span class="meta-item meta-location"><span class="meta-icon icon-location" aria-hidden="true"></span><span id="personal-location"></span></span>
+                <span class="meta-item meta-remote"><span class="meta-icon icon-laptop" aria-hidden="true"></span><span id="personal-remote"></span></span>
+                <span class="meta-item meta-lang"><span class="meta-icon icon-globe" aria-hidden="true"></span><span id="personal-lang">B2/C1</span></span>
               </div>
               <div class="personal-row personal-links">
-                <a id="link-linkedin" href="" class="btn btn-icon" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                <a id="link-github" href="" class="btn btn-icon" target="_blank" rel="noopener" aria-label="GitHub"><i class="bi bi-github"></i></a>
-                <a id="link-pdf" href="#" class="btn btn-icon" aria-label="Download PDF (light version)"><i class="bi bi-file-earmark-pdf"></i></a>
+                <a id="link-linkedin" href="" class="btn btn-icon" target="_blank" rel="noopener" aria-label="LinkedIn"><span class="btn-icon-img icon-linkedin" aria-hidden="true"></span></a>
+                <a id="link-github" href="" class="btn btn-icon" target="_blank" rel="noopener" aria-label="GitHub"><span class="btn-icon-img icon-github" aria-hidden="true"></span></a>
+                <a id="link-pdf" href="#" class="btn btn-icon" aria-label="Download PDF (light version)"><span class="btn-icon-img icon-file-pdf" aria-hidden="true"></span></a>
                 <a id="link-email" href="" class="btn btn-email" target="_blank" rel="noopener" aria-label="Send email">
-                  <i class="bi bi-envelope"></i>
+                  <span class="btn-icon-img icon-envelope" aria-hidden="true"></span>
                   <span id="email-text"></span>
                 </a>
               </div>
@@ -79,9 +78,9 @@
             <div class="carousel-track" id="carousel-track"></div>
           </div>
           <div class="carousel-nav">
-            <button class="carousel-btn carousel-prev" type="button" aria-label="Previous experience"><i class="bi bi-chevron-left"></i></button>
+            <button class="carousel-btn carousel-prev" type="button" aria-label="Previous experience"><span class="carousel-icon icon-chevron-left" aria-hidden="true"></span></button>
             <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Experience slides"></div>
-            <button class="carousel-btn carousel-next" type="button" aria-label="Next experience"><i class="bi bi-chevron-right"></i></button>
+            <button class="carousel-btn carousel-next" type="button" aria-label="Next experience"><span class="carousel-icon icon-chevron-right" aria-hidden="true"></span></button>
           </div>
         </div>
       </div>

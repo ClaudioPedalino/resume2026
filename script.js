@@ -12,24 +12,6 @@
     return [...experiences].sort((a, b) => parseDate(b.to) - parseDate(a.to));
   }
 
-  var skillBiIcons = {
-    Backend: 'bi-cpu',
-    Versioning: 'bi-git',
-    'Infrastructure & Versioning': 'bi-git',
-    Testing: 'bi-clipboard-check',
-    Infrastructure: 'bi-hdd-rack',
-    Blockchain: 'bi-currency-bitcoin',
-    Frontend: 'bi-window',
-    Data: 'bi-database',
-    Agile: 'bi-kanban',
-    Communication: 'bi-chat-dots',
-    'AI & Developer Productivity': 'bi-robot',
-    Languages: 'bi-globe2'
-  };
-  function getSkillIconClass(area) {
-    return skillBiIcons[area] || 'bi-cpu';
-  }
-
   function getAge(birthDateStr) {
     if (!birthDateStr) return '';
     var d = new Date(birthDateStr);
@@ -43,9 +25,9 @@
 
   function getTagIcon(title) {
     var t = (title || '').toLowerCase();
-    if (t.indexOf('goal') !== -1) return '<svg class="tag-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>';
-    if (t.indexOf('looking') !== -1) return '<svg class="tag-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>';
-    return '<svg class="tag-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+    if (t.indexOf('goal') !== -1) return '<span class="tag-icon tag-icon-img icon-goal" aria-hidden="true"></span>';
+    if (t.indexOf('looking') !== -1) return '<span class="tag-icon tag-icon-img icon-search" aria-hidden="true"></span>';
+    return '<span class="tag-icon tag-icon-img icon-location" aria-hidden="true"></span>';
   }
 
   function renderPersonal(data) {
@@ -246,15 +228,14 @@
       const card = document.createElement('div');
       card.className = 'skill-card';
       card.dataset.area = skill.area || '';
-      var iconClass = getSkillIconClass(skill.area);
       card.innerHTML =
         '<div class="skill-toggle" role="button" tabindex="0" aria-expanded="false">' +
           '<div class="skill-header">' +
             '<div class="skill-title-wrap">' +
-              '<span class="skill-icon"><i class="bi ' + iconClass + ' skill-bi-icon" aria-hidden="true"></i></span>' +
+              '<span class="skill-icon"><span class="skill-icon-img" aria-hidden="true"></span></span>' +
               '<span class="skill-title">' + escapeHtml(skill.area) + '</span>' +
             '</div>' +
-            '<svg class="skill-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>' +
+            '<span class="skill-chevron" aria-hidden="true"></span>' +
           '</div>' +
           '<div class="skill-chips">' + chips.map(function (c) { return '<span class="skill-chip">' + escapeHtml(c) + '</span>'; }).join('') + '</div>' +
         '</div>' +

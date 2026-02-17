@@ -104,9 +104,25 @@ main {
   margin-right: 0.35rem;
 }
 
-.meta-icon .meta-bi-icon {
-  font-size: 1rem;
+.meta-icon.icon-calendar,
+.meta-icon.icon-location,
+.meta-icon.icon-laptop,
+.meta-icon.icon-globe {
+  width: 1rem;
+  height: 1rem;
+  background-color: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
+
+.meta-icon.icon-calendar { -webkit-mask-image: url('icons/calendar.svg'); mask-image: url('icons/calendar.svg'); }
+.meta-icon.icon-location { -webkit-mask-image: url('icons/location.svg'); mask-image: url('icons/location.svg'); }
+.meta-icon.icon-laptop { -webkit-mask-image: url('icons/laptop.svg'); mask-image: url('icons/laptop.svg'); }
+.meta-icon.icon-globe { -webkit-mask-image: url('icons/globe.svg'); mask-image: url('icons/globe.svg'); }
 
 .container {
   width: 100%;
@@ -164,15 +180,24 @@ main {
   pointer-events: auto;
 }
 
+/* Flat icon set (icons/*.svg) — mask-based so color inherits */
 .nav-icon {
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
+  width: 1.125rem;
+  height: 1.125rem;
+  background-color: currentColor;
   color: var(--primary);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
 
-.nav-icon .bi {
-  font-size: 1.125rem;
-}
+.nav-icon.icon-person { -webkit-mask-image: url('icons/person.svg'); mask-image: url('icons/person.svg'); }
+.nav-icon.icon-briefcase { -webkit-mask-image: url('icons/briefcase.svg'); mask-image: url('icons/briefcase.svg'); }
+.nav-icon.icon-stars { -webkit-mask-image: url('icons/stars.svg'); mask-image: url('icons/stars.svg'); }
 
 .nav-links a:hover .nav-icon {
   color: var(--primary);
@@ -375,9 +400,23 @@ main {
   background: rgba(var(--primary-rgb), 0.08);
 }
 
-.btn-icon .bi {
-  font-size: 1.25rem;
+.btn-icon-img {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
+
+.btn-icon .icon-linkedin { -webkit-mask-image: url('icons/linkedin.svg'); mask-image: url('icons/linkedin.svg'); }
+.btn-icon .icon-github { -webkit-mask-image: url('icons/github.svg'); mask-image: url('icons/github.svg'); }
+.btn-icon .icon-file-pdf { -webkit-mask-image: url('icons/file-pdf.svg'); mask-image: url('icons/file-pdf.svg'); }
+.btn-email .icon-envelope { width: 1.125rem; height: 1.125rem; -webkit-mask-image: url('icons/envelope.svg'); mask-image: url('icons/envelope.svg'); }
 
 .btn-email {
   display: inline-flex;
@@ -404,10 +443,6 @@ main {
   outline-offset: 2px;
 }
 
-.btn-email .bi {
-  font-size: 1.125rem;
-}
-
 .personal-tags {
   display: grid;
   grid-template-columns: 1fr;
@@ -432,6 +467,23 @@ main {
   flex-shrink: 0;
   color: var(--primary);
 }
+
+.tag-icon-img {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.tag-icon-img.icon-goal { -webkit-mask-image: url('icons/goal.svg'); mask-image: url('icons/goal.svg'); }
+.tag-icon-img.icon-search { -webkit-mask-image: url('icons/search.svg'); mask-image: url('icons/search.svg'); }
+.tag-icon-img.icon-location { -webkit-mask-image: url('icons/location.svg'); mask-image: url('icons/location.svg'); }
 
 .tag-item-title {
   font-family: var(--font-primary);
@@ -647,9 +699,21 @@ main {
   cursor: not-allowed;
 }
 
-.carousel-btn .bi {
-  font-size: 1.25rem;
+.carousel-icon {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
+
+.carousel-icon.icon-chevron-left { -webkit-mask-image: url('icons/chevron-left.svg'); mask-image: url('icons/chevron-left.svg'); }
+.carousel-icon.icon-chevron-right { -webkit-mask-image: url('icons/chevron-right.svg'); mask-image: url('icons/chevron-right.svg'); }
 
 .carousel-dots {
   display: flex;
@@ -763,21 +827,29 @@ main {
   color: var(--primary);
 }
 
-.skill-bi-icon {
-  font-size: 1.35rem;
+.skill-icon-img {
+  width: 1.35rem;
+  height: 1.35rem;
+  background-color: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
 
-.skill-card[data-area="Backend"] .skill-bi-icon { color: var(--primary); }
-.skill-card[data-area="Infrastructure"] .skill-bi-icon { color: var(--primary-blue); }
-.skill-card[data-area="Infrastructure & Versioning"] .skill-bi-icon { color: var(--primary-orange); }
-.skill-card[data-area="Data"] .skill-bi-icon { color: var(--primary); }
-.skill-card[data-area="Testing"] .skill-bi-icon { color: var(--primary-green); }
-.skill-card[data-area="Communication"] .skill-bi-icon { color: var(--primary-blue); }
-.skill-card[data-area="Agile"] .skill-bi-icon { color: var(--primary-yellow); }
-.skill-card[data-area="Frontend"] .skill-bi-icon { color: var(--primary-purple); }
-.skill-card[data-area="AI & Developer Productivity"] .skill-bi-icon { color: var(--primary-purple); }
-.skill-card[data-area="Blockchain"] .skill-bi-icon { color: var(--primary-yellow); }
-.skill-card[data-area="Versioning"] .skill-bi-icon { color: var(--primary-orange); }
+.skill-card[data-area="Backend"] .skill-icon-img { -webkit-mask-image: url('icons/backend.svg'); mask-image: url('icons/backend.svg'); color: var(--primary); }
+.skill-card[data-area="Infrastructure"] .skill-icon-img { -webkit-mask-image: url('icons/server.svg'); mask-image: url('icons/server.svg'); color: var(--primary-blue); }
+.skill-card[data-area="Infrastructure & Versioning"] .skill-icon-img { -webkit-mask-image: url('icons/git.svg'); mask-image: url('icons/git.svg'); color: var(--primary-orange); }
+.skill-card[data-area="Data"] .skill-icon-img { -webkit-mask-image: url('icons/database.svg'); mask-image: url('icons/database.svg'); color: var(--primary); }
+.skill-card[data-area="Testing"] .skill-icon-img { -webkit-mask-image: url('icons/clipboard-check.svg'); mask-image: url('icons/clipboard-check.svg'); color: var(--primary-green); }
+.skill-card[data-area="Communication"] .skill-icon-img { -webkit-mask-image: url('icons/chat.svg'); mask-image: url('icons/chat.svg'); color: var(--primary-blue); }
+.skill-card[data-area="Agile"] .skill-icon-img { -webkit-mask-image: url('icons/kanban.svg'); mask-image: url('icons/kanban.svg'); color: var(--primary-yellow); }
+.skill-card[data-area="Frontend"] .skill-icon-img { -webkit-mask-image: url('icons/browser.svg'); mask-image: url('icons/browser.svg'); color: var(--primary-purple); }
+.skill-card[data-area="AI & Developer Productivity"] .skill-icon-img { -webkit-mask-image: url('icons/robot.svg'); mask-image: url('icons/robot.svg'); color: var(--primary-purple); }
+.skill-card[data-area="Blockchain"] .skill-icon-img { -webkit-mask-image: url('icons/blockchain.svg'); mask-image: url('icons/blockchain.svg'); color: var(--primary-yellow); }
+.skill-card[data-area="Versioning"] .skill-icon-img { -webkit-mask-image: url('icons/git.svg'); mask-image: url('icons/git.svg'); color: var(--primary-orange); }
 
 .skill-title {
   font-family: var(--font-primary);
@@ -788,7 +860,18 @@ main {
 
 .skill-chevron {
   flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: currentColor;
   color: var(--text-tertiary);
+  -webkit-mask-image: url('icons/chevron-down.svg');
+  mask-image: url('icons/chevron-down.svg');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
   transition: transform 0.35s ease;
 }
 
@@ -839,14 +922,14 @@ main {
   --footer-background: var(--footer-bg);
   grid-area: footer;
   position: relative;
-  min-height: 12rem;
+  min-height: 7rem;
   z-index: 1;
 }
 
 .footer-content {
   position: relative;
   z-index: 2;
-  padding: 2rem 1.5rem;
+  padding: 1rem 1rem;
   background: var(--footer-background);
   text-align: center;
   color: var(--text-tertiary);
@@ -966,8 +1049,9 @@ main {
     gap: 0.25rem;
   }
 
-  .nav-icon .bi {
-    font-size: 1.25rem;
+  .nav-icon {
+    width: 1.25rem;
+    height: 1.25rem;
   }
 
   main,
