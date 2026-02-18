@@ -37,7 +37,7 @@
 
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
-    try { localStorage.setItem('theme', theme); } catch (_) {}
+    try { localStorage.setItem('theme', theme); } catch (_) { }
   }
 
   function updateThemeToggleUi() {
@@ -127,7 +127,7 @@
       var ogUrl = document.getElementById('og-url');
       if (ogUrl) ogUrl.content = baseUrl;
     }
-    var desc = 'Senior .NET Software Engineer specializing in microservices and distributed systems. Full-stack developer, remote.';
+    var desc = 'Senior .NET Software Engineer specializing in microservices, distributed systems, and cloud. 8+ years full-stack experience. Remote. C#, .NET, Docker, Kubernetes, Azure.';
     var ogDesc = document.getElementById('og-description');
     if (ogDesc) ogDesc.content = desc;
     var twDesc = document.getElementById('twitter-description');
@@ -155,7 +155,7 @@
       const div = document.createElement('div');
       div.className = 'tag-item';
       div.setAttribute('role', 'listitem');
-      div.innerHTML = '<span class="tag-item-header">' + getTagIcon(tag.title) + '<strong class="tag-item-title">' + escapeHtml(tag.title) + '</strong></span><span class="tag-item-desc">' + escapeHtml(tag.descripcion) + '</span>';
+      div.innerHTML = '<span class="tag-item-header">' + getTagIcon(tag.title) + '<strong class="tag-item-title">' + escapeHtml(tag.title) + '</strong></span><span class="tag-item-desc">' + escapeHtml(tag.description) + '</span>';
       tagsContainer.appendChild(div);
     });
 
@@ -478,16 +478,16 @@
       slide.className = 'carousel-slide';
       slide.innerHTML =
         '<div class="exp-card glass-card">' +
-          '<div class="exp-header">' +
-            '<div class="exp-company-wrap">' +
-              '<img class="exp-flag" src="https://flagcdn.com/w40/' + country + '.png" alt="" width="28" height="20" loading="lazy">' +
-              '<span class="exp-company">' + escapeHtml(exp['company-name']) + '</span>' +
-            '</div>' +
-            '<span class="exp-dates">' + escapeHtml(exp.from) + ' — ' + escapeHtml(exp.to) + '</span>' +
-          '</div>' +
-          '<p class="exp-role-line">' + roleLine + '</p>' +
-          '<div class="exp-techs">' + techList.map(function (t) { return '<span class="exp-tech">' + escapeHtml(t) + '</span>'; }).join('') + '</div>' +
-          '<ul class="exp-tasks">' + (exp['tasks-descriptions'] || []).map(function (task) { return '<li>' + escapeHtml(task) + '</li>'; }).join('') + '</ul>' +
+        '<div class="exp-header">' +
+        '<div class="exp-company-wrap">' +
+        '<img class="exp-flag" src="https://flagcdn.com/w40/' + country + '.png" alt="" width="28" height="20" loading="lazy">' +
+        '<span class="exp-company">' + escapeHtml(exp['company-name']) + '</span>' +
+        '</div>' +
+        '<span class="exp-dates">' + escapeHtml(exp.from) + ' — ' + escapeHtml(exp.to) + '</span>' +
+        '</div>' +
+        '<p class="exp-role-line">' + roleLine + '</p>' +
+        '<div class="exp-techs">' + techList.map(function (t) { return '<span class="exp-tech">' + escapeHtml(t) + '</span>'; }).join('') + '</div>' +
+        '<ul class="exp-tasks">' + (exp['tasks-descriptions'] || []).map(function (task) { return '<li>' + escapeHtml(task) + '</li>'; }).join('') + '</ul>' +
         '</div>';
       track.appendChild(slide);
 
@@ -565,17 +565,17 @@
       var iconClass = getSkillIconClass(skill.area);
       card.innerHTML =
         '<div class="skill-toggle" role="button" tabindex="0" aria-expanded="false">' +
-          '<div class="skill-header">' +
-            '<div class="skill-title-wrap">' +
-              '<span class="skill-icon"><i class="bi ' + iconClass + ' skill-bi-icon" aria-hidden="true"></i></span>' +
-              '<span class="skill-title">' + escapeHtml(skill.area) + '</span>' +
-            '</div>' +
-            '<i class="bi bi-chevron-down skill-chevron" aria-hidden="true"></i>' +
-          '</div>' +
-          '<div class="skill-chips">' + chips.map(function (c) { return '<span class="skill-chip">' + escapeHtml(c) + '</span>'; }).join('') + '</div>' +
+        '<div class="skill-header">' +
+        '<div class="skill-title-wrap">' +
+        '<span class="skill-icon"><i class="bi ' + iconClass + ' skill-bi-icon" aria-hidden="true"></i></span>' +
+        '<span class="skill-title">' + escapeHtml(skill.area) + '</span>' +
+        '</div>' +
+        '<i class="bi bi-chevron-down skill-chevron" aria-hidden="true"></i>' +
+        '</div>' +
+        '<div class="skill-chips">' + chips.map(function (c) { return '<span class="skill-chip">' + escapeHtml(c) + '</span>'; }).join('') + '</div>' +
         '</div>' +
         '<div class="skill-detail">' +
-          '<div class="skill-description">' + renderSkillDescription(skill.description) + '</div>' +
+        '<div class="skill-description">' + renderSkillDescription(skill.description) + '</div>' +
         '</div>';
       grid.appendChild(card);
 

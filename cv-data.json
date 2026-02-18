@@ -13,11 +13,11 @@
     "tags": [
         {
             "title": "Goal",
-            "descripcion": "Grow as a technical referent focusing on architecture & innovation"
+            "description": "Grow as a technical referent focusing on architecture & innovation"
         },
         {
             "title": "Looking For",
-            "descripcion": "Cross-functional multidisciplinary teams, agile oriented with continuous learning & mentoring culture"
+            "description": "Cross-functional multidisciplinary teams, agile oriented with continuous learning & mentoring culture"
         }
     ],
     "work-experiences": [
@@ -29,7 +29,7 @@
             "techs": ".NET 6/8, Microservices, Docker, SQL Server, PostgreSQL, RabbitMQ, Pulsar, Redis, ArgoCD, Kubernetes",
             "business-area": "Sports Betting",
             "tasks-descriptions": [
-                "Development of new features for an high-volume sportsbook betting platform .",
+                "Development of new features for an high-volume sportsbook betting platform.",
                 "Migration, refactoring and maintenance of legacy systems towards a microservices architecture."
             ]
         },
@@ -87,7 +87,7 @@
             "from": "Jun-2018",
             "to": "Jun-2019",
             "position": "Backend Developer",
-            "techs": ".NET Core 2.1+,Elasticsearch, Docker, Azure, Angular 8, Ionic 4, SQL Server, ",
+            "techs": ".NET Core 2.1+, Elasticsearch, Docker, Azure, Angular 8, Ionic 4, SQL Server",
             "business-area": "Tourism & E-Food",
             "tasks-descriptions": [
                 "Development of new functionalities in a travel platform.",
@@ -103,7 +103,7 @@
             "techs": ".NET Framework, SQL Server",
             "business-area": "ERP",
             "tasks-descriptions": [
-                "Maintenance and development of a on premise multi-brand ERP system.",
+                "Maintenance and development of an on-premise multi-brand ERP system.",
                 "Bug fixing, performance tuning and incremental feature development."
             ]
         }
@@ -129,7 +129,8 @@
             ],
             "description": [
                 "Comfortable working in containerized environments, with hands-on experience in CI/CD pipelines using Azure DevOps, Jenkins, and GitHub Actions, supporting deployment workflows across multiple environments.",
-                "I have practical experience with Kubernetes deployment configurations, understanding and operating production setups."," In Azure, I have worked with App Services, SQL and NoSQL databases, Redis caching, Azure Service Bus, Functions, and related cloud services. I have also configured monitoring dashboards and worked with observability stacks including Grafana, Prometheus, Jaeger, and centralized logging solutions such as Graylog to support distributed systems."
+                "I have practical experience with Kubernetes deployment configurations, understanding and operating production setups.",
+                "In Azure, I have worked with App Services, SQL and NoSQL databases, Redis caching, Azure Service Bus, Functions, and related cloud services. I have also configured monitoring dashboards and worked with observability stacks including Grafana, Prometheus, Jaeger, and centralized logging solutions such as Graylog to support distributed systems."
             ]
         },
         {
