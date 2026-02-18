@@ -137,8 +137,8 @@ html[data-theme="light"] body::before {
     radial-gradient(circle at 100% 100%, rgba(147, 51, 234, 0.04) 0%, transparent 45%);
 }
 
-/* Subtle animated waves — full background, low opacity */
-.bg-waves {
+/* Animated gradient background — palette-matched, low contrast for readability */
+.bg-gradient {
   position: fixed;
   inset: 0;
   pointer-events: none;
@@ -146,93 +146,93 @@ html[data-theme="light"] body::before {
   overflow: hidden;
 }
 
-.bg-waves-ocean {
+.bg-gradient::before,
+.bg-gradient::after {
+  content: '';
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 0%, rgba(var(--primary-rgb), 0.02) 50%, transparent 100%);
+  border-radius: 50%;
+  filter: blur(80px);
+  animation-timing-function: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  animation-iteration-count: infinite;
 }
 
-.bg-waves-wave {
-  position: absolute;
-  left: 0;
-  width: 6400px;
-  height: 198px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 198'%3E%3Cpath fill='%23bd93f9' fill-opacity='0.12' d='M0 198V39c133.3 0 133.3 22 266.7 22s133.3-22 266.6-22 133.4 22 266.7 22 133.3-22 266.7-22 133.3 22 266.6 22 133.4-22 266.7-22v159z'/%3E%3C/svg%3E") repeat-x;
-  background-size: 1600px 198px;
-  animation: bg-wave 14s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
-  mask-image: linear-gradient(to top, transparent 0%, black 25%, black 75%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to top, transparent 0%, black 25%, black 75%, transparent 100%);
+/* Layer 1: primary + cyan (Dracula) / blue (light) */
+.bg-gradient::before {
+  width: min(90vmax, 140%);
+  height: min(90vmax, 140%);
+  top: -20%;
+  left: -10%;
+  background: radial-gradient(
+    circle at 30% 40%,
+    rgba(var(--primary-rgb), 0.22) 0%,
+    rgba(139, 233, 253, 0.08) 40%,
+    transparent 70%
+  );
+  animation: bg-float-a 22s ease-in-out infinite;
 }
 
-.bg-waves-wave-1 {
-  bottom: 0;
-  opacity: 0.1;
+/* Layer 2: pink/purple accent */
+.bg-gradient::after {
+  width: min(70vmax, 110%);
+  height: min(70vmax, 110%);
+  bottom: -15%;
+  right: -10%;
+  background: radial-gradient(
+    circle at 70% 60%,
+    rgba(255, 121, 198, 0.12) 0%,
+    rgba(var(--primary-rgb), 0.08) 45%,
+    transparent 70%
+  );
+  animation: bg-float-b 26s ease-in-out infinite;
 }
 
-.bg-waves-wave-2 {
-  bottom: 18%;
-  opacity: 0.07;
-  animation: bg-wave 14s cubic-bezier(0.36, 0.45, 0.63, 0.53) -2s infinite, bg-swell 14s ease -2s infinite;
-}
-
-.bg-waves-wave-3 {
-  bottom: 38%;
-  opacity: 0.06;
-  animation-delay: -4s;
-}
-
-.bg-waves-wave-4 {
-  bottom: 58%;
-  opacity: 0.05;
-  animation: bg-wave 14s cubic-bezier(0.36, 0.45, 0.63, 0.53) -6s infinite, bg-swell 14s ease -6s infinite;
-}
-
-.bg-waves-wave-5 {
-  bottom: 78%;
-  opacity: 0.04;
-  animation-delay: -8s;
-}
-
-@keyframes bg-wave {
-  0% {
-    margin-left: 0;
+@keyframes bg-float-a {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
   }
-
-  100% {
-    margin-left: -1600px;
+  25% {
+    transform: translate(4%, 3%) scale(1.06);
+    opacity: 0.95;
   }
-}
-
-@keyframes bg-swell {
-
-  0%,
-  100% {
-    transform: translate3d(0, -6px, 0);
-  }
-
   50% {
-    transform: translate3d(0, 3px, 0);
+    transform: translate(-3%, -2%) scale(0.98);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(2%, -3%) scale(1.03);
+    opacity: 0.97;
   }
 }
 
-html[data-theme="light"] .bg-waves-wave-1 {
-  opacity: 0.08;
+@keyframes bg-float-b {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-4%, -2%) scale(1.05);
+  }
+  66% {
+    transform: translate(3%, 2%) scale(0.96);
+  }
 }
 
-html[data-theme="light"] .bg-waves-wave-2 {
-  opacity: 0.05;
+html[data-theme="light"] .bg-gradient::before {
+  background: radial-gradient(
+    circle at 30% 40%,
+    rgba(37, 99, 235, 0.14) 0%,
+    rgba(147, 51, 234, 0.06) 45%,
+    transparent 70%
+  );
 }
 
-html[data-theme="light"] .bg-waves-wave-3 {
-  opacity: 0.045;
-}
-
-html[data-theme="light"] .bg-waves-wave-4 {
-  opacity: 0.04;
-}
-
-html[data-theme="light"] .bg-waves-wave-5 {
-  opacity: 0.03;
+html[data-theme="light"] .bg-gradient::after {
+  background: radial-gradient(
+    circle at 70% 60%,
+    rgba(147, 51, 234, 0.1) 0%,
+    rgba(37, 99, 235, 0.06) 50%,
+    transparent 70%
+  );
 }
 
 header {
