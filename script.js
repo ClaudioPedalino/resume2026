@@ -204,11 +204,11 @@
 
   function getPdfPrintStyles(theme) {
     var isLight = theme === 'light';
-    var bg = isLight ? '#faf8f5' : '#282c34';
-    var text = isLight ? '#1c1917' : '#abb2bf';
-    var textMuted = isLight ? '#713f12' : '#8b92a0';
-    var border = isLight ? '#e5e7eb' : '#3e4451';
-    var accent = isLight ? '#2563eb' : '#56b6c2';
+    var bg = isLight ? '#f8fafc' : '#282a36';
+    var text = isLight ? '#0f172a' : '#f8f8f2';
+    var textMuted = isLight ? '#64748b' : '#6272a4';
+    var border = isLight ? '#e2e8f0' : '#44475a';
+    var accent = isLight ? '#2563eb' : '#bd93f9';
     return '@page{size:A4;margin:20mm;}'
       + 'html,body{margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;color:' + text + ';background:' + bg + ';font-size:9px;line-height:1.35;}'
       + '.pdf-page{max-width:100%;padding:4px 0;}'
@@ -242,9 +242,9 @@
     }
     var theme = getTheme();
     var isLight = theme === 'light';
-    var text = isLight ? [28, 25, 23] : [171, 178, 191];
-    var muted = isLight ? [113, 63, 18] : [139, 146, 160];
-    var accent = isLight ? [37, 99, 235] : [86, 182, 194];
+    var text = isLight ? [15, 23, 42] : [248, 248, 242];
+    var muted = isLight ? [100, 116, 139] : [98, 114, 164];
+    var accent = isLight ? [37, 99, 235] : [189, 147, 249];
     var p = data && data['personal-info'] ? data['personal-info'] : {};
     var fileName = (p['full-name'] || 'resume').replace(/\s+/g, '_') + '.pdf';
     var experiences = sortExperiencesByDate(data['work-experiences'] || []).slice(0, 6);
