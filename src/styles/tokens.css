@@ -119,6 +119,183 @@
   .ease-spring {
     transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
   }
+
+  /* Subtle noise texture overlay — adds material depth to surfaces */
+  .noise-texture {
+    position: relative;
+  }
+  .noise-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    pointer-events: none;
+    border-radius: inherit;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 128px 128px;
+  }
+
+  /* Neon glow effects — palette-based, GPU-accelerated (box-shadow only) */
+  .glow-primary {
+    box-shadow:
+      0 0 8px 1px rgba(195, 107, 77, 0.2),
+      0 0 16px 3px rgba(195, 107, 77, 0.1);
+  }
+  .glow-primary-strong {
+    box-shadow:
+      0 0 12px 3px rgba(195, 107, 77, 0.35),
+      0 0 28px 6px rgba(195, 107, 77, 0.2),
+      0 0 48px 10px rgba(141, 180, 173, 0.1);
+  }
+  .glow-accent {
+    box-shadow:
+      0 0 8px 1px rgba(141, 180, 173, 0.2),
+      0 0 16px 3px rgba(141, 180, 173, 0.1);
+  }
+  .glow-accent-strong {
+    box-shadow:
+      0 0 12px 3px rgba(141, 180, 173, 0.35),
+      0 0 28px 6px rgba(141, 180, 173, 0.2),
+      0 0 48px 10px rgba(195, 107, 77, 0.1);
+  }
+  .glow-secondary {
+    box-shadow:
+      0 0 8px 1px rgba(232, 217, 161, 0.25),
+      0 0 16px 3px rgba(232, 217, 161, 0.12);
+  }
+  .glow-secondary-strong {
+    box-shadow:
+      0 0 12px 3px rgba(232, 217, 161, 0.4),
+      0 0 28px 6px rgba(232, 217, 161, 0.2),
+      0 0 48px 10px rgba(195, 107, 77, 0.08);
+  }
+  .glow-avatar {
+    box-shadow:
+      0 0 12px 2px rgba(195, 107, 77, 0.25),
+      0 0 24px 4px rgba(141, 180, 173, 0.15);
+  }
+  .group:hover .glow-avatar {
+    box-shadow:
+      0 0 20px 4px rgba(195, 107, 77, 0.4),
+      0 0 40px 8px rgba(141, 180, 173, 0.25),
+      0 0 60px 12px rgba(232, 217, 161, 0.15);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════
+   * ANIMATED BORDER — traveling light (Google loading style)
+   * Uses @property to animate conic-gradient angle → light sweeps around border.
+   * Only visible on hover. Zero JS. Pure CSS. GPU-composited.
+   * ═══════════════════════════════════════════════════════════════════════════════ */
+
+  @property --border-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @keyframes border-travel {
+    to { --border-angle: 360deg; }
+  }
+
+  /* Base — light travels on hover */
+  .border-glow {
+    --border-angle: 0deg;
+    position: relative;
+  }
+  .border-glow::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: conic-gradient(
+      from var(--border-angle),
+      transparent 0%,
+      transparent 55%,
+      #C36B4D 72%,
+      #E8D9A1 85%,
+      #8DB4AD 93%,
+      transparent 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .border-glow:hover::after {
+    opacity: 1;
+    animation: border-travel 2.5s linear infinite;
+  }
+
+  /* Small variant — tags, badges (1px, faster) */
+  .border-glow-sm {
+    --border-angle: 0deg;
+    position: relative;
+  }
+  .border-glow-sm::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--border-angle),
+      transparent 0%,
+      transparent 55%,
+      #C36B4D 72%,
+      #E8D9A1 85%,
+      #8DB4AD 93%,
+      transparent 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .border-glow-sm:hover::after {
+    opacity: 1;
+    animation: border-travel 2s linear infinite;
+  }
+
+  /* Hero variant — wider glow, slower, more dramatic */
+  .border-glow-hero {
+    --border-angle: 0deg;
+    position: relative;
+  }
+  .border-glow-hero::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--border-angle),
+      transparent 0%,
+      transparent 50%,
+      #C36B4D 68%,
+      #E8D9A1 82%,
+      #8DB4AD 92%,
+      transparent 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  .border-glow-hero:hover::after {
+    opacity: 1;
+    animation: border-travel 3s linear infinite;
+  }
 }
 
 /* Respect user's motion preferences — covers all animations including third-party */

@@ -41,11 +41,11 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.25, ease: [0.23, 1, 0.32, 1] as const },
   },
 };
 
@@ -65,8 +65,8 @@ function MagneticButton({
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
-  const springY = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
+  const springX = useSpring(x, { stiffness: 150, damping: 15, mass: 1 });
+  const springY = useSpring(y, { stiffness: 150, damping: 15, mass: 1 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!ref.current) return;
@@ -179,16 +179,17 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
       animate="visible"
       className="w-full"
     >
-      {/* Card — white solid bg, premium shadow, liquid glass */}
+      {/* Card — traveling light border + glass */}
+      <div className="border-glow-hero rounded-[2rem]">
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="group/card relative rounded-[2rem] bg-card shadow-premium-lg ring-1 ring-inset ring-white/[0.06] overflow-hidden transition-shadow duration-500 group-hover/card:shadow-premium-lg"
+        className="group/card relative rounded-[2rem] bg-white/70 backdrop-blur-xl shadow-premium-lg ring-1 ring-inset ring-white/[0.06] overflow-hidden noise-texture transition-all duration-300"
       >
         {/* Mouse-tracking border glow */}
         <div
-          className="absolute inset-0 rounded-[2rem] pointer-events-none transition-opacity duration-700 opacity-0 group-hover/card:opacity-60"
+          className="absolute inset-0 rounded-[2rem] pointer-events-none transition-opacity duration-200 opacity-0 group-hover/card:opacity-60"
           style={{
             background: 'radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(195,107,77,0.15), rgba(141,180,173,0.08), transparent 50%)',
           }}
@@ -211,7 +212,7 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                   className="text-sm sm:text-base lg:text-lg font-medium tracking-wide text-primary mt-1.5 uppercase"
                   initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3, duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+                  transition={{ delay: 0.2, duration: 0.25, ease: [0.23, 1, 0.32, 1] as const }}
                 >
                   {personalInfo.mainPosition}
                 </motion.p>
@@ -222,10 +223,10 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                 {badgeItems.map((item) => (
                   <span
                     key={item.key}
-                    className="group inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs sm:text-[13px] font-medium bg-card/80 ring-1 ring-inset ring-black/[0.04] shadow-sm hover:shadow-premium hover:ring-primary/20 transition-all duration-300"
+                    className="group inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full border-glow-sm text-xs sm:text-[13px] font-medium bg-white/60 backdrop-blur-sm ring-1 ring-inset ring-white/[0.08] shadow-sm transition-all duration-300"
                   >
-                    <item.icon className="w-3 h-3 shrink-0 text-primary/80 group-hover:text-primary transition-colors" />
-                    <span className="text-foreground/85 group-hover:text-foreground transition-colors">{item.label}</span>
+                    <item.icon className="w-3 h-3 shrink-0 text-primary/80 group-hover:text-primary transition-colors duration-300" />
+                    <span className="text-foreground/85 group-hover:text-foreground transition-colors duration-300">{item.label}</span>
                   </span>
                 ))}
               </motion.div>
@@ -240,7 +241,7 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                     >
                       <Button
                         size="sm"
-                        className="gap-1.5 text-[11px] sm:text-xs bg-card text-foreground hover:bg-primary hover:text-primary-foreground ring-1 ring-inset ring-black/[0.04] shadow-sm hover:shadow-premium transition-colors duration-200 h-8"
+                        className="gap-1.5 text-[11px] sm:text-xs bg-white/60 backdrop-blur-sm text-foreground hover:bg-primary hover:text-primary-foreground hover:glow-primary ring-1 ring-inset ring-white/[0.08] shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-300 min-h-11"
                         asChild
                       >
                         <a
@@ -261,7 +262,7 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                       onClick={handleDownloadPDF}
                       disabled={pdfLoading}
                       size="sm"
-                      className="gap-1.5 text-[11px] sm:text-xs bg-primary hover:bg-primary/90 text-primary-foreground shadow-premium hover:shadow-premium-lg ring-1 ring-inset ring-white/15 transition-colors duration-200 h-8 disabled:opacity-50"
+                      className="gap-1.5 text-[11px] sm:text-xs bg-primary hover:bg-primary/90 text-primary-foreground hover:glow-primary-strong ring-1 ring-inset ring-white/15 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-300 min-h-11 disabled:opacity-50"
                     >
                       {pdfLoading ? (
                         <span className="w-3.5 h-3.5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
@@ -279,7 +280,7 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                       onClick={handleDownloadATS}
                       disabled={atsLoading}
                       size="sm"
-                      className="gap-1.5 text-[11px] sm:text-xs text-primary bg-card hover:bg-primary hover:text-primary-foreground ring-1 ring-inset ring-primary/15 shadow-premium hover:shadow-premium-lg transition-colors duration-200 h-8 disabled:opacity-50"
+                      className="gap-1.5 text-[11px] sm:text-xs text-primary bg-white/60 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground hover:glow-primary ring-1 ring-inset ring-primary/15 shadow-premium focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-300 min-h-11 disabled:opacity-50"
                     >
                       {atsLoading ? (
                         <span className="w-3.5 h-3.5 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
@@ -302,16 +303,14 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
             {/* RIGHT: Avatar */}
             <motion.div variants={itemVariants} className="shrink-0 sm:mx-auto self-start pt-1">
               <div className="relative group">
-                <motion.div
-                  className="absolute -inset-2 rounded-full opacity-60 group-hover:opacity-95 transition-opacity duration-500"
+                {/* Neon glow ring — box-shadow (GPU), not filter:blur */}
+                <div
+                  className="glow-avatar absolute -inset-1 rounded-full transition-shadow duration-500 ease-out"
                   style={{
                     background: 'conic-gradient(from 0deg, #C36B4D 0%, #8DB4AD 33%, #E8D9A1 66%, #C36B4D 100%)',
-                    filter: 'blur(10px)',
                   }}
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
                 />
-                <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-primary/40 via-accent/30 to-secondary/40 opacity-50" />
+                <div className="absolute -inset-[3px] rounded-full bg-background/80" />
                 <Avatar className="relative w-24 h-24 sm:w-[11rem] sm:h-[11rem] lg:w-40 lg:h-40 border-[3px] border-card shadow-premium">
                   <Image
                     src={personalInfo.imageUrl}
@@ -324,7 +323,7 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                   <AvatarFallback className="text-lg sm:text-xl font-bold bg-primary text-primary-foreground">CP</AvatarFallback>
                 </Avatar>
                 <div className="absolute -bottom-2 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold bg-primary text-primary-foreground shadow-premium whitespace-nowrap ring-1 ring-inset ring-white/20">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold bg-primary text-primary-foreground shadow-premium glow-primary-strong whitespace-nowrap ring-1 ring-inset ring-white/20">
                     <span className="relative flex w-1.5 h-1.5">
                       <span className="absolute inset-0 rounded-full bg-primary-foreground/60 animate-ping" />
                       <span className="relative rounded-full w-1.5 h-1.5 bg-primary-foreground" />
@@ -337,8 +336,8 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Tags section */}
-        <div className="relative z-10 border-t border-border/40 bg-muted/30">
+        {/* Tags section — glass */}
+        <div className="relative z-10 border-t border-white/20 bg-white/30 backdrop-blur-sm">
           <div className="px-5 sm:px-7 pt-3 pb-4 sm:pt-3.5 sm:pb-4.5 lg:px-9 lg:pt-4 lg:pb-5">
             <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-2 sm:space-y-2.5">
               {/* Core Stack */}
@@ -346,7 +345,7 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                 <motion.div
                   variants={itemVariants}
                   whileHover={{ y: -1, transition: { duration: 0.2 } }}
-                  className="group/tag relative flex items-start gap-2.5 p-3 sm:p-3.5 rounded-xl bg-card shadow-premium ring-1 ring-inset ring-white/[0.06] transition-all duration-300 hover:shadow-premium-lg"
+                      className="group/tag relative flex items-start gap-2.5 p-3 sm:p-3.5 rounded-xl border-glow-sm bg-white/60 backdrop-blur-lg shadow-premium ring-1 ring-inset ring-white/[0.06] transition-all duration-300"
                 >
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/[0.04] to-transparent opacity-0 group-hover/tag:opacity-100 transition-opacity duration-300 pointer-events-none" />
                   {(() => {
@@ -365,7 +364,7 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                       {coreStackChips.map((chip) => (
                         <span
                           key={chip}
-                          className="inline-flex items-center text-[10px] sm:text-[11px] py-0.5 px-2 font-medium rounded-full bg-primary/8 border border-primary/15 text-primary ring-1 ring-inset ring-primary/[0.08] hover:bg-primary/15 hover:border-primary/30 transition-all duration-200"
+                          className="inline-flex items-center text-[10px] sm:text-[11px] py-0.5 px-2 font-medium rounded-full bg-primary/8 border border-primary/15 text-primary ring-1 ring-inset ring-primary/[0.08] hover:bg-primary/15 hover:border-primary/35 hover:glow-primary transition-all duration-300"
                         >
                           {chip}
                         </span>
@@ -384,7 +383,7 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                       key={tag.title}
                       variants={itemVariants}
                       whileHover={{ y: -1, transition: { duration: 0.2 } }}
-                      className="group/tag relative flex items-start gap-2.5 p-3 sm:p-3.5 rounded-xl bg-card shadow-premium ring-1 ring-inset ring-white/[0.06] transition-all duration-300 hover:shadow-premium-lg"
+                  className="group/tag relative flex items-start gap-2.5 p-3 sm:p-3.5 rounded-xl border-glow-sm bg-white/60 backdrop-blur-lg shadow-premium ring-1 ring-inset ring-white/[0.06] transition-all duration-300"
                     >
                       <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-accent/[0.04] to-transparent opacity-0 group-hover/tag:opacity-100 transition-opacity duration-300 pointer-events-none" />
                       <div className="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-accent/10 ring-1 ring-inset ring-accent/15 shrink-0">
@@ -403,6 +402,7 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
             </motion.div>
           </div>
         </div>
+      </div>
       </div>
     </motion.section>
   );
