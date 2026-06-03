@@ -21,7 +21,7 @@ const sectionVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -45,7 +45,7 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
       initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.4, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] as const }}
     >
       <div
         className={`group relative rounded-xl border bg-card/40 backdrop-blur-md cursor-pointer select-none transition-all duration-300 ${theme.border} ${
@@ -101,7 +101,7 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
             >
               <div className="px-3 sm:px-3.5 pb-3 sm:pb-3.5">
                 <div className="border-t border-border/30 pt-2.5 space-y-1.5">

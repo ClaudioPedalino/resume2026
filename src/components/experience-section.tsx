@@ -20,7 +20,7 @@ const sectionVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -32,12 +32,12 @@ const cardVariants = {
   center: {
     x: 0,
     opacity: 1,
-    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const },
   },
   exit: (direction: number) => ({
     x: direction < 0 ? 200 : -200,
     opacity: 0,
-    transition: { duration: 0.25, ease: [0.55, 0, 1, 0.45] },
+    transition: { duration: 0.25, ease: [0.55, 0, 1, 0.45] as const },
   }),
 };
 

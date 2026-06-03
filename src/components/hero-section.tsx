@@ -41,7 +41,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -164,7 +164,7 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                   className="text-base sm:text-lg lg:text-xl font-medium text-primary mt-0.5"
                   initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ delay: 0.3, duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
                 >
                   {personalInfo.mainPosition}
                 </motion.p>

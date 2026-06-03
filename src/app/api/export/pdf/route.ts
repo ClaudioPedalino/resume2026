@@ -28,13 +28,13 @@ export async function GET() {
     const contentWidth = pageWidth - margin * 2;
     let y = 0;
 
-    const primary = [195, 107, 77]; // #C36B4D
-    const accent = [141, 180, 173]; // #8DB4AD
-    const dark = [51, 51, 51]; // #333333
-    const muted = [102, 102, 102]; // #666666
-    const label = [141, 141, 90]; // #8D8D5A
-    const white = [255, 255, 255];
-    const cream = [249, 246, 240]; // #F9F6F0
+    const primary = [195, 107, 77] as const; // #C36B4D
+    const accent = [141, 180, 173] as const; // #8DB4AD
+    const dark = [51, 51, 51] as const; // #333333
+    const muted = [102, 102, 102] as const; // #666666
+    const label = [141, 141, 90] as const; // #8D8D5A
+    const white = [255, 255, 255] as const;
+    const cream = [249, 246, 240] as const; // #F9F6F0
 
     // Helper: check page overflow
     const checkPage = (needed: number) => {

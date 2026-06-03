@@ -50,5 +50,6 @@ test
 prompt
 
 server.log
-# Skills directory
-/skills/
+.zscripts/
+db/
+mini-services/
