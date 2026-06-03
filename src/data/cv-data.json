@@ -132,7 +132,7 @@
       "order": 1,
       "area": "Backend",
       "icon": "Server",
-      "chips": [".NET 6/8 | API | Microservices | Distributed Systems | Background Services"],
+      "chips": [".NET 6/8 | API | SOLID | Microservices | Distributed Systems | Background Services | Entity Framework | SignalR | gRPC | CQRS"],
       "description": [
         "This area is my core expertise, mostly focused on designing and evolving API-oriented microservices within the .NET ecosystem, contributing to architectural decisions and continuous improvements. I have strong hands-on experience with distributed systems, including event-driven messaging, caching strategies, concurrency control, and production diagnostics.",
         "Hands-on experience with core .NET libraries and common ecosystem tooling.",
@@ -143,7 +143,7 @@
       "order": 2,
       "area": "Infrastructure",
       "icon": "Cloud",
-      "chips": ["Docker | Azure | CI/CD | Kubernetes (Basic) | Observability"],
+      "chips": ["Docker | Azure | Azure DevOps | CI/CD | GitHub Actions | Kubernetes (Basic) | Observability | Prometheus | Grafana"],
       "description": [
         "Comfortable working in containerized environments, with hands-on experience in CI/CD pipelines using Azure DevOps, Jenkins, and GitHub Actions, supporting deployment workflows across multiple environments.",
         "Practical experience with Kubernetes deployment configurations, including understanding and operating production setups.",
@@ -154,10 +154,10 @@
       "order": 3,
       "area": "AI Tools",
       "icon": "Brain",
-      "chips": ["Codex | Agents | MCP | Skills | Cursor | Antigravity | AI web tooling"],
+      "chips": [" Claude | Codex | Gemini | MCP | Skills | AI Agents | GLM | Ollama | OpenCode"],
       "description": [
-        "I actively leverage AI-assisted development tools to enhance productivity and code quality. I regularly use Cursor, Antigravity, and multiple large language models for architectural exploration, refactoring, code generation, and documentation support.",
-        "I understand the fundamentals of what different LLMs offer, their trade-offs, and practical use cases in software workflows. I have configured development environments to maximize AI integration, including MCP servers and skills. I see AI as a productivity multiplier that complements engineering judgment rather than replacing it."
+        "I design and integrate AI-assisted development workflows across the full software lifecycle. Proficient with multiple LLMs (Codex, Claude, Gemini, GLM) and coding assistants (Cursor, Antigravity) for architectural exploration, analysis, code generation, refactoring  and documentation.",
+        "I have hands-on experience configuring AI agents and implementing prompt engineering strategies tailored to .NET codebases. I evaluate and compare model capabilities to select the right tool for each task, treating AI as a force multiplier that amplifies engineering judgment."
       ]
     },
     {
@@ -173,7 +173,7 @@
       "order": 5,
       "area": "Testing",
       "icon": "FlaskConical",
-      "chips": ["Unit Testing | Integration Testing | Load Testing | Performance Testing | K6"],
+      "chips": ["Unit Testing | Integration Testing | Performance Testing | K6 | Testcontainers"],
       "description": [
         "I regularly write unit tests for backend services, following the testing standards defined by each team, aiming to maximize coverage and adapting the testing style to current needs.",
         "I have also implemented integration tests and load/performance tests when required. Experience includes C# testing frameworks, k6, and NBomber for load and performance scenarios, mainly targeting API services.",
@@ -184,7 +184,7 @@
       "order": 6,
       "area": "Data",
       "icon": "Database",
-      "chips": ["SQL Server | PostgreSQL | Redis | MongoDB | Elasticsearch"],
+      "chips": ["SQL Server | PostgreSQL | Redis | MongoDB | Elasticsearch | NoSql | Firestore | CosmoDB "],
       "description": [
         "Strong working experience with SQL in microservices environments. I design data models for services, write SQL queries and functions.",
         "I am not a database specialist, but I am comfortable working with data access strategies, relational modeling, and optimization.",
@@ -206,7 +206,7 @@
       "order": 8,
       "area": "Agile",
       "icon": "Users",
-      "chips": ["Scrum | Kanban | Iterative Delivery"],
+      "chips": ["Scrum | Kanban "],
       "description": [
         "I typically work in agile teams using Scrum, Kanban, or hybrid approaches. I am an active participant in planning, estimation, refinements, and retrospectives.",
         "While I have not held formal Scrum Master roles, I understand agile workflows deeply and contribute to delivery planning, feature ownership, and continuous improvement across the teams."
