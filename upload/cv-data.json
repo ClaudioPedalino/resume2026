@@ -1,0 +1,232 @@
+{
+    "personal-info": {
+        "full-name": "Claudio Pedalino",
+        "date-of-birth": "1993-04-06",
+        "main-position": "Senior .NET Software Engineer",
+        "image-url": "assets/photo.jpg",
+        "mail": "claudio.dpedalino@gmail.com",
+        "location": "Argentina",
+        "remote": "Remote only",
+        "linkedin-url": "https://www.linkedin.com/in/claudio-pedalino/",
+        "github-url": "https://github.com/ClaudioPedalino"
+    },
+    "tags": [
+        {
+            "title": "Core Stack",
+            "description": ".NET · APIs · Microservices · SQL Server · PostgreSQL · Docker · Azure · Redis · Pulsar · Solid · Design Patterns"
+        },
+        {
+            "title": "Goal",
+            "description": "Grow as a technical referent focusing on architecture & innovation"
+        },
+        {
+            "title": "Looking For",
+            "description": "Cross-functional multidisciplinary teams, agile-oriented & mentoring culture"
+        }
+    ],
+    "work-experiences": [
+        {
+            "company-name": "Paramo Technologies",
+            "from": "Dec-2021",
+            "to": "Jan-2026",
+            "position": "Senior .NET Software Engineer",
+            "techs": ".NET 6/8, Microservices, Docker, SQL Server, PostgreSQL, SOLID, Design Patterns, RabbitMQ, Pulsar, Redis, ArgoCD, Kubernetes, Unit Testing",
+            "business-area": "Sports Betting",
+            "tasks-descriptions": [
+                "Development of new features for a high-volume sportsbook betting platform.",
+                "Migration, refactoring and maintenance of legacy systems towards a microservices architecture."
+            ]
+        },
+        {
+            "company-name": "Geovictoria",
+            "from": "Jul-2021",
+            "to": "Dec-2021",
+            "position": "Full-Stack Developer",
+            "techs": ".NET Core, Azure, Docker, SQL Server, Microservices, Bubble.io",
+            "business-area": "SaaS attendance control",
+            "tasks-descriptions": [
+                "Development of new functionalities for a high-transaction, multi-brand product.",
+                "Migration of existing legacy systems into a distributed services architecture."
+            ]
+        },
+        {
+            "company-name": "Algeiba",
+            "from": "Jan-2021",
+            "to": "Jun-2021",
+            "position": "Full-Stack Developer",
+            "techs": ".NET 5, Azure, SQL Server, Microservices, Angular",
+            "business-area": "Insurance",
+            "tasks-descriptions": [
+                "Development and modernization of management products, promoting the adoption of microservices architecture in complex legacy business scenarios.",
+                "Requirements analysis and task estimation in an agile environment."
+            ]
+        },
+        {
+            "company-name": "Totvs",
+            "from": "Jul-2019",
+            "to": "Jan-2021",
+            "position": "Full-Stack Developer",
+            "techs": ".NET Core 3.1, Angular 8-10, Docker, PostgreSQL, SQL Server",
+            "business-area": "Hospitality & Online Payments",
+            "tasks-descriptions": [
+                "Development of new functionalities for a multi-brand hospitality system.",
+                "Participation in architectural improvements and performance optimizations.",
+                "Migration of a desktop-based payment integrator module to a Web API project."
+            ]
+        },
+        {
+            "company-name": "Jacaranda IT",
+            "from": "Apr-2021",
+            "to": "Oct-2021",
+            "position": "Full-Stack Developer (Freelance)",
+            "techs": ".NET Core 3.1, Vue 3, MySQL",
+            "business-area": "CRM",
+            "tasks-descriptions": [
+                "Development of new functionalities in a multi-brand CRM system.",
+                "Enhancement of existing modules to improve performance and usability."
+            ]
+        },
+        {
+            "company-name": "Origin Software",
+            "from": "Jun-2018",
+            "to": "Jun-2019",
+            "position": "Backend Developer",
+            "techs": ".NET Core 2.1+, Elasticsearch, Docker, Azure, Angular 8, Ionic 4, SQL Server",
+            "business-area": "Tourism & E-Food",
+            "tasks-descriptions": [
+                "Development of new functionalities in a travel platform.",
+                "Optimization of distributed services and search infrastructure.",
+                "Implementation of web and mobile features using Angular and Ionic."
+            ]
+        },
+        {
+            "company-name": "Maer Software",
+            "from": "Nov-2017",
+            "to": "May-2018",
+            "position": "Jr Backend Developer",
+            "techs": ".NET Framework, SQL Server",
+            "business-area": "ERP",
+            "tasks-descriptions": [
+                "Maintenance and development of an on-premise multi-brand ERP system.",
+                "Bug fixing, performance tuning and incremental feature development."
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "order": 1,
+            "area": "Backend",
+            "chips": [
+                ".NET 6/8 | API | Microservices | Distributed Systems | Background Services"
+            ],
+            "description": [
+                "This area is my core expertise, mostly focused on designing and evolving API-oriented microservices within the .NET ecosystem, contributing to architectural decisions and continuous improvements. I have strong hands-on experience with distributed systems, including event-driven messaging, caching strategies, concurrency control, and production diagnostics.",
+                "Hands-on experience with core .NET libraries and common ecosystem tooling.",
+                "Performance optimization and API design are the areas where I am most confident."
+            ]
+        },
+        {
+            "order": 2,
+            "area": "Infrastructure",
+            "chips": [
+                "Docker | Azure | CI/CD | Kubernetes (Basic) | Observability"
+            ],
+            "description": [
+                "Comfortable working in containerized environments, with hands-on experience in CI/CD pipelines using Azure DevOps, Jenkins, and GitHub Actions, supporting deployment workflows across multiple environments.",
+                "Practical experience with Kubernetes deployment configurations, including understanding and operating production setups.",
+                "In Azure, I have experience with App Services, SQL and NoSQL databases, Redis caching, Azure Service Bus, Functions, and related cloud services. I have also configured monitoring dashboards and observability stacks including Grafana, Prometheus, Jaeger, and centralized logging solutions such as Graylog to support distributed systems."
+            ]
+        },
+        {
+            "order": 3,
+            "area": "Frontend",
+            "chips": [
+                "TypeScript | JavaScript | Vue | Angular | Ionic | Bubble.io"
+            ],
+            "description": [
+                "I have practical experience in web and mobile development, although it is not my strongest skill. I usually deliver frontend features including UI components, state management, and API integrations, typically extending existing architectures while collaborating effectively as a backend-focused engineer."
+            ]
+        },
+        {
+            "order": 4,
+            "area": "Testing",
+            "chips": [
+                "Unit Testing | Integration Testing | Load Testing | Performance Testing | K6"
+            ],
+            "description": [
+                "I regularly write unit tests for backend services, following the testing standards defined by each team, aiming to maximize coverage and adapting the testing style to current needs.",
+                "I have also implemented integration tests and load/performance tests when required. Experience includes C# testing frameworks, k6, and NBomber for load and performance scenarios, mainly targeting API services.",
+                "I have used Testcontainers in some projects, although my hands-on experience with it is still limited. Testing strategies were typically defined by QA or team guidelines."
+            ]
+        },
+        {
+            "order": 5,
+            "area": "Data",
+            "chips": [
+                "SQL Server | PostgreSQL | Redis | MongoDB | Elasticsearch"
+            ],
+            "description": [
+                "Strong working experience with SQL in microservices environments. I design data models for services, write SQL queries and functions.",
+                "I am not a database specialist, but I am comfortable working with data access strategies, relational modeling, and optimization.",
+                "In NoSQL scenarios, I have experience with Redis (caching and distributed scenarios), MongoDB, and Elasticsearch. I have also been involved in pub/sub and event-driven flows integrated with messaging systems such as RabbitMQ and Pulsar."
+            ]
+        },
+        {
+            "order": 6,
+            "area": "Communication",
+            "chips": [
+                "REST | gRPC | External Integrations | SOAP"
+            ],
+            "description": [
+                "I have experience designing REST APIs from scratch, defining contracts, handling versioning strategies, and implementing backward-compatible changes.",
+                "Experience includes gRPC services and maintenance of legacy SOAP integrations when required.",
+                "Comfortable integrating and consuming internal and third-party APIs, ensuring reliability and clear service contracts."
+            ]
+        },
+        {
+            "order": 7,
+            "area": "Agile",
+            "chips": [
+                "Scrum | Kanban | Iterative Delivery"
+            ],
+            "description": [
+                "I typically work in agile teams using Scrum, Kanban, or hybrid approaches. I am an active participant in planning, estimation, refinements, and retrospectives.",
+                "While I have not held formal Scrum Master roles, I understand agile workflows deeply and contribute to delivery planning, feature ownership, and continuous improvement across the teams."
+            ]
+        },
+        {
+            "order": 8,
+            "area": "Versioning",
+            "chips": [
+                "Git | Pull Requests | Code Reviews | SVN (Legacy)"
+            ],
+            "description": [
+                "I use Git daily in collaborative environments, working with pull requests, code reviews, and standard branching strategies. Comfortable with workflows enforced by CI pipelines and protected branches.",
+                "Experience with Azure DevOps, GitHub, GitLab, and Bitbucket repositories. Limited exposure to SVN and TFS in legacy environments."
+            ]
+        },
+        {
+            "order": 9,
+            "area": "AI Tools",
+            "chips": [
+                "Codex | Agents | MCP | Skills | Cursor | Antigravity | AI web tooling"
+            ],
+            "description": [
+                "I actively leverage AI-assisted development tools to enhance productivity and code quality. I regularly use Cursor, Antigravity, and multiple large language models for architectural exploration, refactoring, code generation, and documentation support.",
+                "I understand the fundamentals of what different LLMs offer, their trade-offs, and practical use cases in software workflows. I have configured development environments to maximize AI integration, including MCP servers and skills. I see AI as a productivity multiplier that complements engineering judgment rather than replacing it."
+            ]
+        },
+        {
+            "order": 10,
+            "area": "Blockchain",
+            "chips": [
+                "Web3 | Smart Contracts | Crypto Payments"
+            ],
+            "description": [
+                "I have foundational knowledge of the blockchain ecosystem and smart contracts. In practice, I use crypto as a payment method whenever possible.",
+                "Regarding development skills, I have only basic hands-on experience from courses on Solidity smart contracts, deployed locally using Hardhat and Truffle, interacting via web3.js and MetaMask in the Ethereum ecosystem.",
+                "I have a strong personal interest in DeFi, blockchain infrastructure, and real-world asset tokenization. I would welcome the opportunity to contribute to production-grade blockchain projects."
+            ]
+        }
+    ]
+}
