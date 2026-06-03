@@ -3,6 +3,7 @@ import { jsPDF } from 'jspdf';
 import cvData from '@/data/cv-data.json';
 import type { CVData } from '@/data/types';
 import { parseMonthYear } from '@/lib/date';
+import { texts } from '@/data/texts';
 
 const data = cvData as CVData;
 
@@ -55,7 +56,7 @@ export async function GET() {
     doc.rect(0, y, pageWidth, 10, 'F');
     doc.setFontSize(7);
     doc.setTextColor(...muted);
-    const contactLine = `${data.personalInfo.mail}  |  ${data.personalInfo.location}  |  ${data.personalInfo.remote}  |  English: ${data.personalInfo.englishLevel}  |  LinkedIn  |  GitHub`;
+    const contactLine = `${data.personalInfo.mail}${texts.pdf.contactSeparator}${data.personalInfo.location}${texts.pdf.contactSeparator}${data.personalInfo.remote}${texts.pdf.contactSeparator}${texts.pdf.englishLabel} ${data.personalInfo.englishLevel}${texts.pdf.contactSeparator}${texts.pdf.contactLinks}`;
     doc.text(contactLine, margin, y + 6.5);
 
     y = 48;
@@ -92,7 +93,7 @@ export async function GET() {
       y += 10;
     };
 
-    drawSectionTitle('WORK EXPERIENCE');
+    drawSectionTitle(texts.pdf.workExperience);
 
     // Work experiences
     const sortedExperiences = [...data.workExperiences].sort(
@@ -133,7 +134,7 @@ export async function GET() {
       // Tech stack
       doc.setFontSize(6.5);
       doc.setTextColor(...label);
-      const techLines = doc.splitTextToSize(`Technologies: ${exp.techs}`, contentWidth);
+      const techLines = doc.splitTextToSize(`${texts.pdf.technologies} ${exp.techs}`, contentWidth);
       doc.text(techLines, margin, y);
       y += techLines.length * 3.2 + 1.5;
 
@@ -158,7 +159,7 @@ export async function GET() {
     doc.rect(margin, y, contentWidth, 0.8, 'F');
     y += 6;
 
-    drawSectionTitle('SKILLS & EXPERTISE');
+    drawSectionTitle(texts.pdf.skillsExpertise);
 
     const sortedSkills = [...data.skills].sort((a, b) => a.order - b.order);
 
@@ -197,7 +198,7 @@ export async function GET() {
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...muted);
       doc.text(
-        `Claudio Pedalino — Curriculum Vitae — Page ${i} of ${totalPages}`,
+        texts.pdf.page(data.personalInfo.fullName, i, totalPages),
         pageWidth / 2,
         pageHeight - 8,
         { align: 'center' }
@@ -210,7 +211,7 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': 'attachment; filename="Claudio_Pedalino_CV.pdf"',
+        'Content-Disposition': `attachment; filename="${texts.pdf.filename}"`,
       },
     });
   } catch (error) {

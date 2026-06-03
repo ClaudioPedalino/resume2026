@@ -1,19 +1,27 @@
 // ═══════════════════════════════════════════════════════════════════════════════
-// 📌 SITE CONFIG — ALL YOUR EDITABLE CONTENT & SETTINGS IN ONE PLACE
+// 📌 SITE CONFIG — UI/UX & VISUAL SETTINGS IN ONE PLACE
 // ═══════════════════════════════════════════════════════════════════════════════
-// Edit this file to customize your CV/resume site.
+// Edit this file to control HOW your CV is displayed (icons, themes, layout).
+// All text/labels live in ./texts.ts.
+// All CV content (personal info, experiences, skills) lives in ./cv-data.json.
+// All icons use Lucide icon names — browse available icons at https://lucide.dev/icons
+// ═══════════════════════════════════════════════════════════════════════════════
+// Edit this file to control HOW your CV is displayed (icons, themes, layout).
+// All text/labels live in ./texts.ts.
+// All CV content (personal info, experiences, skills) lives in ./cv-data.json.
 // All icons use Lucide icon names — browse available icons at https://lucide.dev/icons
 // ═══════════════════════════════════════════════════════════════════════════════
 
 import {
   Mail, Linkedin, Github, MapPin, Calendar, Globe, Briefcase,
   Server, Cloud, Monitor, TestTube2, Database, Network, Users,
-  GitBranch, Sparkles, Blocks, Code2, Target, Search, Building2,
-  Layers, Rocket, FileText, FileDown, Heart, ChevronLeft, ChevronRight,
+  GitBranch, Wrench, Blocks, Code2, Target, Search, Building2,
+  Layers, FileText, FileDown,
   type LucideIcon,
 } from 'lucide-react';
 import cvData from './cv-data.json';
 import type { CVData } from './types';
+import { texts } from './texts';
 
 // ─── YOUR CV DATA ─────────────────────────────────────────────────────────────
 // Content lives in cv-data.json. Edit that file for: personal info, experiences,
@@ -21,25 +29,25 @@ import type { CVData } from './types';
 export const data = cvData as CVData;
 
 // ─── SECTION HEADERS ──────────────────────────────────────────────────────────
-// Customize the title and icon for each section
+// Customize the icon for each section. Title text comes from texts.ts.
 export const sections = {
   experience: {
-    title: 'Work Experience',
+    title: texts.experience.title,
     icon: Briefcase as LucideIcon,
   },
   skills: {
-    title: 'Skills & Expertise',
-    icon: Sparkles as LucideIcon,
+    title: texts.skills.title,
+    icon: Wrench as LucideIcon,
   },
 } as const;
 
 // ─── HERO SECTION ─────────────────────────────────────────────────────────────
 // Icons for the info badges shown below your name
-export const heroBadgeIcons: { key: string; icon: LucideIcon; label: string }[] = [
-  { key: 'age', icon: Calendar, label: 'age' },           // shows calculated age
-  { key: 'location', icon: MapPin, label: 'location' },   // shows personalInfo.location
-  { key: 'remote', icon: Globe, label: 'remote' },        // shows personalInfo.remote
-  { key: 'english', icon: Briefcase, label: 'english' },  // shows personalInfo.englishLevel
+export const heroBadgeIcons: { key: string; icon: LucideIcon }[] = [
+  { key: texts.hero.badgeKey.age, icon: Calendar },
+  { key: texts.hero.badgeKey.location, icon: MapPin },
+  { key: texts.hero.badgeKey.remote, icon: Globe },
+  { key: texts.hero.badgeKey.english, icon: Briefcase },
 ];
 
 // Icons for each tag card (Core Stack, Goal, Looking For)
@@ -57,15 +65,15 @@ export const heroContactLinks: {
   hrefKey: 'mail' | 'linkedinUrl' | 'githubUrl';
   external: boolean;
 }[] = [
-  { icon: Mail, label: 'Email', hrefKey: 'mail', external: false },
-  { icon: Linkedin, label: 'LinkedIn', hrefKey: 'linkedinUrl', external: true },
-  { icon: Github, label: 'GitHub', hrefKey: 'githubUrl', external: true },
+  { icon: Mail, label: texts.hero.contactLabel.email, hrefKey: 'mail', external: false },
+  { icon: Linkedin, label: texts.hero.contactLabel.linkedin, hrefKey: 'linkedinUrl', external: true },
+  { icon: Github, label: texts.hero.contactLabel.github, hrefKey: 'githubUrl', external: true },
 ];
 
-// Download button labels and icons
+// Download button icons. Labels come from texts.ts.
 export const downloadButtons = {
-  pdf: { icon: FileDown, label: 'PDF' },
-  ats: { icon: FileText, label: 'ATS' },
+  pdf: { icon: FileDown, label: texts.hero.download.pdf },
+  ats: { icon: FileText, label: texts.hero.download.ats },
 };
 
 // ─── WORK EXPERIENCE CARDS ────────────────────────────────────────────────────
@@ -88,7 +96,7 @@ export const skillIcons: Record<string, LucideIcon> = {
   'Network': Network,
   'Users': Users,
   'GitBranch': GitBranch,
-  'Sparkles': Sparkles,
+  'Wrench': Wrench,
   'Blocks': Blocks,
 };
 
@@ -104,7 +112,6 @@ export const skillThemes: Record<
     border: string;         // Hover border class
     glow: string;           // Shadow glow class on hover
     chipBg: string;         // Background for tech chips
-    accentLine: string;     // Left accent border color
   }
 > = {
   'Backend': {
@@ -115,7 +122,6 @@ export const skillThemes: Record<
     border: 'hover:border-primary/30',
     glow: 'group-hover:shadow-primary/10',
     chipBg: 'bg-primary/8',
-    accentLine: 'border-l-primary/60',
   },
   'Infrastructure': {
     gradientFrom: 'from-accent/10',
@@ -125,7 +131,6 @@ export const skillThemes: Record<
     border: 'hover:border-accent/30',
     glow: 'group-hover:shadow-accent/10',
     chipBg: 'bg-accent/8',
-    accentLine: 'border-l-accent/60',
   },
   'Frontend': {
     gradientFrom: 'from-secondary/15',
@@ -135,7 +140,6 @@ export const skillThemes: Record<
     border: 'hover:border-secondary/40',
     glow: 'group-hover:shadow-secondary/10',
     chipBg: 'bg-secondary/10',
-    accentLine: 'border-l-secondary/60',
   },
   'Testing': {
     gradientFrom: 'from-primary/8',
@@ -145,7 +149,6 @@ export const skillThemes: Record<
     border: 'hover:border-primary/25',
     glow: 'group-hover:shadow-primary/10',
     chipBg: 'bg-primary/8',
-    accentLine: 'border-l-primary/40',
   },
   'Data': {
     gradientFrom: 'from-accent/8',
@@ -155,7 +158,6 @@ export const skillThemes: Record<
     border: 'hover:border-accent/25',
     glow: 'group-hover:shadow-accent/10',
     chipBg: 'bg-accent/8',
-    accentLine: 'border-l-accent/40',
   },
   'Communication': {
     gradientFrom: 'from-secondary/10',
@@ -165,7 +167,6 @@ export const skillThemes: Record<
     border: 'hover:border-secondary/30',
     glow: 'group-hover:shadow-secondary/10',
     chipBg: 'bg-secondary/8',
-    accentLine: 'border-l-secondary/40',
   },
   'Agile': {
     gradientFrom: 'from-primary/10',
@@ -175,7 +176,6 @@ export const skillThemes: Record<
     border: 'hover:border-primary/30',
     glow: 'group-hover:shadow-primary/10',
     chipBg: 'bg-primary/8',
-    accentLine: 'border-l-primary/50',
   },
   'Versioning': {
     gradientFrom: 'from-accent/10',
@@ -185,7 +185,6 @@ export const skillThemes: Record<
     border: 'hover:border-accent/30',
     glow: 'group-hover:shadow-accent/10',
     chipBg: 'bg-accent/8',
-    accentLine: 'border-l-accent/50',
   },
   'AI Tools': {
     gradientFrom: 'from-primary/12',
@@ -195,7 +194,6 @@ export const skillThemes: Record<
     border: 'hover:border-primary/35',
     glow: 'group-hover:shadow-primary/12',
     chipBg: 'bg-primary/10',
-    accentLine: 'border-l-primary/60',
   },
   'Blockchain': {
     gradientFrom: 'from-accent/12',
@@ -205,7 +203,6 @@ export const skillThemes: Record<
     border: 'hover:border-accent/35',
     glow: 'group-hover:shadow-accent/12',
     chipBg: 'bg-accent/10',
-    accentLine: 'border-l-accent/60',
   },
 };
 
@@ -218,7 +215,6 @@ export const defaultSkillTheme = {
   border: 'hover:border-border',
   glow: 'group-hover:shadow-muted/10',
   chipBg: 'bg-muted/50',
-  accentLine: 'border-l-border',
 };
 
 // ─── FOOTER ───────────────────────────────────────────────────────────────────
@@ -228,13 +224,13 @@ export const footerLinks: {
   external: boolean;
   ariaLabel: string;
 }[] = [
-  { icon: Mail, hrefKey: 'mail', external: false, ariaLabel: 'Email' },
-  { icon: Linkedin, hrefKey: 'linkedinUrl', external: true, ariaLabel: 'LinkedIn' },
-  { icon: Github, hrefKey: 'githubUrl', external: true, ariaLabel: 'GitHub' },
+  { icon: Mail, hrefKey: 'mail', external: false, ariaLabel: texts.hero.contactLabel.email },
+  { icon: Linkedin, hrefKey: 'linkedinUrl', external: true, ariaLabel: texts.hero.contactLabel.linkedin },
+  { icon: Github, hrefKey: 'githubUrl', external: true, ariaLabel: texts.hero.contactLabel.github },
 ];
 
 // ─── DOWNLOAD FILENAMES ───────────────────────────────────────────────────────
 export const downloadFilenames = {
-  pdf: `${data.personalInfo.fullName.replace(/\s+/g, '_')}_CV.pdf`,
-  ats: `${data.personalInfo.fullName.replace(/\s+/g, '_')}_CV_ATS.txt`,
+  pdf: texts.pdf.filename,
+  ats: texts.ats.filename,
 };

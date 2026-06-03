@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import cvData from '@/data/cv-data.json';
 import type { CVData } from '@/data/types';
 import { parseMonthYear } from '@/lib/date';
+import { texts } from '@/data/texts';
 
 const data = cvData as CVData;
 
@@ -22,8 +23,8 @@ export async function GET() {
     // Header
     lines.push(`${p.fullName.toUpperCase()}`);
     lines.push(`${p.mainPosition}`);
-    lines.push(`${p.mail} | ${p.location} | ${p.remote} | English: ${p.englishLevel}`);
-    lines.push(`LinkedIn: ${p.linkedinUrl} | GitHub: ${p.githubUrl}`);
+    lines.push(`${p.mail} | ${p.location} | ${p.remote} | ${texts.ats.englishLabel} ${p.englishLevel}`);
+    lines.push(`${texts.ats.linkedinLabel} ${p.linkedinUrl} | ${texts.ats.githubLabel} ${p.githubUrl}`);
     lines.push('');
 
     // Tags
@@ -33,8 +34,8 @@ export async function GET() {
     lines.push('');
 
     // Work Experience
-    lines.push('WORK EXPERIENCE');
-    lines.push('─'.repeat(60));
+    lines.push(texts.ats.workExperience);
+    lines.push('─'.repeat(texts.ats.dividerLength));
 
     const sortedExperiences = [...data.workExperiences].sort(
       (a, b) => parseMonthYear(b.to).getTime() - parseMonthYear(a.to).getTime()
@@ -43,7 +44,7 @@ export async function GET() {
     sortedExperiences.forEach((exp) => {
       lines.push(`${exp.companyName} (${exp.country}) | ${exp.position}`);
       lines.push(`${exp.from} - ${exp.to} | ${exp.businessArea}`);
-      lines.push(`Technologies: ${exp.techs}`);
+      lines.push(`${texts.ats.technologies} ${exp.techs}`);
       exp.tasksDescriptions.forEach((task) => {
         lines.push(`  - ${task}`);
       });
@@ -51,8 +52,8 @@ export async function GET() {
     });
 
     // Skills
-    lines.push('SKILLS');
-    lines.push('─'.repeat(60));
+    lines.push(texts.ats.skills);
+    lines.push('─'.repeat(texts.ats.dividerLength));
 
     const sortedSkills = [...data.skills].sort((a, b) => a.order - b.order);
     sortedSkills.forEach((skill) => {
@@ -68,7 +69,7 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
-        'Content-Disposition': 'attachment; filename="Claudio_Pedalino_CV_ATS.txt"',
+        'Content-Disposition': `attachment; filename="${texts.ats.filename}"`,
       },
     });
   } catch (error) {

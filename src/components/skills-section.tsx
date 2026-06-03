@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 import type { Skill } from '@/data/types';
 import {
   sections,
@@ -48,32 +47,34 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
       transition={{ duration: 0.4, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] as const }}
     >
       <div
-        className={`group relative rounded-xl border bg-card/40 backdrop-blur-md cursor-pointer select-none transition-all duration-300 ${theme.border} ${
-          isOpen ? 'shadow-md' : 'shadow-sm hover:shadow-md'
+        className={`group relative rounded-xl border bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-md cursor-pointer select-none transition-all duration-300 ring-1 ring-inset ring-white/[0.05] ${theme.border} ${
+          isOpen ? 'shadow-premium-lg' : 'shadow-premium hover:shadow-premium-lg'
         }`}
         onClick={() => setIsOpen(!isOpen)}
       >
+        {/* Subtle gradient overlay on hover/open */}
+        <div className={`absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-transparent to-accent/[0.03] pointer-events-none rounded-xl transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+
         {/* Main row */}
-        <div className="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-3.5">
+        <div className="relative flex items-center gap-2.5 sm:gap-3 p-3.5 sm:p-4">
           {/* Icon */}
           <div className="shrink-0">
-            <div className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg ${theme.iconBg} transition-transform duration-300 group-hover:scale-105`}>
+            <div className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg ${theme.iconBg} ring-1 ring-inset ring-white/[0.08] transition-transform duration-300 group-hover:scale-105 shadow-sm`}>
               <Icon className={`w-4 h-4 ${theme.iconText}`} />
             </div>
           </div>
 
           {/* Title + Chips */}
           <div className="flex-1 min-w-0">
-            <p className="text-xs sm:text-sm font-semibold text-foreground mb-1">{skill.area}</p>
+            <p className="text-sm sm:text-base font-semibold text-foreground mb-1">{skill.area}</p>
             <div className="flex flex-wrap gap-1">
               {individualChips.map((chip) => (
-                <Badge
+                <span
                   key={chip}
-                  variant="secondary"
-                  className={`text-[9px] sm:text-[10px] py-0 px-1.5 font-medium ${theme.chipBg} border border-border/20`}
+                  className={`inline-flex items-center text-[9px] sm:text-[10px] py-0 px-1.5 font-medium rounded-full ${theme.chipBg} border border-border/25 ring-1 ring-inset ring-white/[0.04]`}
                 >
                   {chip}
-                </Badge>
+                </span>
               ))}
             </div>
           </div>
@@ -84,10 +85,10 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="shrink-0"
           >
-            <div className={`flex items-center justify-center w-7 h-7 rounded-full border transition-colors duration-300 ${
+            <div className={`flex items-center justify-center w-7 h-7 rounded-full border ring-1 ring-inset transition-all duration-300 ${
               isOpen
-                ? 'bg-primary/10 border-primary/15'
-                : 'bg-card/50 border-border/40'
+                ? 'bg-primary/15 border-primary/25 ring-primary/15'
+                : 'bg-card/50 border-border/40 ring-white/[0.06]'
             }`}>
               <ChevronDown className={`w-3.5 h-3.5 transition-colors duration-300 ${isOpen ? 'text-primary' : 'text-muted-foreground'}`} />
             </div>
@@ -103,12 +104,12 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
             >
-              <div className="px-3 sm:px-3.5 pb-3 sm:pb-3.5">
-                <div className="border-t border-border/30 pt-2.5 space-y-1.5">
+              <div className="relative px-3.5 sm:px-4 pb-3.5 sm:pb-4">
+                <div className="border-t border-border/30 pt-3 space-y-1.5">
                   {skill.description.map((desc, i) => (
                     <p
                       key={i}
-                      className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed"
+                      className="text-xs sm:text-sm text-muted-foreground"
                     >
                       {desc}
                     </p>
@@ -137,7 +138,7 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
     >
       {/* Section Header */}
       <div className="flex items-center gap-3">
-        <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-accent/8">
+        <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-accent/18 to-accent/5 ring-1 ring-inset ring-accent/15 shadow-premium">
           <SectionIcon className="w-4 h-4 sm:w-5 sm:h-5 text-accent-foreground" />
         </div>
         <h2 className="text-xl sm:text-2xl font-bold text-foreground">{sections.skills.title}</h2>

@@ -26,28 +26,43 @@ function SectionDivider() {
       className="flex items-center gap-2 py-1"
     >
       {/* Left gradient line */}
-      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-primary/25 to-primary/40" />
+      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-primary/30 to-primary/50" />
 
-      {/* Center ornament */}
+      {/* Center ornament — conic gradient with subtle glow */}
       <div className="flex items-center gap-1.5">
-        <div className="w-1 h-1 rounded-full bg-primary/30" />
-        <div className="w-2 h-2 rounded-full bg-gradient-to-br from-primary/50 to-accent/50 backdrop-blur-sm shadow-sm shadow-primary/20" />
-        <div className="w-1 h-1 rounded-full bg-accent/30" />
+        <div className="w-1 h-1 rounded-full bg-primary/40" />
+        <motion.div
+          className="w-2.5 h-2.5 rounded-full shadow-md shadow-primary/30"
+          style={{
+            background:
+              'conic-gradient(from 0deg, #C36B4D, #8DB4AD, #E8D9A1, #C36B4D)',
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 16, repeat: Infinity, ease: 'linear' }}
+        />
+        <div className="w-1 h-1 rounded-full bg-accent/40" />
       </div>
 
       {/* Right gradient line */}
-      <div className="flex-1 h-px bg-gradient-to-l from-transparent via-accent/25 to-accent/40" />
+      <div className="flex-1 h-px bg-gradient-to-l from-transparent via-accent/30 to-accent/50" />
     </motion.div>
   );
 }
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      {/* Decorative top gradient bar */}
-      <div className="w-full h-1 bg-gradient-to-r from-primary via-accent to-secondary shrink-0" />
+    <div className="min-h-[100dvh] flex flex-col bg-background">
+      {/* Decorative top gradient bar — premium mesh */}
+      <div className="relative w-full h-1 shrink-0 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-secondary" />
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+          animate={{ x: ['-100%', '100%'] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </div>
 
-      <main className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7 lg:py-10">
+      <main className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
         <div className="space-y-5 sm:space-y-6">
           <HeroSection personalInfo={data.personalInfo} tags={data.tags} />
           <SectionDivider />
