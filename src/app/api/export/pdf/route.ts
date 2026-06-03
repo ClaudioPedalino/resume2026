@@ -17,7 +17,7 @@ export async function GET() {
 
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
-    const margin = 16;
+    const margin = 17;
     const contentWidth = pageWidth - margin * 2;
     let y = 0;
 
@@ -33,78 +33,72 @@ export async function GET() {
 
     // ── Helpers ──────────────────────────────────────────────────────────────
     const checkPage = (needed: number) => {
-      if (y + needed > pageHeight - 20) {
+      if (y + needed > pageHeight - 16) {
         doc.addPage();
-        y = 20;
+        y = 16;
       }
     };
 
     const drawDivider = () => {
-      doc.setFillColor(...lightGray);
-      doc.rect(margin, y, contentWidth, 0.3, 'F');
-      y += 4;
+      doc.setDrawColor(...lightGray);
+      doc.setLineWidth(0.15);
+      doc.line(margin, y, margin + contentWidth, y);
+      y += 2;
     };
 
     const drawSectionTitle = (title: string) => {
-      checkPage(14);
-      y += 2;
-      // Accent bar
-      doc.setFillColor(...primary);
-      doc.rect(margin, y, 1.5, 5, 'F');
-      // Title
-      doc.setFontSize(10);
+      checkPage(10);
+      y += 1.5;
+      doc.setFontSize(7.5);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...primary);
-      doc.text(title.toUpperCase(), margin + 4, y + 4);
-      // Underline
-      doc.setFillColor(...lightGray);
-      doc.rect(margin, y + 6, contentWidth, 0.2, 'F');
-      y += 9;
+      doc.text(title.toUpperCase(), margin, y);
+      doc.setDrawColor(...lightGray);
+      doc.setLineWidth(0.2);
+      doc.line(margin, y + 1, margin + contentWidth, y + 1);
+      y += 4;
     };
 
     // ── Header ───────────────────────────────────────────────────────────────
     doc.setFillColor(...primary);
-    doc.rect(0, 0, pageWidth, 28, 'F');
+    doc.rect(0, 0, pageWidth, 18, 'F');
 
     doc.setTextColor(...white);
-    doc.setFontSize(18);
+    doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
-    doc.text(data.personalInfo.fullName, margin, 12);
+    doc.text(data.personalInfo.fullName, margin, 8.5);
 
-    doc.setFontSize(9);
+    doc.setFontSize(7);
     doc.setFont('helvetica', 'normal');
-    doc.text(data.personalInfo.mainPosition, margin, 19);
+    doc.text(data.personalInfo.mainPosition, margin, 13.5);
 
     // ── Contact Bar ──────────────────────────────────────────────────────────
-    y = 30;
+    y = 20;
     doc.setFillColor(...cream);
-    doc.rect(0, y, pageWidth, 8, 'F');
-    doc.setFontSize(6.5);
+    doc.rect(0, y, pageWidth, 5, 'F');
+    doc.setFontSize(5.5);
     doc.setTextColor(...muted);
-    const contactParts = [
-      data.personalInfo.mail,
-      data.personalInfo.location,
-      data.personalInfo.remote,
-      `${texts.pdf.englishLabel} ${data.personalInfo.englishLevel}`,
-    ];
-    doc.text(contactParts.join('  |  '), margin, y + 5.5);
+    doc.text(
+      [data.personalInfo.mail, data.personalInfo.location, data.personalInfo.remote, `${texts.pdf.englishLabel} ${data.personalInfo.englishLevel}`].join('  |  '),
+      margin,
+      y + 3.5
+    );
 
-    y = 42;
+    y = 28;
 
     // ── Tags ─────────────────────────────────────────────────────────────────
+    const tagLines: string[] = [];
     data.tags.forEach((tag) => {
-      doc.setFontSize(6.5);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(...label);
-      doc.text(`${tag.title.toUpperCase()}:`, margin, y);
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(...muted);
-      const descLines = doc.splitTextToSize(tag.description, contentWidth - 28);
-      doc.text(descLines, margin + 28, y);
-      y += descLines.length * 3 + 1.5;
+      const line = `${tag.title.toUpperCase()}: ${tag.description}`;
+      const wrapped = doc.splitTextToSize(line, contentWidth);
+      tagLines.push(...wrapped);
     });
+    doc.setFontSize(5.5);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...muted);
+    doc.text(tagLines, margin, y);
+    y += tagLines.length * 2.5 + 1.5;
 
-    y += 2;
     drawDivider();
 
     // ── Work Experience ──────────────────────────────────────────────────────
@@ -115,93 +109,86 @@ export async function GET() {
     );
 
     sortedExperiences.forEach((exp) => {
-      checkPage(22);
+      checkPage(16);
 
-      // Company + Country + Date
+      // Company + Date (same line)
       doc.setFontSize(8);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...dark);
       doc.text(exp.companyName, margin, y);
 
-      doc.setFontSize(6.5);
+      doc.setFontSize(6);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...muted);
-      doc.text(`(${exp.country})`, margin + doc.getTextWidth(exp.companyName) + 2, y);
-
-      // Date right-aligned
       doc.text(`${exp.from} — ${exp.to}`, pageWidth - margin, y, { align: 'right' });
 
-      y += 3.5;
-
-      // Position
-      doc.setFontSize(7.5);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(...primary);
-      doc.text(exp.position, margin, y);
       y += 3;
 
-      // Business area
-      doc.setFontSize(6.5);
-      doc.setFont('helvetica', 'italic');
-      doc.setTextColor(...accent);
-      doc.text(exp.businessArea, margin, y);
-      y += 3.5;
+      // Country + Position (same line)
+      doc.setFontSize(6);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...muted);
+      doc.text(exp.country, margin, y);
+
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...primary);
+      const posLabel = `${exp.position}  •  ${exp.businessArea}`;
+      const posX = Math.max(margin + doc.getTextWidth(exp.country) + 5, margin + 50);
+      doc.text(posLabel, posX, y);
+
+      y += 2.5;
 
       // Tech stack
-      doc.setFontSize(6);
+      doc.setFontSize(5.5);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...label);
       const techLines = doc.splitTextToSize(`Technologies: ${exp.techs}`, contentWidth - 4);
       doc.text(techLines, margin, y);
-      y += techLines.length * 2.8 + 1;
+      y += techLines.length * 2.5 + 0.5;
 
       // Tasks
       exp.tasksDescriptions.forEach((task) => {
-        checkPage(6);
-        doc.setFontSize(6.5);
+        checkPage(5);
+        doc.setFontSize(6);
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(...muted);
-        const lines = doc.splitTextToSize(`  ${task}`, contentWidth - 6);
-        doc.text(lines, margin + 2, y);
-        y += lines.length * 2.8 + 0.5;
+        const lines = doc.splitTextToSize(`• ${task}`, contentWidth - 8);
+        doc.text(lines, margin + 3, y);
+        y += lines.length * 2.5 + 0.3;
       });
 
-      y += 3;
+      y += 1.5;
     });
 
-    y += 1;
     drawDivider();
 
     // ── Skills ───────────────────────────────────────────────────────────────
     drawSectionTitle(texts.pdf.skillsExpertise);
 
     const sortedSkills = [...data.skills].sort((a, b) => a.order - b.order);
-    const colWidth = (contentWidth - 4) / 2;
+    const colWidth = (contentWidth - 6) / 2;
 
     sortedSkills.forEach((skill, idx) => {
-      checkPage(10);
+      checkPage(8);
 
       const col = idx % 2;
-      const x = margin + col * (colWidth + 4);
+      const x = margin + col * (colWidth + 6);
 
-      // Skill area
-      doc.setFontSize(7);
+      doc.setFontSize(6.5);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...dark);
       doc.text(skill.area, x, y);
 
-      // Chips on next line
-      doc.setFontSize(5.5);
+      doc.setFontSize(5);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...label);
-      const chipText = skill.chips.join(' | ');
-      const chipLines = doc.splitTextToSize(chipText, colWidth);
-      doc.text(chipLines, x, y + 3);
-      y += chipLines.length * 2.5 + 4;
+      const chipLines = doc.splitTextToSize(skill.chips.join('  ·  '), colWidth);
+      doc.text(chipLines, x, y + 2.5);
+      y += chipLines.length * 2.2 + 3;
 
-      // New row after 2 columns
       if (col === 1 || idx === sortedSkills.length - 1) {
-        y += 1;
+        y += 0.5;
       }
     });
 
@@ -213,7 +200,7 @@ export async function GET() {
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...muted);
       doc.text(
-        `${data.personalInfo.fullName}  |  ${data.personalInfo.mainPosition}  |  Page ${i} of ${totalPages}`,
+        `${data.personalInfo.fullName}  |  ${data.personalInfo.mainPosition}`,
         pageWidth / 2,
         pageHeight - 8,
         { align: 'center' }

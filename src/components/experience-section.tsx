@@ -29,26 +29,26 @@ const sectionVariants = {
 
 const cardVariants = {
   enter: (direction: number) => ({
-    x: direction > 0 ? 200 : -200,
+    x: direction > 0 ? 180 : -180,
     opacity: 0,
+    scale: 0.97,
   }),
   center: {
     x: 0,
     opacity: 1,
-    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const },
+    scale: 1,
+    transition: { type: 'spring' as const, stiffness: 200, damping: 24 },
   },
   exit: (direction: number) => ({
-    x: direction < 0 ? 200 : -200,
+    x: direction > 0 ? 80 : -80,
     opacity: 0,
-    transition: { duration: 0.25, ease: [0.55, 0, 1, 0.45] as const },
+    scale: 0.96,
+    transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] as const },
   }),
 };
 
 function splitTechs(techs: string): string[] {
-  return techs
-    .split(',')
-    .map((t) => t.trim())
-    .filter(Boolean);
+  return techs.split(',').map((t) => t.trim()).filter(Boolean);
 }
 
 const PositionIcon = experiencePositionIcon;
@@ -58,78 +58,96 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
   const techList = splitTechs(experience.techs);
 
   return (
-    <div className="group relative w-full rounded-xl border border-border/40 bg-white/[0.04] backdrop-blur-xl ring-1 ring-inset ring-white/[0.06] shadow-premium hover:shadow-premium-lg hover:border-white/[0.15] hover:bg-white/[0.06] transition-all duration-500 overflow-hidden">
-      {/* Subtle gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-transparent to-accent/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+    <motion.div
+      whileHover={{ y: -3, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
+      className="group relative w-full"
+    >
+      {/* Card — white solid bg, premium shadow, inner refraction */}
+      <div className="relative rounded-2xl bg-card shadow-premium ring-1 ring-inset ring-white/[0.06] overflow-hidden transition-shadow duration-300 group-hover:shadow-premium-lg">
+        {/* Inner refraction — liquid glass edge highlight */}
+        <div className="absolute inset-0 rounded-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-1px_0_rgba(0,0,0,0.02)] pointer-events-none" />
+        {/* Top accent line — brand color */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary/60 via-primary/30 to-transparent" />
 
-      <div className="relative px-5 sm:px-6 pt-5 sm:pt-6 pb-2">
-        {/* Row 1: Company + Flag | Period badge */}
-        <div className="flex items-start justify-between gap-2">
-          <div className="flex items-center gap-2 min-w-0">
-            <span className="inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-b from-muted/60 to-muted/30 border border-border/40 ring-1 ring-inset ring-white/[0.06] overflow-hidden shrink-0 shadow-sm">
-              {flagImages[experience.countryFlag] ? (
-                <Image
-                  src={flagImages[experience.countryFlag]}
-                  alt={experience.country}
-                  width={32}
-                  height={32}
-                  className="w-full h-full object-cover rounded-full"
-                />
-              ) : (
-                <span className="text-sm" role="img" aria-label={experience.country}>
-                  {experience.countryFlag}
-                </span>
-              )}
+        <div className="relative px-5 sm:px-6 pt-5 sm:pt-6 pb-2">
+          {/* Row 1: Company + Flag | Period badge */}
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-muted/60 ring-1 ring-inset ring-black/[0.04] overflow-hidden shrink-0">
+                {flagImages[experience.countryFlag] ? (
+                  <Image
+                    src={flagImages[experience.countryFlag]}
+                    alt={experience.country}
+                    width={36}
+                    height={36}
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                ) : (
+                  <span className="text-sm" role="img" aria-label={experience.country}>
+                    {experience.countryFlag}
+                  </span>
+                )}
+              </span>
+              <h3 className="text-sm sm:text-base lg:text-lg font-bold text-card-foreground truncate tracking-tight">
+                {experience.companyName}
+              </h3>
+            </div>
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] lg:text-xs font-medium whitespace-nowrap shrink-0 bg-muted/50 ring-1 ring-inset ring-black/[0.04] text-muted-foreground">
+              {experience.from} — {experience.to}
             </span>
-            <h3 className="text-sm sm:text-base lg:text-lg font-bold text-foreground truncate">
-              {experience.companyName}
-            </h3>
           </div>
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] lg:text-xs font-medium whitespace-nowrap shrink-0 bg-gradient-to-b from-muted/40 to-muted/20 border border-border/40 ring-1 ring-inset ring-white/[0.06] text-muted-foreground">
-            {experience.from} — {experience.to}
-          </span>
+
+          {/* Row 2: Position/Role */}
+          <div className="flex items-center gap-2 mt-3">
+            <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-primary/10 ring-1 ring-inset ring-primary/10 shrink-0">
+              <PositionIcon className="w-3 h-3 text-primary" />
+            </div>
+            <p className="text-xs sm:text-sm font-semibold text-primary">{experience.position}</p>
+          </div>
+
+          {/* Row 3: Business area */}
+          <div className="flex items-center gap-2 mt-1.5">
+            <div className="flex items-center justify-center w-5 h-5 rounded-md bg-muted/50 ring-1 ring-inset ring-black/[0.04] shrink-0">
+              <BusinessIcon className="w-2.5 h-2.5 text-muted-foreground" />
+            </div>
+            <span className="text-xs sm:text-[13px] text-muted-foreground">{experience.businessArea}</span>
+          </div>
         </div>
 
-        {/* Row 2: Position/Role */}
-        <div className="flex items-center gap-1.5 mt-2">
-          <PositionIcon className="w-3.5 h-3.5 text-primary shrink-0" />
-          <p className="text-xs sm:text-sm font-semibold text-primary">{experience.position}</p>
-        </div>
+        <div className="relative px-5 sm:px-6 pb-5 sm:pb-6 space-y-3">
+          {/* Tech chips — colored, visible, tactile */}
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {techList.map((tech) => (
+              <motion.span
+                key={tech}
+                whileHover={{ scale: 1.06, y: -1 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                className="inline-flex items-center text-[10px] sm:text-[11px] lg:text-xs py-0.5 px-2.5 font-medium rounded-full bg-gradient-to-b from-secondary/50 to-secondary/30 text-secondary-foreground ring-1 ring-inset ring-black/[0.04] shadow-sm cursor-default"
+              >
+                {tech}
+              </motion.span>
+            ))}
+          </div>
 
-        {/* Row 3: Business area */}
-        <div className="flex items-center gap-1.5 mt-1">
-          <BusinessIcon className="w-3 h-3 text-muted-foreground shrink-0" />
-          <span className="text-xs sm:text-[13px] text-muted-foreground">{experience.businessArea}</span>
+          {/* Task descriptions */}
+          <ul className="space-y-2">
+            {experience.tasksDescriptions.map((task, i) => (
+              <motion.li
+                key={i}
+                initial={{ opacity: 0, x: -8 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.3 }}
+                className="text-xs sm:text-sm text-muted-foreground flex gap-2.5 leading-relaxed"
+              >
+                <span className="text-primary mt-1.5 shrink-0 text-[6px]">●</span>
+                <span>{task}</span>
+              </motion.li>
+            ))}
+          </ul>
         </div>
       </div>
-
-      <div className="relative px-5 sm:px-6 pb-5 sm:pb-6 space-y-3">
-        {/* Tech chips */}
-        <div className="flex flex-wrap gap-1 sm:gap-1.5 pt-1">
-          {techList.map((tech) => (
-            <span
-              key={tech}
-              className="inline-flex items-center text-[10px] sm:text-[11px] lg:text-xs py-0.5 px-2 font-medium rounded-full bg-gradient-to-b from-accent/12 to-accent/4 text-accent-foreground border border-accent/15 ring-1 ring-inset ring-accent/[0.08] hover:from-accent/20 hover:to-accent/8 hover:border-accent/30 transition-all duration-200"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        {/* Task descriptions */}
-        <ul className="space-y-1.5">
-          {experience.tasksDescriptions.map((task, i) => (
-            <li
-              key={i}
-              className="text-xs sm:text-sm text-muted-foreground flex gap-2"
-            >
-              <span className="text-primary mt-1.5 shrink-0 text-[5px] sm:text-[6px]">●</span>
-              <span>{task}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -174,41 +192,46 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
       viewport={{ once: true, margin: '-30px' }}
       className="w-full space-y-4"
     >
-      {/* Section Header + Navigation — fixed row */}
+      {/* Section Header + Navigation */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-primary/15 to-primary/5 ring-1 ring-inset ring-primary/15 shadow-premium">
+          <motion.div
+            whileHover={{ rotate: -8, scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+            className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary/10 ring-1 ring-inset ring-primary/10"
+          >
             <SectionIcon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-          </div>
-          <h2 className="text-lg sm:text-xl font-bold text-foreground">{sections.experience.title}</h2>
+          </motion.div>
+          <h2 className="text-lg sm:text-xl font-bold text-foreground tracking-tight">{sections.experience.title}</h2>
         </div>
 
-        {/* Navigation — right side of header */}
         <div className="flex items-center gap-2">
           <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.92 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9, y: 1 }}
             transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             onClick={goPrev}
             disabled={current === 0}
-            className="flex items-center justify-center w-8 h-8 rounded-full border border-border/40 bg-gradient-to-b from-card/70 to-card/30 ring-1 ring-inset ring-white/[0.08] shadow-sm hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-premium transition-colors duration-200 disabled:opacity-25 disabled:pointer-events-none"
+            className="flex items-center justify-center w-8 h-8 rounded-full bg-card shadow-premium ring-1 ring-inset ring-black/[0.04] hover:shadow-premium-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-200 disabled:opacity-25 disabled:pointer-events-none"
             aria-label={texts.experience.aria.previous}
           >
             <ChevronLeft className="w-3.5 h-3.5" />
           </motion.button>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             {sortedExperiences.map((_, i) => (
-              <button
+              <motion.button
                 key={i}
+                whileHover={{ scale: 1.4 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                 onClick={() => {
                   setDirection(i > current ? 1 : -1);
                   setCurrent(i);
                 }}
                 className={`rounded-full transition-all duration-300 ${
                   i === current
-                    ? 'w-5 h-1.5 bg-gradient-to-r from-primary to-primary/80 shadow-sm shadow-primary/30'
-                    : 'w-1.5 h-1.5 bg-border/60 hover:bg-muted-foreground'
+                    ? 'w-5 h-1.5 bg-primary shadow-sm shadow-primary/30'
+                    : 'w-1.5 h-1.5 bg-border hover:bg-muted-foreground'
                 }`}
                 aria-label={texts.experience.aria.goTo(i + 1)}
               />
@@ -216,12 +239,12 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
           </div>
 
           <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.92 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9, y: 1 }}
             transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             onClick={goNext}
             disabled={current === sortedExperiences.length - 1}
-            className="flex items-center justify-center w-8 h-8 rounded-full border border-border/40 bg-gradient-to-b from-card/70 to-card/30 ring-1 ring-inset ring-white/[0.08] shadow-sm hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-premium transition-colors duration-200 disabled:opacity-25 disabled:pointer-events-none"
+            className="flex items-center justify-center w-8 h-8 rounded-full bg-card shadow-premium ring-1 ring-inset ring-black/[0.04] hover:shadow-premium-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-200 disabled:opacity-25 disabled:pointer-events-none"
             aria-label={texts.experience.aria.next}
           >
             <ChevronRight className="w-3.5 h-3.5" />
@@ -231,7 +254,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
 
       {/* Carousel */}
       <div className="relative w-full">
-        <div className="overflow-hidden rounded-xl">
+        <div className="overflow-hidden rounded-2xl">
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={current}
