@@ -9,8 +9,8 @@
 
 import {
   Mail, Linkedin, Github, MapPin, Calendar, Globe, Briefcase,
-  Server, Cloud, Monitor, FlaskConical, Database, Handshake, Kanban,
-  GitBranch, Wrench, Diamond, Code2, Target, Search, Building2,
+  Server, Cloud, Monitor, FlaskConical, Database, Handshake, Users,
+  GitBranch, Wrench,   Link, Code2, Target, Search, Building2,
   Layers, FileText, FileDown, Brain,
   type LucideIcon,
 } from 'lucide-react';
@@ -89,10 +89,10 @@ export const skillIcons: Record<string, LucideIcon> = {
   'FlaskConical': FlaskConical,
   'Database': Database,
   'Handshake': Handshake,
-  'Kanban': Kanban,
+  'Users': Users,
   'GitBranch': GitBranch,
   'Wrench': Wrench,
-  'Diamond': Diamond,
+  'Link': Link,
   'Brain': Brain,
 };
 

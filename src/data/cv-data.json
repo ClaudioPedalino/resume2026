@@ -205,7 +205,7 @@
     {
       "order": 8,
       "area": "Agile",
-      "icon": "Kanban",
+      "icon": "Users",
       "chips": ["Scrum | Kanban | Iterative Delivery"],
       "description": [
         "I typically work in agile teams using Scrum, Kanban, or hybrid approaches. I am an active participant in planning, estimation, refinements, and retrospectives.",
@@ -225,7 +225,7 @@
     {
       "order": 10,
       "area": "Blockchain",
-      "icon": "Diamond",
+      "icon": "Link",
       "chips": ["Web3 | Smart Contracts | Crypto Payments"],
       "description": [
         "I have foundational knowledge of the blockchain ecosystem and smart contracts. In practice, I use crypto as a payment method whenever possible.",

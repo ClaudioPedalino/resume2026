@@ -239,9 +239,8 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                     >
                       <Button
-                        variant="outline"
                         size="sm"
-                        className="gap-1.5 text-[11px] sm:text-xs bg-card hover:bg-primary hover:text-primary-foreground ring-1 ring-inset ring-black/[0.04] shadow-sm hover:shadow-premium transition-colors duration-200 h-8"
+                        className="gap-1.5 text-[11px] sm:text-xs bg-card text-foreground hover:bg-primary hover:text-primary-foreground ring-1 ring-inset ring-black/[0.04] shadow-sm hover:shadow-premium transition-colors duration-200 h-8"
                         asChild
                       >
                         <a
@@ -279,7 +278,6 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                     <Button
                       onClick={handleDownloadATS}
                       disabled={atsLoading}
-                      variant="outline"
                       size="sm"
                       className="gap-1.5 text-[11px] sm:text-xs text-primary bg-card hover:bg-primary hover:text-primary-foreground ring-1 ring-inset ring-primary/15 shadow-premium hover:shadow-premium-lg transition-colors duration-200 h-8 disabled:opacity-50"
                     >
