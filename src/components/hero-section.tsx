@@ -14,6 +14,9 @@ import {
   downloadFilenames,
 } from '@/data/site.config';
 import { texts } from '@/data/texts';
+import { generatePDF } from '@/lib/generate-pdf';
+import { generateATS } from '@/lib/generate-ats';
+import { data } from '@/data/site.config';
 
 function calculateAge(dateOfBirth: string): number {
   const today = new Date();
@@ -99,37 +102,33 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
   const [pdfLoading, setPdfLoading] = useState(false);
   const [atsLoading, setAtsLoading] = useState(false);
   const [downloadError, setDownloadError] = useState<string | null>(null);
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
   const cardRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>(0);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      cardRef.current.style.setProperty('--mouse-x', `${x}%`);
+      cardRef.current.style.setProperty('--mouse-y', `${y}%`);
     });
   };
 
   const handleMouseLeave = () => {
-    setMousePos({ x: 50, y: 50 });
+    cardRef.current?.style.setProperty('--mouse-x', '50%');
+    cardRef.current?.style.setProperty('--mouse-y', '50%');
   };
 
-  const handleDownloadPDF = async () => {
+  const handleDownloadPDF = () => {
     setPdfLoading(true);
     setDownloadError(null);
     try {
-      const response = await fetch('/api/export/pdf');
-      if (!response.ok) throw new Error('Download failed');
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = downloadFilenames.pdf;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
+      const doc = generatePDF(data);
+      doc.save(downloadFilenames.pdf);
     } catch {
       setDownloadError('PDF generation failed. Please try again.');
     } finally {
@@ -137,13 +136,12 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
     }
   };
 
-  const handleDownloadATS = async () => {
+  const handleDownloadATS = () => {
     setAtsLoading(true);
     setDownloadError(null);
     try {
-      const response = await fetch('/api/export/ats');
-      if (!response.ok) throw new Error('Download failed');
-      const blob = await response.blob();
+      const text = generateATS(data);
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -190,10 +188,9 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
       >
         {/* Mouse-tracking border glow */}
         <div
-          className="absolute inset-0 rounded-[2rem] pointer-events-none transition-opacity duration-700"
+          className="absolute inset-0 rounded-[2rem] pointer-events-none transition-opacity duration-700 opacity-0 group-hover/card:opacity-60"
           style={{
-            opacity: mousePos.x === 50 && mousePos.y === 50 ? 0 : 0.6,
-            background: `radial-gradient(350px circle at ${mousePos.x}% ${mousePos.y}%, rgba(195,107,77,0.15), rgba(141,180,173,0.08), transparent 50%)`,
+            background: 'radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(195,107,77,0.15), rgba(141,180,173,0.08), transparent 50%)',
           }}
         />
         {/* Inner refraction */}
@@ -203,9 +200,9 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
 
         {/* Content */}
         <div className="relative z-10 p-5 sm:p-7 lg:p-9">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
+          <div className="flex flex-row items-center gap-4 sm:items-start sm:justify-center sm:gap-12 lg:gap-16">
             {/* LEFT: Text Content */}
-            <div className="flex-1 min-w-0 order-2 sm:order-1">
+            <div className="flex-1 min-w-0 sm:ml-auto">
               <motion.div variants={itemVariants}>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tighter leading-none text-foreground">
                   {personalInfo.fullName}
@@ -305,7 +302,7 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
             </div>
 
             {/* RIGHT: Avatar */}
-            <motion.div variants={itemVariants} className="shrink-0 order-1 sm:order-2 self-start pt-1">
+            <motion.div variants={itemVariants} className="shrink-0 sm:mx-auto self-start pt-1">
               <div className="relative group">
                 <motion.div
                   className="absolute -inset-2 rounded-full opacity-60 group-hover:opacity-95 transition-opacity duration-500"

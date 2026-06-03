@@ -1,10 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════════════
-// 📌 SITE CONFIG — UI/UX & VISUAL SETTINGS IN ONE PLACE
-// ═══════════════════════════════════════════════════════════════════════════════
-// Edit this file to control HOW your CV is displayed (icons, themes, layout).
-// All text/labels live in ./texts.ts.
-// All CV content (personal info, experiences, skills) lives in ./cv-data.json.
-// All icons use Lucide icon names — browse available icons at https://lucide.dev/icons
+// SITE CONFIG — UI/UX & VISUAL SETTINGS IN ONE PLACE
 // ═══════════════════════════════════════════════════════════════════════════════
 // Edit this file to control HOW your CV is displayed (icons, themes, layout).
 // All text/labels live in ./texts.ts.
@@ -106,13 +101,11 @@ export const skillIcons: Record<string, LucideIcon> = {
 export const skillThemes: Record<
   string,
   {
-    gradientFrom: string;   // Tailwind bg-gradient-from class
-    gradientTo: string;     // Tailwind bg-gradient-to class
-    iconBg: string;         // Background class for the icon circle
-    iconText: string;       // Text color class for the icon
-    border: string;         // Hover border class
-    glow: string;           // Shadow glow class on hover
-    chipBg: string;         // Background for tech chips
+    gradientFrom: string;
+    gradientTo: string;
+    iconBg: string;
+    iconText: string;
+    chipBg: string;
   }
 > = {
   'Backend': {
@@ -120,8 +113,6 @@ export const skillThemes: Record<
     gradientTo: 'to-primary/2',
     iconBg: 'bg-primary/15',
     iconText: 'text-primary',
-    border: 'hover:border-primary/30',
-    glow: 'group-hover:shadow-primary/10',
     chipBg: 'bg-primary/8',
   },
   'Infrastructure': {
@@ -129,8 +120,6 @@ export const skillThemes: Record<
     gradientTo: 'to-accent/2',
     iconBg: 'bg-accent/18',
     iconText: 'text-accent-foreground',
-    border: 'hover:border-accent/30',
-    glow: 'group-hover:shadow-accent/10',
     chipBg: 'bg-accent/8',
   },
   'Frontend': {
@@ -138,8 +127,6 @@ export const skillThemes: Record<
     gradientTo: 'to-secondary/2',
     iconBg: 'bg-secondary/25',
     iconText: 'text-label',
-    border: 'hover:border-secondary/40',
-    glow: 'group-hover:shadow-secondary/10',
     chipBg: 'bg-secondary/10',
   },
   'Testing': {
@@ -147,8 +134,6 @@ export const skillThemes: Record<
     gradientTo: 'to-primary/1',
     iconBg: 'bg-primary/12',
     iconText: 'text-primary',
-    border: 'hover:border-primary/25',
-    glow: 'group-hover:shadow-primary/10',
     chipBg: 'bg-primary/8',
   },
   'Data': {
@@ -156,8 +141,6 @@ export const skillThemes: Record<
     gradientTo: 'to-accent/1',
     iconBg: 'bg-accent/12',
     iconText: 'text-accent-foreground',
-    border: 'hover:border-accent/25',
-    glow: 'group-hover:shadow-accent/10',
     chipBg: 'bg-accent/8',
   },
   'Communication': {
@@ -165,8 +148,6 @@ export const skillThemes: Record<
     gradientTo: 'to-secondary/2',
     iconBg: 'bg-secondary/20',
     iconText: 'text-label',
-    border: 'hover:border-secondary/30',
-    glow: 'group-hover:shadow-secondary/10',
     chipBg: 'bg-secondary/8',
   },
   'Agile': {
@@ -174,8 +155,6 @@ export const skillThemes: Record<
     gradientTo: 'to-primary/2',
     iconBg: 'bg-primary/15',
     iconText: 'text-primary',
-    border: 'hover:border-primary/30',
-    glow: 'group-hover:shadow-primary/10',
     chipBg: 'bg-primary/8',
   },
   'Versioning': {
@@ -183,8 +162,6 @@ export const skillThemes: Record<
     gradientTo: 'to-accent/2',
     iconBg: 'bg-accent/15',
     iconText: 'text-accent-foreground',
-    border: 'hover:border-accent/30',
-    glow: 'group-hover:shadow-accent/10',
     chipBg: 'bg-accent/8',
   },
   'AI Tools': {
@@ -192,8 +169,6 @@ export const skillThemes: Record<
     gradientTo: 'to-primary/3',
     iconBg: 'bg-primary/18',
     iconText: 'text-primary',
-    border: 'hover:border-primary/35',
-    glow: 'group-hover:shadow-primary/12',
     chipBg: 'bg-primary/10',
   },
   'Blockchain': {
@@ -201,8 +176,6 @@ export const skillThemes: Record<
     gradientTo: 'to-accent/3',
     iconBg: 'bg-accent/18',
     iconText: 'text-accent-foreground',
-    border: 'hover:border-accent/35',
-    glow: 'group-hover:shadow-accent/12',
     chipBg: 'bg-accent/10',
   },
 };
@@ -213,22 +186,8 @@ export const defaultSkillTheme = {
   gradientTo: 'to-muted/2',
   iconBg: 'bg-muted',
   iconText: 'text-muted-foreground',
-  border: 'hover:border-border',
-  glow: 'group-hover:shadow-muted/10',
   chipBg: 'bg-muted/50',
 };
-
-// ─── FOOTER ───────────────────────────────────────────────────────────────────
-export const footerLinks: {
-  icon: LucideIcon;
-  hrefKey: 'mail' | 'linkedinUrl' | 'githubUrl';
-  external: boolean;
-  ariaLabel: string;
-}[] = [
-  { icon: Mail, hrefKey: 'mail', external: false, ariaLabel: texts.hero.contactLabel.email },
-  { icon: Linkedin, hrefKey: 'linkedinUrl', external: true, ariaLabel: texts.hero.contactLabel.linkedin },
-  { icon: Github, hrefKey: 'githubUrl', external: true, ariaLabel: texts.hero.contactLabel.github },
-];
 
 // ─── DOWNLOAD FILENAMES ───────────────────────────────────────────────────────
 export const downloadFilenames = {

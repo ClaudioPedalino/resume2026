@@ -92,7 +92,7 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
                 {experience.companyName}
               </h3>
             </div>
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] lg:text-xs font-medium whitespace-nowrap shrink-0 bg-muted/50 ring-1 ring-inset ring-black/[0.04] text-muted-foreground">
+            <span className="inline-flex items-center px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] lg:text-xs font-medium whitespace-nowrap tracking-wide shrink-0 bg-muted/50 ring-1 ring-inset ring-black/[0.04] text-muted-foreground">
               {experience.from} — {experience.to}
             </span>
           </div>
@@ -107,10 +107,10 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
 
           {/* Row 3: Business area */}
           <div className="flex items-center gap-2 mt-1.5">
-            <div className="flex items-center justify-center w-5 h-5 rounded-md bg-muted/50 ring-1 ring-inset ring-black/[0.04] shrink-0">
-              <BusinessIcon className="w-2.5 h-2.5 text-muted-foreground" />
+            <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-muted/50 ring-1 ring-inset ring-black/[0.04] shrink-0">
+              <BusinessIcon className="w-3 h-3 text-muted-foreground" />
             </div>
-            <span className="text-xs sm:text-[13px] text-muted-foreground">{experience.businessArea}</span>
+            <span className="text-xs sm:text-[13px] text-muted-foreground">Business area: {experience.businessArea}</span>
           </div>
         </div>
 
