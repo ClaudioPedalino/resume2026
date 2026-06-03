@@ -29,16 +29,11 @@ export const metadata: Metadata = {
     "Resume",
   ],
   authors: [{ name: "Claudio Pedalino" }],
-  icons: {
-    icon: "/logo.svg",
-  },
   openGraph: {
     title: "Claudio Pedalino — Senior .NET Software Engineer",
     description:
       "Professional CV — Senior .NET Software Engineer specializing in microservices, APIs, and distributed systems.",
     type: "profile",
-    firstName: "Claudio",
-    lastName: "Pedalino",
   },
 };
 

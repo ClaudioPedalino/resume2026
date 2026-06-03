@@ -10,6 +10,7 @@ import {
   experiencePositionIcon,
   experienceBusinessAreaIcon,
 } from '@/data/site.config';
+import { parseMonthYear } from '@/lib/date';
 
 interface ExperienceSectionProps {
   experiences: WorkExperience[];
@@ -55,7 +56,7 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
   const techList = splitTechs(experience.techs);
 
   return (
-    <div className="w-full rounded-xl border-l-4 border-l-primary bg-card/40 backdrop-blur-md hover:shadow-lg hover:border-l-accent transition-all duration-300 shadow-sm overflow-hidden">
+    <div className="w-full rounded-xl border border-border/40 bg-card/40 backdrop-blur-md hover:border-primary/40 hover:shadow-md transition-all duration-300 overflow-hidden">
       <div className="px-4 sm:px-5 pt-4 sm:pt-5 pb-2">
         {/* Row 1: Company + Flag | Period badge */}
         <div className="flex items-start justify-between gap-2">
@@ -120,17 +121,9 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
 }
 
 export default function ExperienceSection({ experiences }: ExperienceSectionProps) {
-  const sortedExperiences = [...experiences].sort((a, b) => {
-    const parseDate = (dateStr: string) => {
-      const parts = dateStr.replace('-', ' ').split(' ');
-      const months: Record<string, number> = {
-        Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
-        Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11,
-      };
-      return new Date(parseInt(parts[1] || '0'), months[parts[0]] || 0);
-    };
-    return parseDate(b.to).getTime() - parseDate(a.to).getTime();
-  });
+  const sortedExperiences = [...experiences].sort(
+    (a, b) => parseMonthYear(b.to).getTime() - parseMonthYear(a.to).getTime()
+  );
 
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);

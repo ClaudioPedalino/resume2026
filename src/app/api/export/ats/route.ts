@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import cvData from '@/data/cv-data.json';
 import type { CVData } from '@/data/types';
+import { parseMonthYear } from '@/lib/date';
 
 const data = cvData as CVData;
 
@@ -35,17 +36,9 @@ export async function GET() {
     lines.push('WORK EXPERIENCE');
     lines.push('─'.repeat(60));
 
-    const sortedExperiences = [...data.workExperiences].sort((a, b) => {
-      const parseDate = (dateStr: string) => {
-        const parts = dateStr.replace('-', ' ').split(' ');
-        const months: Record<string, number> = {
-          Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
-          Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11,
-        };
-        return new Date(parseInt(parts[1] || '0'), months[parts[0]] || 0);
-      };
-      return parseDate(b.to).getTime() - parseDate(a.to).getTime();
-    });
+    const sortedExperiences = [...data.workExperiences].sort(
+      (a, b) => parseMonthYear(b.to).getTime() - parseMonthYear(a.to).getTime()
+    );
 
     sortedExperiences.forEach((exp) => {
       lines.push(`${exp.companyName} (${exp.country}) | ${exp.position}`);

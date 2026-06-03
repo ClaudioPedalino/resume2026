@@ -2,17 +2,9 @@ import { NextResponse } from 'next/server';
 import { jsPDF } from 'jspdf';
 import cvData from '@/data/cv-data.json';
 import type { CVData } from '@/data/types';
+import { parseMonthYear } from '@/lib/date';
 
 const data = cvData as CVData;
-
-function parseDate(dateStr: string): Date {
-  const parts = dateStr.replace('-', ' ').split(' ');
-  const months: Record<string, number> = {
-    Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
-    Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11,
-  };
-  return new Date(parseInt(parts[1] || '0'), months[parts[0]] || 0);
-}
 
 export async function GET() {
   try {
@@ -104,7 +96,7 @@ export async function GET() {
 
     // Work experiences
     const sortedExperiences = [...data.workExperiences].sort(
-      (a, b) => parseDate(b.to).getTime() - parseDate(a.to).getTime()
+      (a, b) => parseMonthYear(b.to).getTime() - parseMonthYear(a.to).getTime()
     );
 
     sortedExperiences.forEach((exp) => {
@@ -141,10 +133,9 @@ export async function GET() {
       // Tech stack
       doc.setFontSize(6.5);
       doc.setTextColor(...label);
-      doc.text(`Technologies: ${exp.techs}`, margin, y, {
-        maxWidth: contentWidth,
-      });
-      y = doc.getTextDimensions(`Technologies: ${exp.techs}`, { maxWidth: contentWidth, fontSize: 6.5 }).h + y + 2;
+      const techLines = doc.splitTextToSize(`Technologies: ${exp.techs}`, contentWidth);
+      doc.text(techLines, margin, y);
+      y += techLines.length * 3.2 + 1.5;
 
       // Task descriptions
       exp.tasksDescriptions.forEach((task) => {
