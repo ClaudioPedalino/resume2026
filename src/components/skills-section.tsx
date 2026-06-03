@@ -47,16 +47,16 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
       transition={{ duration: 0.4, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] as const }}
     >
       <div
-        className={`group relative rounded-xl border bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-md cursor-pointer select-none transition-all duration-300 ring-1 ring-inset ring-white/[0.05] ${theme.border} ${
-          isOpen ? 'shadow-premium-lg' : 'shadow-premium hover:shadow-premium-lg'
+        className={`group relative rounded-xl border bg-white/[0.04] backdrop-blur-xl cursor-pointer select-none transition-all duration-300 ring-1 ring-inset ring-white/[0.06] ${theme.border} ${
+          isOpen ? 'shadow-premium-lg border-white/[0.12]' : 'shadow-premium hover:shadow-premium-lg hover:border-white/[0.15]'
         }`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {/* Subtle gradient overlay on hover/open */}
-        <div className={`absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-transparent to-accent/[0.03] pointer-events-none rounded-xl transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+        {/* Hover gradient overlay */}
+        <div className={`absolute inset-0 rounded-xl bg-gradient-to-br from-primary/[0.04] via-transparent to-accent/[0.04] pointer-events-none transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
 
         {/* Main row */}
-        <div className="relative flex items-center gap-2.5 sm:gap-3 p-3.5 sm:p-4">
+        <div className="relative flex items-center gap-2.5 sm:gap-3 p-4 sm:p-4.5">
           {/* Icon */}
           <div className="shrink-0">
             <div className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg ${theme.iconBg} ring-1 ring-inset ring-white/[0.08] transition-transform duration-300 group-hover:scale-105 shadow-sm`}>
@@ -141,11 +141,11 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
         <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-accent/18 to-accent/5 ring-1 ring-inset ring-accent/15 shadow-premium">
           <SectionIcon className="w-4 h-4 sm:w-5 sm:h-5 text-accent-foreground" />
         </div>
-        <h2 className="text-xl sm:text-2xl font-bold text-foreground">{sections.skills.title}</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-foreground">{sections.skills.title}</h2>
       </div>
 
       {/* Skills Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-2.5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3">
         {sortedSkills.map((skill, index) => (
           <SkillCard key={skill.area} skill={skill} index={index} />
         ))}

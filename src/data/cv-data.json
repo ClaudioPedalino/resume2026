@@ -14,7 +14,7 @@
   "tags": [
     {
       "title": "Core Stack",
-      "description": ".NET · APIs · Microservices · SQL Server · PostgreSQL · Docker · Azure · Redis · Pulsar · Solid · Design Patterns"
+      "description": ".NET · APIs · Microservices · Distributed services · SOLID · Design Patterns · SQL · Docker · AI Tooling"
     },
     {
       "title": "Goal",
@@ -33,8 +33,8 @@
       "position": "Senior .NET Software Engineer",
       "techs": ".NET 6/8, Microservices, Docker, SQL Server, PostgreSQL, SOLID, Design Patterns, RabbitMQ, Pulsar, Redis, ArgoCD, Kubernetes, Unit Testing",
       "businessArea": "Sports Betting",
-      "country": "Colombia",
-      "countryFlag": "🇨🇴",
+      "country": "Panama",
+      "countryFlag": "PA",
       "tasksDescriptions": [
         "Development of new features for a high-volume sportsbook betting platform.",
         "Migration, refactoring and maintenance of legacy systems towards a microservices architecture."
@@ -48,7 +48,7 @@
       "techs": ".NET Core, Azure, Docker, SQL Server, Microservices, Bubble.io",
       "businessArea": "SaaS attendance control",
       "country": "Chile",
-      "countryFlag": "🇨🇱",
+      "countryFlag": "CL",
       "tasksDescriptions": [
         "Development of new functionalities for a high-transaction, multi-brand product.",
         "Migration of existing legacy systems into a distributed services architecture."
@@ -62,7 +62,7 @@
       "techs": ".NET 5, Azure, SQL Server, Microservices, Angular",
       "businessArea": "Insurance",
       "country": "Argentina",
-      "countryFlag": "🇦🇷",
+      "countryFlag": "AR",
       "tasksDescriptions": [
         "Development and modernization of management products, promoting the adoption of microservices architecture in complex legacy business scenarios.",
         "Requirements analysis and task estimation in an agile environment."
@@ -76,7 +76,7 @@
       "techs": ".NET Core 3.1, Angular 8-10, Docker, PostgreSQL, SQL Server",
       "businessArea": "Hospitality & Online Payments",
       "country": "Brazil",
-      "countryFlag": "🇧🇷",
+      "countryFlag": "BR",
       "tasksDescriptions": [
         "Development of new functionalities for a multi-brand hospitality system.",
         "Participation in architectural improvements and performance optimizations.",
@@ -91,7 +91,7 @@
       "techs": ".NET Core 3.1, Vue 3, MySQL",
       "businessArea": "CRM",
       "country": "Argentina",
-      "countryFlag": "🇦🇷",
+      "countryFlag": "AR",
       "tasksDescriptions": [
         "Development of new functionalities in a multi-brand CRM system.",
         "Enhancement of existing modules to improve performance and usability."
@@ -105,7 +105,7 @@
       "techs": ".NET Core 2.1+, Elasticsearch, Docker, Azure, Angular 8, Ionic 4, SQL Server",
       "businessArea": "Tourism & E-Food",
       "country": "Argentina",
-      "countryFlag": "🇦🇷",
+      "countryFlag": "AR",
       "tasksDescriptions": [
         "Development of new functionalities in a travel platform.",
         "Optimization of distributed services and search infrastructure.",
@@ -120,7 +120,7 @@
       "techs": ".NET Framework, SQL Server",
       "businessArea": "ERP",
       "country": "Argentina",
-      "countryFlag": "🇦🇷",
+      "countryFlag": "AR",
       "tasksDescriptions": [
         "Maintenance and development of an on-premise multi-brand ERP system.",
         "Bug fixing, performance tuning and incremental feature development."
@@ -152,6 +152,16 @@
     },
     {
       "order": 3,
+      "area": "AI Tools",
+      "icon": "Brain",
+      "chips": ["Codex | Agents | MCP | Skills | Cursor | Antigravity | AI web tooling"],
+      "description": [
+        "I actively leverage AI-assisted development tools to enhance productivity and code quality. I regularly use Cursor, Antigravity, and multiple large language models for architectural exploration, refactoring, code generation, and documentation support.",
+        "I understand the fundamentals of what different LLMs offer, their trade-offs, and practical use cases in software workflows. I have configured development environments to maximize AI integration, including MCP servers and skills. I see AI as a productivity multiplier that complements engineering judgment rather than replacing it."
+      ]
+    },
+    {
+      "order": 4,
       "area": "Frontend",
       "icon": "Monitor",
       "chips": ["TypeScript | JavaScript | Vue | Angular | Ionic | Bubble.io"],
@@ -160,9 +170,9 @@
       ]
     },
     {
-      "order": 4,
+      "order": 5,
       "area": "Testing",
-      "icon": "TestTube2",
+      "icon": "FlaskConical",
       "chips": ["Unit Testing | Integration Testing | Load Testing | Performance Testing | K6"],
       "description": [
         "I regularly write unit tests for backend services, following the testing standards defined by each team, aiming to maximize coverage and adapting the testing style to current needs.",
@@ -171,7 +181,7 @@
       ]
     },
     {
-      "order": 5,
+      "order": 6,
       "area": "Data",
       "icon": "Database",
       "chips": ["SQL Server | PostgreSQL | Redis | MongoDB | Elasticsearch"],
@@ -182,9 +192,9 @@
       ]
     },
     {
-      "order": 6,
+      "order": 7,
       "area": "Communication",
-      "icon": "Network",
+      "icon": "Handshake",
       "chips": ["REST | gRPC | External Integrations | SOAP"],
       "description": [
         "I have experience designing REST APIs from scratch, defining contracts, handling versioning strategies, and implementing backward-compatible changes.",
@@ -193,9 +203,9 @@
       ]
     },
     {
-      "order": 7,
+      "order": 8,
       "area": "Agile",
-      "icon": "Users",
+      "icon": "Kanban",
       "chips": ["Scrum | Kanban | Iterative Delivery"],
       "description": [
         "I typically work in agile teams using Scrum, Kanban, or hybrid approaches. I am an active participant in planning, estimation, refinements, and retrospectives.",
@@ -203,7 +213,7 @@
       ]
     },
     {
-      "order": 8,
+      "order": 9,
       "area": "Versioning",
       "icon": "GitBranch",
       "chips": ["Git | Pull Requests | Code Reviews | SVN (Legacy)"],
@@ -213,19 +223,9 @@
       ]
     },
     {
-      "order": 9,
-      "area": "AI Tools",
-      "icon": "Sparkles",
-      "chips": ["Codex | Agents | MCP | Skills | Cursor | Antigravity | AI web tooling"],
-      "description": [
-        "I actively leverage AI-assisted development tools to enhance productivity and code quality. I regularly use Cursor, Antigravity, and multiple large language models for architectural exploration, refactoring, code generation, and documentation support.",
-        "I understand the fundamentals of what different LLMs offer, their trade-offs, and practical use cases in software workflows. I have configured development environments to maximize AI integration, including MCP servers and skills. I see AI as a productivity multiplier that complements engineering judgment rather than replacing it."
-      ]
-    },
-    {
       "order": 10,
       "area": "Blockchain",
-      "icon": "Blocks",
+      "icon": "Diamond",
       "chips": ["Web3 | Smart Contracts | Crypto Payments"],
       "description": [
         "I have foundational knowledge of the blockchain ecosystem and smart contracts. In practice, I use crypto as a payment method whenever possible.",

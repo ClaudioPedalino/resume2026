@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { WorkExperience } from '@/data/types';
@@ -8,6 +9,7 @@ import {
   sections,
   experiencePositionIcon,
   experienceBusinessAreaIcon,
+  flagImages,
 } from '@/data/site.config';
 import { parseMonthYear } from '@/lib/date';
 import { texts } from '@/data/texts';
@@ -56,7 +58,7 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
   const techList = splitTechs(experience.techs);
 
   return (
-    <div className="group relative w-full rounded-xl border border-border/40 bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-md ring-1 ring-inset ring-white/[0.04] shadow-premium hover:shadow-premium-lg hover:border-primary/40 hover:from-card/70 transition-all duration-500 overflow-hidden">
+    <div className="group relative w-full rounded-xl border border-border/40 bg-white/[0.04] backdrop-blur-xl ring-1 ring-inset ring-white/[0.06] shadow-premium hover:shadow-premium-lg hover:border-white/[0.15] hover:bg-white/[0.06] transition-all duration-500 overflow-hidden">
       {/* Subtle gradient overlay on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-transparent to-accent/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
@@ -64,12 +66,20 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
         {/* Row 1: Company + Flag | Period badge */}
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
-            <span
-              className="inline-flex items-center justify-center min-w-[1.85rem] sm:min-w-[2.1rem] h-7 sm:h-8 px-1 rounded-md bg-gradient-to-b from-muted/60 to-muted/30 border border-border/40 ring-1 ring-inset ring-white/[0.06] text-base sm:text-lg shrink-0 shadow-sm"
-              role="img"
-              aria-label={experience.country}
-            >
-              {experience.countryFlag}
+            <span className="inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-b from-muted/60 to-muted/30 border border-border/40 ring-1 ring-inset ring-white/[0.06] overflow-hidden shrink-0 shadow-sm">
+              {flagImages[experience.countryFlag] ? (
+                <Image
+                  src={flagImages[experience.countryFlag]}
+                  alt={experience.country}
+                  width={32}
+                  height={32}
+                  className="w-full h-full object-cover rounded-full"
+                />
+              ) : (
+                <span className="text-sm" role="img" aria-label={experience.country}>
+                  {experience.countryFlag}
+                </span>
+              )}
             </span>
             <h3 className="text-sm sm:text-base lg:text-lg font-bold text-foreground truncate">
               {experience.companyName}
@@ -80,7 +90,7 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
           </span>
         </div>
 
-        {/* Row 2: Position/Role — below company, on its own line */}
+        {/* Row 2: Position/Role */}
         <div className="flex items-center gap-1.5 mt-2">
           <PositionIcon className="w-3.5 h-3.5 text-primary shrink-0" />
           <p className="text-xs sm:text-sm font-semibold text-primary">{experience.position}</p>
@@ -94,7 +104,7 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
       </div>
 
       <div className="relative px-5 sm:px-6 pb-5 sm:pb-6 space-y-3">
-        {/* Tech chips — premium gradient pills */}
+        {/* Tech chips */}
         <div className="flex flex-wrap gap-1 sm:gap-1.5 pt-1">
           {techList.map((tech) => (
             <span
@@ -111,9 +121,9 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
           {experience.tasksDescriptions.map((task, i) => (
             <li
               key={i}
-              className="text-xs sm:text-sm lg:text-[15px] text-muted-foreground flex gap-2"
+              className="text-xs sm:text-sm text-muted-foreground flex gap-2"
             >
-              <span className="text-primary mt-1.5 sm:mt-2 shrink-0 text-[5px] sm:text-[6px]">●</span>
+              <span className="text-primary mt-1.5 shrink-0 text-[5px] sm:text-[6px]">●</span>
               <span>{task}</span>
             </li>
           ))}
@@ -162,14 +172,61 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-30px' }}
-      className="w-full space-y-3 sm:space-y-4"
+      className="w-full space-y-4"
     >
-      {/* Section Header */}
-      <div className="flex items-center gap-3">
-        <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-primary/15 to-primary/5 ring-1 ring-inset ring-primary/15 shadow-premium">
-          <SectionIcon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+      {/* Section Header + Navigation — fixed row */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-primary/15 to-primary/5 ring-1 ring-inset ring-primary/15 shadow-premium">
+            <SectionIcon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+          </div>
+          <h2 className="text-lg sm:text-xl font-bold text-foreground">{sections.experience.title}</h2>
         </div>
-        <h2 className="text-xl sm:text-2xl font-bold text-foreground">{sections.experience.title}</h2>
+
+        {/* Navigation — right side of header */}
+        <div className="flex items-center gap-2">
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+            onClick={goPrev}
+            disabled={current === 0}
+            className="flex items-center justify-center w-8 h-8 rounded-full border border-border/40 bg-gradient-to-b from-card/70 to-card/30 ring-1 ring-inset ring-white/[0.08] shadow-sm hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-premium transition-colors duration-200 disabled:opacity-25 disabled:pointer-events-none"
+            aria-label={texts.experience.aria.previous}
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </motion.button>
+
+          <div className="flex items-center gap-1">
+            {sortedExperiences.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setDirection(i > current ? 1 : -1);
+                  setCurrent(i);
+                }}
+                className={`rounded-full transition-all duration-300 ${
+                  i === current
+                    ? 'w-5 h-1.5 bg-gradient-to-r from-primary to-primary/80 shadow-sm shadow-primary/30'
+                    : 'w-1.5 h-1.5 bg-border/60 hover:bg-muted-foreground'
+                }`}
+                aria-label={texts.experience.aria.goTo(i + 1)}
+              />
+            ))}
+          </div>
+
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+            onClick={goNext}
+            disabled={current === sortedExperiences.length - 1}
+            className="flex items-center justify-center w-8 h-8 rounded-full border border-border/40 bg-gradient-to-b from-card/70 to-card/30 ring-1 ring-inset ring-white/[0.08] shadow-sm hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-premium transition-colors duration-200 disabled:opacity-25 disabled:pointer-events-none"
+            aria-label={texts.experience.aria.next}
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </motion.button>
+        </div>
       </div>
 
       {/* Carousel */}
@@ -188,51 +245,6 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
               <ExperienceCard experience={sortedExperiences[current]} />
             </motion.div>
           </AnimatePresence>
-        </div>
-
-        {/* Navigation */}
-        <div className="flex items-center justify-center gap-4 mt-3">
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.92 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-            onClick={goPrev}
-            disabled={current === 0}
-            className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-border/40 bg-gradient-to-b from-card/70 to-card/30 ring-1 ring-inset ring-white/[0.08] shadow-premium hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-premium-lg transition-colors duration-200 disabled:opacity-25 disabled:pointer-events-none"
-            aria-label={texts.experience.aria.previous}
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </motion.button>
-
-          <div className="flex items-center gap-1.5">
-            {sortedExperiences.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setDirection(i > current ? 1 : -1);
-                  setCurrent(i);
-                }}
-                className={`rounded-full transition-all duration-300 ${
-                  i === current
-                    ? 'w-6 h-2 sm:w-7 sm:h-2.5 bg-gradient-to-r from-primary to-primary/80 shadow-sm shadow-primary/30'
-                    : 'w-2 h-2 sm:w-2.5 sm:h-2.5 bg-border/60 hover:bg-muted-foreground'
-                }`}
-                aria-label={texts.experience.aria.goTo(i + 1)}
-              />
-            ))}
-          </div>
-
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.92 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-            onClick={goNext}
-            disabled={current === sortedExperiences.length - 1}
-            className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-border/40 bg-gradient-to-b from-card/70 to-card/30 ring-1 ring-inset ring-white/[0.08] shadow-premium hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-premium-lg transition-colors duration-200 disabled:opacity-25 disabled:pointer-events-none"
-            aria-label={texts.experience.aria.next}
-          >
-            <ChevronRight className="w-4 h-4" />
-          </motion.button>
         </div>
       </div>
     </motion.section>

@@ -9,7 +9,7 @@ export default function Footer() {
 
   return (
     <footer className="w-full mt-auto border-t border-white/[0.08] bg-gradient-to-b from-card/30 to-card/50 backdrop-blur-xl ring-1 ring-inset ring-white/[0.02]">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-muted-foreground flex items-center gap-1">
             {texts.footer.builtWith} <Heart className="w-3 h-3 text-primary fill-primary" /> {texts.footer.by}{' '}

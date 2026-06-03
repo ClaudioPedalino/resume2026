@@ -174,9 +174,9 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
       animate="visible"
       className="w-full"
     >
-      <div className="relative overflow-hidden rounded-[2rem] bg-card/40 backdrop-blur-md border border-white/15 shadow-premium-lg ring-1 ring-inset ring-white/[0.08]">
+      <div className="group/card relative overflow-hidden rounded-[2rem] bg-card/40 backdrop-blur-xl border border-white/15 shadow-premium-lg ring-1 ring-inset ring-white/[0.08] transition-all duration-500 hover:shadow-[0_8px_40px_-12px_rgba(195,107,77,0.15)] hover:border-white/25 hover:bg-card/50">
         {/* Content */}
-        <div className="relative z-10 p-6 sm:p-8 lg:p-10">
+        <div className="relative z-10 p-5 sm:p-7 lg:p-9">
           {/* Asymmetric layout: Text LEFT, Avatar RIGHT on desktop. Stacked on mobile. */}
           <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
             {/* ── LEFT: Text Content ── */}
@@ -341,9 +341,9 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Tags section */}
-        <div className="relative z-10 border-t border-white/[0.08] bg-gradient-to-b from-muted/10 to-muted/20 backdrop-blur-md">
-          <div className="px-6 sm:px-8 pt-2.5 pb-3.5 sm:pt-3 sm:pb-4 lg:px-10 lg:pt-3.5 lg:pb-5">
+        {/* Tags section — glassmorphism */}
+        <div className="relative z-10 border-t border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl">
+          <div className="px-5 sm:px-7 pt-2.5 pb-3 sm:pt-3 sm:pb-3.5 lg:px-9 lg:pt-3.5 lg:pb-4">
             <motion.div
               variants={containerVariants}
               initial="hidden"
@@ -355,17 +355,18 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                 <motion.div
                   variants={itemVariants}
                   whileHover={{ y: -1, transition: { duration: 0.2 } }}
-                  className="flex items-start gap-2.5 p-2.5 sm:p-3 rounded-xl bg-gradient-to-br from-card/60 to-card/30 backdrop-blur-sm border border-white/[0.1] ring-1 ring-inset ring-white/[0.05] shadow-premium hover:shadow-premium-lg hover:border-primary/30 transition-all duration-300"
+                  className="group/tag relative flex items-start gap-2.5 p-2.5 sm:p-3 rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] ring-1 ring-inset ring-white/[0.06] shadow-premium hover:shadow-premium-lg hover:bg-white/[0.07] hover:border-primary/20 transition-all duration-300"
                 >
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/[0.04] to-transparent opacity-0 group-hover/tag:opacity-100 transition-opacity duration-300 pointer-events-none" />
                   {(() => {
                     const TagIcon = tagIcons[coreStackTag.title] || tagIcons['Core Stack'];
                     return (
-                      <div className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-primary/15 to-primary/5 ring-1 ring-inset ring-primary/15 shrink-0">
+                      <div className="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/10 ring-1 ring-inset ring-primary/15 shrink-0">
                         <TagIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
                       </div>
                     );
                   })()}
-                  <div className="min-w-0 flex-1">
+                  <div className="relative min-w-0 flex-1">
                     <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-label mb-1.5">
                       {coreStackTag.title}
                     </p>
@@ -373,7 +374,7 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                       {coreStackChips.map((chip) => (
                         <span
                           key={chip}
-                          className="inline-flex items-center text-[10px] sm:text-[11px] py-0.5 px-2 font-medium rounded-full bg-gradient-to-b from-primary/10 to-primary/5 border border-primary/15 text-primary ring-1 ring-inset ring-primary/[0.08] hover:from-primary/15 hover:to-primary/10 hover:border-primary/30 transition-all duration-200"
+                          className="inline-flex items-center text-[10px] sm:text-[11px] py-0.5 px-2 font-medium rounded-full bg-primary/8 border border-primary/15 text-primary ring-1 ring-inset ring-primary/[0.08] hover:bg-primary/15 hover:border-primary/30 transition-all duration-200"
                         >
                           {chip}
                         </span>
@@ -392,12 +393,13 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                       key={tag.title}
                       variants={itemVariants}
                       whileHover={{ y: -1, transition: { duration: 0.2 } }}
-                      className="flex items-start gap-2.5 p-2.5 sm:p-3 rounded-xl bg-gradient-to-br from-card/60 to-card/30 backdrop-blur-sm border border-white/[0.1] ring-1 ring-inset ring-white/[0.05] shadow-premium hover:shadow-premium-lg hover:border-accent/30 transition-all duration-300"
+                      className="group/tag relative flex items-start gap-2.5 p-2.5 sm:p-3 rounded-xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] ring-1 ring-inset ring-white/[0.06] shadow-premium hover:shadow-premium-lg hover:bg-white/[0.07] hover:border-accent/20 transition-all duration-300"
                     >
-                      <div className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-accent/15 to-accent/5 ring-1 ring-inset ring-accent/15 shrink-0">
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-accent/[0.04] to-transparent opacity-0 group-hover/tag:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                      <div className="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-accent/10 ring-1 ring-inset ring-accent/15 shrink-0">
                         <TagIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent-foreground" />
                       </div>
-                      <div className="min-w-0">
+                      <div className="relative min-w-0">
                         <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-label mb-0.5">
                           {tag.title}
                         </p>

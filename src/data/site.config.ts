@@ -14,9 +14,9 @@
 
 import {
   Mail, Linkedin, Github, MapPin, Calendar, Globe, Briefcase,
-  Server, Cloud, Monitor, TestTube2, Database, Network, Users,
-  GitBranch, Wrench, Blocks, Code2, Target, Search, Building2,
-  Layers, FileText, FileDown,
+  Server, Cloud, Monitor, FlaskConical, Database, Handshake, Kanban,
+  GitBranch, Wrench, Diamond, Code2, Target, Search, Building2,
+  Layers, FileText, FileDown, Brain,
   type LucideIcon,
 } from 'lucide-react';
 import cvData from './cv-data.json';
@@ -91,13 +91,14 @@ export const skillIcons: Record<string, LucideIcon> = {
   'Server': Server,
   'Cloud': Cloud,
   'Monitor': Monitor,
-  'TestTube2': TestTube2,
+  'FlaskConical': FlaskConical,
   'Database': Database,
-  'Network': Network,
-  'Users': Users,
+  'Handshake': Handshake,
+  'Kanban': Kanban,
   'GitBranch': GitBranch,
   'Wrench': Wrench,
-  'Blocks': Blocks,
+  'Diamond': Diamond,
+  'Brain': Brain,
 };
 
 // ─── SKILL AREA THEMES ────────────────────────────────────────────────────────
@@ -233,4 +234,12 @@ export const footerLinks: {
 export const downloadFilenames = {
   pdf: texts.pdf.filename,
   ats: texts.ats.filename,
+};
+
+// ─── COUNTRY FLAG IMAGES ─────────────────────────────────────────────────────
+export const flagImages: Record<string, string> = {
+  AR: '/assets/flags/ar.png',
+  CL: '/assets/flags/cl.png',
+  BR: '/assets/flags/br.png',
+  PA: '/assets/flags/pa.png',
 };
