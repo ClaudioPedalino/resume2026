@@ -23,28 +23,9 @@ function SectionDivider() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="flex items-center gap-2 py-1"
+      className="py-2"
     >
-      {/* Left gradient line */}
-      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-primary/30 to-primary/50" />
-
-      {/* Center ornament — conic gradient with subtle glow */}
-      <div className="flex items-center gap-1.5">
-        <div className="w-1 h-1 rounded-full bg-primary/40" />
-        <motion.div
-          className="w-2.5 h-2.5 rounded-full shadow-md shadow-primary/30"
-          style={{
-            background:
-              'conic-gradient(from 0deg, #C36B4D, #8DB4AD, #E8D9A1, #C36B4D)',
-          }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 16, repeat: Infinity, ease: 'linear' }}
-        />
-        <div className="w-1 h-1 rounded-full bg-accent/40" />
-      </div>
-
-      {/* Right gradient line */}
-      <div className="flex-1 h-px bg-gradient-to-l from-transparent via-accent/30 to-accent/50" />
+      <div className="h-px bg-gradient-to-r from-transparent via-border/60 to-transparent" />
     </motion.div>
   );
 }

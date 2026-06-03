@@ -57,7 +57,7 @@ export const texts = {
   hero: {
     openToWork: "Open to work",
     ageSuffix: "yrs",
-    englishPrefix: "EN",
+    englishPrefix: "English",
     badgeKey: {
       age: "age",
       location: "location",
@@ -113,13 +113,15 @@ export const texts = {
 
   // ─── ATS EXPORT ROUTE ───────────────────────────────────────────────────────
   ats: {
+    professionalSummary:
+      "Senior .NET Software Engineer with 8+ years of experience " +
+      "specializing in microservices architecture, distributed systems, and API design. " +
+      "Proven track record across multiple industries including sports betting, SaaS, insurance, " +
+      "hospitality, and CRM. Remote-first professional based in Argentina.",
     workExperience: "WORK EXPERIENCE",
-    skills: "SKILLS",
+    coreTechnicalSkills: "CORE TECHNICAL SKILLS",
     technologies: "Technologies:",
     englishLabel: "English:",
-    linkedinLabel: "LinkedIn:",
-    githubLabel: "GitHub:",
-    dividerLength: 60,
     filename: "Claudio_Pedalino_CV_ATS.txt",
   },
 

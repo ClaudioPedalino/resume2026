@@ -193,11 +193,12 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
         {/* Navigation */}
         <div className="flex items-center justify-center gap-4 mt-3">
           <motion.button
-            whileHover={{ scale: 1.1, y: -1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             onClick={goPrev}
             disabled={current === 0}
-            className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-border/40 bg-gradient-to-b from-card/70 to-card/30 ring-1 ring-inset ring-white/[0.08] shadow-premium hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-premium-lg transition-all duration-300 disabled:opacity-25 disabled:pointer-events-none"
+            className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-border/40 bg-gradient-to-b from-card/70 to-card/30 ring-1 ring-inset ring-white/[0.08] shadow-premium hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-premium-lg transition-colors duration-200 disabled:opacity-25 disabled:pointer-events-none"
             aria-label={texts.experience.aria.previous}
           >
             <ChevronLeft className="w-4 h-4" />
@@ -222,11 +223,12 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
           </div>
 
           <motion.button
-            whileHover={{ scale: 1.1, y: -1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             onClick={goNext}
             disabled={current === sortedExperiences.length - 1}
-            className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-border/40 bg-gradient-to-b from-card/70 to-card/30 ring-1 ring-inset ring-white/[0.08] shadow-premium hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-premium-lg transition-all duration-300 disabled:opacity-25 disabled:pointer-events-none"
+            className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-border/40 bg-gradient-to-b from-card/70 to-card/30 ring-1 ring-inset ring-white/[0.08] shadow-premium hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-premium-lg transition-colors duration-200 disabled:opacity-25 disabled:pointer-events-none"
             aria-label={texts.experience.aria.next}
           >
             <ChevronRight className="w-4 h-4" />

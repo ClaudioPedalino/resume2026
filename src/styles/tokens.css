@@ -248,6 +248,11 @@
     to { transform: rotate(360deg); }
   }
 
+  /* Spring easing — matches framer-motion spring physics in CSS */
+  .ease-spring {
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
   /* Subtle gradient text — for premium brand moments */
   .text-gradient-primary {
     background: linear-gradient(135deg, var(--primary) 0%, #B85F44 100%);

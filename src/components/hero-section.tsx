@@ -1,13 +1,12 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { PersonalInfo, Tag } from '@/data/types';
 import {
-  data,
   heroBadgeIcons,
   tagIcons,
   heroContactLinks,
@@ -54,12 +53,62 @@ function splitByMiddleDot(text: string): string[] {
     .filter(Boolean);
 }
 
+/* ── Magnetic Button Wrapper ──
+   Uses useMotionValue + useTransform outside React render cycle.
+   NEVER useState for magnetic hover — per skill Rule 4. */
+function MagneticButton({
+  children,
+  strength = 0.3,
+  className = '',
+}: {
+  children: React.ReactNode;
+  strength?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
+  const springY = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    x.set((e.clientX - centerX) * strength);
+    y.set((e.clientY - centerY) * strength);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ x: springX, y: springY }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
   const age = calculateAge(personalInfo.dateOfBirth);
   const PdfIcon = downloadButtons.pdf.icon;
   const AtsIcon = downloadButtons.ats.icon;
+  const [pdfLoading, setPdfLoading] = useState(false);
+  const [atsLoading, setAtsLoading] = useState(false);
+  const [downloadError, setDownloadError] = useState<string | null>(null);
 
   const handleDownloadPDF = async () => {
+    setPdfLoading(true);
+    setDownloadError(null);
     try {
       const response = await fetch('/api/export/pdf');
       if (!response.ok) throw new Error('Download failed');
@@ -73,11 +122,15 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     } catch {
-      console.error('PDF download failed');
+      setDownloadError('PDF generation failed. Please try again.');
+    } finally {
+      setPdfLoading(false);
     }
   };
 
   const handleDownloadATS = async () => {
+    setAtsLoading(true);
+    setDownloadError(null);
     try {
       const response = await fetch('/api/export/ats');
       if (!response.ok) throw new Error('Download failed');
@@ -91,7 +144,9 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     } catch {
-      console.error('ATS download failed');
+      setDownloadError('ATS generation failed. Please try again.');
+    } finally {
+      setAtsLoading(false);
     }
   };
 
@@ -119,78 +174,19 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
       animate="visible"
       className="w-full"
     >
-      <div className="relative overflow-hidden rounded-2xl bg-card/40 backdrop-blur-md border border-white/15 shadow-premium-lg ring-1 ring-inset ring-white/[0.08] bg-mesh-warm">
-        {/* Decorative gradient blobs — animated mesh, premium depth */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div
-            className="absolute -top-20 -right-20 w-72 h-72 bg-gradient-to-bl from-primary/25 via-primary/8 to-transparent rounded-full blur-2xl"
-            animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.85, 0.5] }}
-            transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <motion.div
-            className="absolute -bottom-24 -left-16 w-64 h-64 bg-gradient-to-tr from-accent/20 via-accent/5 to-transparent rounded-full blur-2xl"
-            animate={{ scale: [1, 1.18, 1], opacity: [0.45, 0.75, 0.45] }}
-            transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-          />
-          <motion.div
-            className="absolute top-1/3 left-1/2 w-48 h-48 bg-gradient-to-br from-secondary/15 to-transparent rounded-full blur-3xl -translate-x-1/2"
-            animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 13, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-          />
-        </div>
-
+      <div className="relative overflow-hidden rounded-[2rem] bg-card/40 backdrop-blur-md border border-white/15 shadow-premium-lg ring-1 ring-inset ring-white/[0.08]">
         {/* Content */}
-        <div className="relative z-10 px-4 sm:px-6 py-5 sm:py-6 lg:px-8 lg:py-7">
-          <div className="flex flex-col items-center text-center gap-4 sm:flex-row sm:items-start sm:text-left sm:gap-6">
-            {/* Profile Photo */}
-            <motion.div variants={itemVariants} className="shrink-0">
-              <div className="relative group">
-                {/* Animated conic gradient ring — premium signature element */}
-                <motion.div
-                  className="absolute -inset-2 rounded-full opacity-60 group-hover:opacity-95 transition-opacity duration-500"
-                  style={{
-                    background:
-                      'conic-gradient(from 0deg, #C36B4D 0%, #8DB4AD 33%, #E8D9A1 66%, #C36B4D 100%)',
-                    filter: 'blur(10px)',
-                  }}
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
-                />
-                {/* Inner static ring for definition */}
-                <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-primary/40 via-accent/30 to-secondary/40 opacity-50" />
-                <Avatar className="relative w-22 h-22 sm:w-26 sm:h-26 lg:w-32 lg:h-32 border-[3px] border-card shadow-premium">
-                  <Image
-                    src={personalInfo.imageUrl}
-                    alt={personalInfo.fullName}
-                    fill
-                    sizes="(max-width: 640px) 88px, (max-width: 1024px) 104px, 128px"
-                    className="object-cover"
-                    priority
-                  />
-                  <AvatarFallback className="text-lg sm:text-xl font-bold bg-primary text-primary-foreground">
-                    CP
-                  </AvatarFallback>
-                </Avatar>
-                <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold bg-gradient-to-r from-accent/80 to-accent/60 backdrop-blur-md text-accent-foreground shadow-premium whitespace-nowrap border border-accent/30 ring-1 ring-inset ring-white/20">
-                    <span className="relative flex w-2 h-2">
-                      <span className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-75" />
-                      <span className="relative rounded-full w-2 h-2 bg-green-500" />
-                    </span>
-                    {texts.hero.openToWork}
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Personal Info */}
-            <div className="flex-1 min-w-0 space-y-3">
+        <div className="relative z-10 p-6 sm:p-8 lg:p-10">
+          {/* Asymmetric layout: Text LEFT, Avatar RIGHT on desktop. Stacked on mobile. */}
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
+            {/* ── LEFT: Text Content ── */}
+            <div className="flex-1 min-w-0 order-2 sm:order-1">
               <motion.div variants={itemVariants}>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tighter leading-none text-foreground">
                   {personalInfo.fullName}
                 </h1>
                 <motion.p
-                  className="text-base sm:text-lg lg:text-xl font-semibold text-gradient-primary mt-0.5"
+                  className="text-sm sm:text-base lg:text-lg font-medium tracking-wide text-primary mt-1.5 uppercase"
                   initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3, duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
@@ -199,10 +195,10 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                 </motion.p>
               </motion.div>
 
-              {/* Info Badges — premium glassmorphism chips */}
+              {/* Info Badges */}
               <motion.div
                 variants={itemVariants}
-                className="flex flex-wrap justify-center sm:justify-start gap-1.5"
+                className="flex flex-wrap gap-1.5 mt-4"
               >
                 {badgeItems.map((item) => (
                   <span
@@ -215,68 +211,146 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
                 ))}
               </motion.div>
 
-              {/* Contact + Downloads */}
+              {/* Contact + Downloads — Spring physics, magnetic hover */}
               <motion.div
                 variants={itemVariants}
-                className="flex flex-wrap justify-center sm:justify-start gap-1.5 sm:gap-2"
+                className="flex flex-wrap gap-2 mt-4"
               >
                 {heroContactLinks.map((link) => (
-                  <motion.div key={link.label} whileHover={{ scale: 1.05, y: -1 }} whileTap={{ scale: 0.95 }}>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="gap-1.5 text-[11px] sm:text-xs bg-gradient-to-b from-card/50 to-card/30 border-border/40 ring-1 ring-inset ring-white/[0.06] hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-premium transition-all duration-300 h-8"
-                      asChild
+                  <MagneticButton key={link.label} strength={0.25}>
+                    <motion.div
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                     >
-                      <a
-                        href={link.hrefKey === 'mail' ? `mailto:${personalInfo.mail}` : personalInfo[link.hrefKey]}
-                        {...(link.external
-                          ? { target: '_blank', rel: 'noopener noreferrer' }
-                          : {})}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-1.5 text-[11px] sm:text-xs bg-gradient-to-b from-card/50 to-card/30 border-border/40 ring-1 ring-inset ring-white/[0.06] hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-premium transition-colors duration-200 h-8"
+                        asChild
                       >
-                        <link.icon className="w-3.5 h-3.5" />
-                        {link.label}
-                      </a>
-                    </Button>
-                  </motion.div>
+                        <a
+                          href={link.hrefKey === 'mail' ? `mailto:${personalInfo.mail}` : personalInfo[link.hrefKey]}
+                          {...(link.external
+                            ? { target: '_blank', rel: 'noopener noreferrer' }
+                            : {})}
+                        >
+                          <link.icon className="w-3.5 h-3.5" />
+                          {link.label}
+                        </a>
+                      </Button>
+                    </motion.div>
+                  </MagneticButton>
                 ))}
 
-                <motion.div whileHover={{ scale: 1.06, y: -1 }} whileTap={{ scale: 0.94 }}>
-                  <Button
-                    onClick={handleDownloadPDF}
-                    size="sm"
-                    className="gap-1.5 text-[11px] sm:text-xs bg-gradient-to-b from-primary to-primary/85 hover:from-primary hover:to-primary/80 text-primary-foreground shadow-premium hover:shadow-premium-lg ring-1 ring-inset ring-white/15 transition-all duration-300 h-8"
+                <MagneticButton strength={0.3}>
+                  <motion.div
+                    whileTap={{ scale: 0.94 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                   >
-                    <PdfIcon className="w-3.5 h-3.5" />
-                    {downloadButtons.pdf.label}
-                  </Button>
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.06, y: -1 }} whileTap={{ scale: 0.94 }}>
-                  <Button
-                    onClick={handleDownloadATS}
-                    variant="outline"
-                    size="sm"
-                    className="gap-1.5 text-[11px] sm:text-xs border-primary/40 text-primary bg-gradient-to-b from-card/50 to-card/30 hover:bg-primary hover:text-primary-foreground hover:border-primary ring-1 ring-inset ring-primary/15 shadow-premium hover:shadow-premium-lg transition-all duration-300 h-8"
+                    <Button
+                      onClick={handleDownloadPDF}
+                      disabled={pdfLoading}
+                      size="sm"
+                      className="gap-1.5 text-[11px] sm:text-xs bg-gradient-to-b from-primary to-primary/85 hover:from-primary hover:to-primary/80 text-primary-foreground shadow-premium hover:shadow-premium-lg ring-1 ring-inset ring-white/15 transition-colors duration-200 h-8 disabled:opacity-50"
+                    >
+                      {pdfLoading ? (
+                        <span className="w-3.5 h-3.5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                      ) : (
+                        <PdfIcon className="w-3.5 h-3.5" />
+                      )}
+                      {downloadButtons.pdf.label}
+                    </Button>
+                  </motion.div>
+                </MagneticButton>
+                <MagneticButton strength={0.3}>
+                  <motion.div
+                    whileTap={{ scale: 0.94 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                   >
-                    <AtsIcon className="w-3.5 h-3.5" />
-                    {downloadButtons.ats.label}
-                  </Button>
-                </motion.div>
+                    <Button
+                      onClick={handleDownloadATS}
+                      disabled={atsLoading}
+                      variant="outline"
+                      size="sm"
+                      className="gap-1.5 text-[11px] sm:text-xs border-primary/40 text-primary bg-gradient-to-b from-card/50 to-card/30 hover:bg-primary hover:text-primary-foreground hover:border-primary ring-1 ring-inset ring-primary/15 shadow-premium hover:shadow-premium-lg transition-colors duration-200 h-8 disabled:opacity-50"
+                    >
+                      {atsLoading ? (
+                        <span className="w-3.5 h-3.5 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                      ) : (
+                        <AtsIcon className="w-3.5 h-3.5" />
+                      )}
+                      {downloadButtons.ats.label}
+                    </Button>
+                  </motion.div>
+                </MagneticButton>
               </motion.div>
+
+              {/* Download error — inline, not disruptive */}
+              {downloadError && (
+                <motion.p
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-xs text-destructive mt-2"
+                >
+                  {downloadError}
+                </motion.p>
+              )}
             </div>
+
+            {/* ── RIGHT: Avatar (asset) ── */}
+            <motion.div variants={itemVariants} className="shrink-0 order-1 sm:order-2 self-start pt-1">
+              <div className="relative group">
+                {/* Animated conic gradient ring */}
+                <motion.div
+                  className="absolute -inset-2 rounded-full opacity-60 group-hover:opacity-95 transition-opacity duration-500"
+                  style={{
+                    background:
+                      'conic-gradient(from 0deg, #C36B4D 0%, #8DB4AD 33%, #E8D9A1 66%, #C36B4D 100%)',
+                    filter: 'blur(10px)',
+                  }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
+                />
+                {/* Inner static ring */}
+                <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-primary/40 via-accent/30 to-secondary/40 opacity-50" />
+                <Avatar className="relative w-24 h-24 sm:w-[11rem] sm:h-[11rem] lg:w-40 lg:h-40 border-[3px] border-card shadow-premium">
+                  <Image
+                    src={personalInfo.imageUrl}
+                    alt={personalInfo.fullName}
+                    fill
+                    sizes="(max-width: 640px) 96px, (max-width: 1024px) 176px, 160px"
+                    className="object-cover"
+                    priority
+                  />
+                  <AvatarFallback className="text-lg sm:text-xl font-bold bg-primary text-primary-foreground">
+                    CP
+                  </AvatarFallback>
+                </Avatar>
+                {/* Open to work badge */}
+                <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold bg-gradient-to-r from-accent/80 to-accent/60 backdrop-blur-md text-accent-foreground shadow-premium whitespace-nowrap border border-accent/30 ring-1 ring-inset ring-white/20">
+                    <span className="relative flex w-2 h-2">
+                      <span className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-75" />
+                      <span className="relative rounded-full w-2 h-2 bg-green-500" />
+                    </span>
+                    {texts.hero.openToWork}
+                  </span>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
 
-        {/* Tags section — Core Stack full width, Goal + Looking For side by side */}
+        {/* Tags section */}
         <div className="relative z-10 border-t border-white/[0.08] bg-gradient-to-b from-muted/10 to-muted/20 backdrop-blur-md">
-          <div className="px-4 sm:px-6 pt-2.5 pb-3.5 sm:pt-3 sm:pb-4 lg:px-8 lg:pt-3.5 lg:pb-5">
+          <div className="px-6 sm:px-8 pt-2.5 pb-3.5 sm:pt-3 sm:pb-4 lg:px-10 lg:pt-3.5 lg:pb-5">
             <motion.div
               variants={containerVariants}
               initial="hidden"
               animate="visible"
               className="space-y-2 sm:space-y-2.5"
             >
-              {/* Core Stack — full width with individual chips */}
+              {/* Core Stack — full width */}
               {coreStackTag && (
                 <motion.div
                   variants={itemVariants}

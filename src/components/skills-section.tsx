@@ -82,7 +82,7 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
           {/* Chevron */}
           <motion.div
             animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             className="shrink-0"
           >
             <div className={`flex items-center justify-center w-7 h-7 rounded-full border ring-1 ring-inset transition-all duration-300 ${
@@ -102,7 +102,7 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             >
               <div className="relative px-3.5 sm:px-4 pb-3.5 sm:pb-4">
                 <div className="border-t border-border/30 pt-3 space-y-1.5">
