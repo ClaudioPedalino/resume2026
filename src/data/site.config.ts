@@ -97,96 +97,34 @@ export const skillIcons: Record<string, LucideIcon> = {
 };
 
 // ─── SKILL AREA THEMES ────────────────────────────────────────────────────────
-// Visual theme for each skill card. Key must match the "area" field.
+// Unified visual theme — consistent structure, varied by color family.
 export const skillThemes: Record<
   string,
   {
-    gradientFrom: string;
-    gradientTo: string;
     iconBg: string;
     iconText: string;
     chipBg: string;
+    chipText: string;
   }
 > = {
-  'Backend': {
-    gradientFrom: 'from-primary/10',
-    gradientTo: 'to-primary/2',
-    iconBg: 'bg-primary/15',
-    iconText: 'text-primary',
-    chipBg: 'bg-primary/8',
-  },
-  'Infrastructure': {
-    gradientFrom: 'from-accent/10',
-    gradientTo: 'to-accent/2',
-    iconBg: 'bg-accent/18',
-    iconText: 'text-accent-foreground',
-    chipBg: 'bg-accent/8',
-  },
-  'Frontend': {
-    gradientFrom: 'from-secondary/15',
-    gradientTo: 'to-secondary/2',
-    iconBg: 'bg-secondary/25',
-    iconText: 'text-label',
-    chipBg: 'bg-secondary/10',
-  },
-  'Testing': {
-    gradientFrom: 'from-primary/8',
-    gradientTo: 'to-primary/1',
-    iconBg: 'bg-primary/12',
-    iconText: 'text-primary',
-    chipBg: 'bg-primary/8',
-  },
-  'Data': {
-    gradientFrom: 'from-accent/8',
-    gradientTo: 'to-accent/1',
-    iconBg: 'bg-accent/12',
-    iconText: 'text-accent-foreground',
-    chipBg: 'bg-accent/8',
-  },
-  'Communication': {
-    gradientFrom: 'from-secondary/10',
-    gradientTo: 'to-secondary/2',
-    iconBg: 'bg-secondary/20',
-    iconText: 'text-label',
-    chipBg: 'bg-secondary/8',
-  },
-  'Agile': {
-    gradientFrom: 'from-primary/10',
-    gradientTo: 'to-primary/2',
-    iconBg: 'bg-primary/15',
-    iconText: 'text-primary',
-    chipBg: 'bg-primary/8',
-  },
-  'Versioning': {
-    gradientFrom: 'from-accent/10',
-    gradientTo: 'to-accent/2',
-    iconBg: 'bg-accent/15',
-    iconText: 'text-accent-foreground',
-    chipBg: 'bg-accent/8',
-  },
-  'AI Tools': {
-    gradientFrom: 'from-primary/12',
-    gradientTo: 'to-primary/3',
-    iconBg: 'bg-primary/18',
-    iconText: 'text-primary',
-    chipBg: 'bg-primary/10',
-  },
-  'Blockchain': {
-    gradientFrom: 'from-accent/12',
-    gradientTo: 'to-accent/3',
-    iconBg: 'bg-accent/18',
-    iconText: 'text-accent-foreground',
-    chipBg: 'bg-accent/10',
-  },
+  'Backend':       { iconBg: 'bg-primary/12',  iconText: 'text-primary',            chipBg: 'bg-primary/10',  chipText: 'text-primary' },
+  'Infrastructure':{ iconBg: 'bg-accent/12',   iconText: 'text-accent-foreground',  chipBg: 'bg-accent/10',   chipText: 'text-accent-foreground' },
+  'Frontend':      { iconBg: 'bg-secondary/20', iconText: 'text-secondary-foreground', chipBg: 'bg-secondary/15', chipText: 'text-secondary-foreground' },
+  'Testing':       { iconBg: 'bg-primary/12',  iconText: 'text-primary',            chipBg: 'bg-primary/10',  chipText: 'text-primary' },
+  'Data':          { iconBg: 'bg-accent/12',   iconText: 'text-accent-foreground',  chipBg: 'bg-accent/10',   chipText: 'text-accent-foreground' },
+  'Communication': { iconBg: 'bg-secondary/20', iconText: 'text-secondary-foreground', chipBg: 'bg-secondary/15', chipText: 'text-secondary-foreground' },
+  'Agile':         { iconBg: 'bg-primary/12',  iconText: 'text-primary',            chipBg: 'bg-primary/10',  chipText: 'text-primary' },
+  'Versioning':    { iconBg: 'bg-accent/12',   iconText: 'text-accent-foreground',  chipBg: 'bg-accent/10',   chipText: 'text-accent-foreground' },
+  'AI Tools':      { iconBg: 'bg-primary/12',  iconText: 'text-primary',            chipBg: 'bg-primary/10',  chipText: 'text-primary' },
+  'Blockchain':    { iconBg: 'bg-accent/12',   iconText: 'text-accent-foreground',  chipBg: 'bg-accent/10',   chipText: 'text-accent-foreground' },
 };
 
-// Default theme fallback for any skill area not listed above
+// Default theme fallback
 export const defaultSkillTheme = {
-  gradientFrom: 'from-muted/10',
-  gradientTo: 'to-muted/2',
   iconBg: 'bg-muted',
   iconText: 'text-muted-foreground',
   chipBg: 'bg-muted/50',
+  chipText: 'text-muted-foreground',
 };
 
 // ─── DOWNLOAD FILENAMES ───────────────────────────────────────────────────────

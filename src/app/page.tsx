@@ -35,7 +35,7 @@ function SectionDivider() {
   const isInView = useInView(ref, { once: true, margin: '-40px' });
 
   return (
-    <div ref={ref} className="relative flex items-center justify-center py-3 sm:py-4">
+    <div ref={ref} className="relative flex items-center justify-center py-1">
       <motion.div
         initial={{ scaleX: 0, opacity: 0 }}
         animate={isInView ? { scaleX: 1, opacity: 1 } : {}}

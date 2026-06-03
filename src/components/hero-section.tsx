@@ -3,13 +3,13 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { Mail, Linkedin, Github } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import type { PersonalInfo, Tag } from '@/data/types';
 import {
   heroBadgeIcons,
   tagIcons,
-  heroContactLinks,
   downloadButtons,
   downloadFilenames,
 } from '@/data/site.config';
@@ -233,28 +233,53 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
 
               {/* Contact + Downloads */}
               <motion.div variants={itemVariants} className="flex flex-wrap gap-2 mt-4">
-                {heroContactLinks.map((link) => (
-                  <MagneticButton key={link.label} strength={0.25}>
-                    <motion.div
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                {/* Email — Gmail red */}
+                <MagneticButton strength={0.25}>
+                  <motion.div whileTap={{ scale: 0.95 }} transition={{ type: 'spring', stiffness: 400, damping: 17 }}>
+                    <Button
+                      size="sm"
+                      className="gap-1.5 text-[11px] sm:text-xs bg-white/60 backdrop-blur-sm text-foreground hover:bg-[#EA4335]/10 hover:text-[#EA4335] border border-[#EA4335]/20 hover:border-[#EA4335]/50 hover:shadow-[0_0_12px_2px_rgba(234,67,53,0.2)] ring-1 ring-inset ring-white/[0.08] shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-300 min-h-11"
+                      asChild
                     >
-                      <Button
-                        size="sm"
-                        className="gap-1.5 text-[11px] sm:text-xs bg-white/60 backdrop-blur-sm text-foreground hover:bg-primary hover:text-primary-foreground hover:glow-primary ring-1 ring-inset ring-white/[0.08] shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-300 min-h-11"
-                        asChild
-                      >
-                        <a
-                          href={link.hrefKey === 'mail' ? `mailto:${personalInfo.mail}` : personalInfo[link.hrefKey]}
-                          {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                        >
-                          <link.icon className="w-3.5 h-3.5" />
-                          {link.label}
-                        </a>
-                      </Button>
-                    </motion.div>
-                  </MagneticButton>
-                ))}
+                      <a href={`mailto:${personalInfo.mail}`}>
+                        <Mail className="w-3.5 h-3.5" />
+                        {texts.hero.contactLabel.email}
+                      </a>
+                    </Button>
+                  </motion.div>
+                </MagneticButton>
+
+                {/* LinkedIn — LinkedIn blue */}
+                <MagneticButton strength={0.25}>
+                  <motion.div whileTap={{ scale: 0.95 }} transition={{ type: 'spring', stiffness: 400, damping: 17 }}>
+                    <Button
+                      size="sm"
+                      className="gap-1.5 text-[11px] sm:text-xs bg-white/60 backdrop-blur-sm text-foreground hover:bg-[#0A66C2]/10 hover:text-[#0A66C2] border border-[#0A66C2]/20 hover:border-[#0A66C2]/50 hover:shadow-[0_0_12px_2px_rgba(10,102,194,0.2)] ring-1 ring-inset ring-white/[0.08] shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-300 min-h-11"
+                      asChild
+                    >
+                      <a href={personalInfo.linkedinUrl} target="_blank" rel="noopener noreferrer">
+                        <Linkedin className="w-3.5 h-3.5" />
+                        {texts.hero.contactLabel.linkedin}
+                      </a>
+                    </Button>
+                  </motion.div>
+                </MagneticButton>
+
+                {/* GitHub — GitHub dark */}
+                <MagneticButton strength={0.25}>
+                  <motion.div whileTap={{ scale: 0.95 }} transition={{ type: 'spring', stiffness: 400, damping: 17 }}>
+                    <Button
+                      size="sm"
+                      className="gap-1.5 text-[11px] sm:text-xs bg-white/60 backdrop-blur-sm text-foreground hover:bg-[#24292e]/10 hover:text-[#24292e] border border-[#24292e]/15 hover:border-[#24292e]/40 hover:shadow-[0_0_12px_2px_rgba(36,41,46,0.15)] ring-1 ring-inset ring-white/[0.08] shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-300 min-h-11"
+                      asChild
+                    >
+                      <a href={personalInfo.githubUrl} target="_blank" rel="noopener noreferrer">
+                        <Github className="w-3.5 h-3.5" />
+                        {texts.hero.contactLabel.github}
+                      </a>
+                    </Button>
+                  </motion.div>
+                </MagneticButton>
 
                 <MagneticButton strength={0.3}>
                   <motion.div whileTap={{ scale: 0.94 }} transition={{ type: 'spring', stiffness: 400, damping: 17 }}>
@@ -337,8 +362,8 @@ export default function HeroSection({ personalInfo, tags }: HeroSectionProps) {
         </div>
 
         {/* Tags section — glass */}
-        <div className="relative z-10 border-t border-white/20 bg-white/30 backdrop-blur-sm">
-          <div className="px-5 sm:px-7 pt-3 pb-4 sm:pt-3.5 sm:pb-4.5 lg:px-9 lg:pt-4 lg:pb-5">
+        <div className="relative z-10 border-t border-white/20 bg-white/30 backdrop-blur-sm -mt-1">
+          <div className="px-5 sm:px-7 pt-2.5 pb-4 sm:pt-3 sm:pb-4.5 lg:px-9 lg:pt-3 lg:pb-5">
             <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-2 sm:space-y-2.5">
               {/* Core Stack */}
               {coreStackTag && (

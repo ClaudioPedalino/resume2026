@@ -50,7 +50,6 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
 
   return (
     <motion.div
-      whileHover={{ y: -3, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
       className="group relative w-full"
     >
       {/* Card — traveling light border + glass */}
@@ -58,8 +57,6 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
       <div className="relative rounded-2xl bg-white/70 backdrop-blur-xl shadow-premium ring-1 ring-inset ring-white/[0.06] overflow-hidden transition-all duration-300">
         {/* Inner refraction — liquid glass edge highlight */}
         <div className="absolute inset-0 rounded-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-1px_0_rgba(0,0,0,0.02)] pointer-events-none" />
-        {/* Top accent line — brand color */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary/60 via-primary/30 to-transparent" />
 
         <div className="relative px-5 sm:px-6 pt-5 sm:pt-6 pb-2">
           {/* Row 1: Company + Flag | Period badge */}
