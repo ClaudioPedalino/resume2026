@@ -36,35 +36,21 @@
       "country": "Panama",
       "countryFlag": "PA",
       "tasksDescriptions": [
-        "Development of new features for a high-volume sportsbook betting platform.",
+        "Designed and implemented backend services for a high-volume sportsbook platform.",
         "Migration, refactoring and maintenance of legacy systems towards a microservices architecture."
-      ]
-    },
-    {
-      "companyName": "Geovictoria",
-      "from": "Jul 2021",
-      "to": "Dec 2021",
-      "position": "Full-Stack Developer",
-      "techs": ".NET Core, Azure, Docker, SQL Server, Microservices, Bubble.io",
-      "businessArea": "SaaS attendance control",
-      "country": "Chile",
-      "countryFlag": "CL",
-      "tasksDescriptions": [
-        "Development of new functionalities for a high-transaction, multi-brand product.",
-        "Migration of existing legacy systems into a distributed services architecture."
       ]
     },
     {
       "companyName": "Algeiba",
       "from": "Jan 2021",
-      "to": "Jun 2021",
+      "to": "Dec 2021",
       "position": "Full-Stack Developer",
-      "techs": ".NET 5, Azure, SQL Server, Microservices, Angular",
+      "techs": ".NET 5, Azure, Docker, SQL Server, Microservices, Angular",
       "businessArea": "Insurance",
       "country": "Argentina",
       "countryFlag": "AR",
       "tasksDescriptions": [
-        "Development and modernization of management products, promoting the adoption of microservices architecture in complex legacy business scenarios.",
+        "Development and modernization of management products, promoting the adoption of microservices architecture in complex legacy business scenarios in multi-brand products.",
         "Requirements analysis and task estimation in an agile environment."
       ]
     },
@@ -87,7 +73,7 @@
       "companyName": "Jacaranda IT",
       "from": "Apr 2021",
       "to": "Oct 2021",
-      "position": "Full-Stack Developer (Freelance)",
+      "position": "Full-Stack Developer (Freelance temporal)",
       "techs": ".NET Core 3.1, Vue 3, MySQL",
       "businessArea": "CRM",
       "country": "Argentina",
@@ -99,7 +85,7 @@
     },
     {
       "companyName": "Origin Software",
-      "from": "Jun 2018",
+      "from": "Nov 2017",
       "to": "Jun 2019",
       "position": "Backend Developer",
       "techs": ".NET Core 2.1+, Elasticsearch, Docker, Azure, Angular 8, Ionic 4, SQL Server",
@@ -110,20 +96,6 @@
         "Development of new functionalities in a travel platform.",
         "Optimization of distributed services and search infrastructure.",
         "Implementation of web and mobile features using Angular and Ionic."
-      ]
-    },
-    {
-      "companyName": "Maer Software",
-      "from": "Nov 2017",
-      "to": "May 2018",
-      "position": "Jr Backend Developer",
-      "techs": ".NET Framework, SQL Server",
-      "businessArea": "ERP",
-      "country": "Argentina",
-      "countryFlag": "AR",
-      "tasksDescriptions": [
-        "Maintenance and development of an on-premise multi-brand ERP system.",
-        "Bug fixing, performance tuning and incremental feature development."
       ]
     }
   ],
@@ -166,7 +138,7 @@
       "icon": "Monitor",
       "chips": ["TypeScript | JavaScript | Vue | Angular | Ionic | Bubble.io"],
       "description": [
-        "I have practical experience in web and mobile development, although it is not my strongest skill. I usually deliver frontend features including UI components, state management, and API integrations, typically extending existing architectures while collaborating effectively as a backend-focused engineer."
+        "Comfortable contributing to frontend applications using Angular, Vue and TypeScript, typically focused on integrating complex backend workflows."
       ]
     },
     {
@@ -177,14 +149,14 @@
       "description": [
         "I regularly write unit tests for backend services, following the testing standards defined by each team, aiming to maximize coverage and adapting the testing style to current needs.",
         "I have also implemented integration tests and load/performance tests when required. Experience includes C# testing frameworks, k6, and NBomber for load and performance scenarios, mainly targeting API services.",
-        "I have used Testcontainers in some projects, although my hands-on experience with it is still limited. Testing strategies were typically defined by QA or team guidelines."
+        "I have used Testcontainers in some projects. Testing strategies were typically defined by QA or team guidelines."
       ]
     },
     {
       "order": 6,
       "area": "Data",
       "icon": "Database",
-      "chips": ["SQL Server | PostgreSQL | Redis | MongoDB | Elasticsearch | NoSql | Firestore | CosmoDB "],
+      "chips": ["SQL Server | PostgreSQL | Redis | MongoDB | Elasticsearch | NoSQL | Firestore | Cosmos DB "],
       "description": [
         "Strong working experience with SQL in microservices environments. I design data models for services, write SQL queries and functions.",
         "I am not a database specialist, but I am comfortable working with data access strategies, relational modeling, and optimization.",
